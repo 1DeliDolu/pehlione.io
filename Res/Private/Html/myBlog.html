@@ -1,163 +1,325 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>My Blog</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<style>
-body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
-</style>
-</head>
-<body class="w3-light-grey">
+  <head>
+    <title>My Blog</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Raleway"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style>
+      body,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-family: "Raleway", sans-serif;
+      }
+    </style>
+  </head>
 
-<!-- w3-content defines a container for fixed size centered content, 
+  <body class="w3-light-grey">
+    <!-- w3-content defines a container for fixed size centered content, 
 and is wrapped around the whole page content, except for the footer in this example -->
-<div class="w3-content" style="max-width:1400px">
-
-<!-- Header -->
-<header class="w3-container w3-center w3-padding-32"> 
-  <div class="w3-row">
-    <div class="w3-col s4">
-      <h1 class="w3-center"><b></b></h1>
-    </div>
-    <div class="w3-col s4 w3-center">
-      <h1><b>MY BLOG</b></h1>
-    </div>
-    <div class="w3-col s4 w3-right-align" style="padding-top: 15px;">
-      <a href="../../../index.html" class="w3-button">Home</a>
-    </div>
-  </div>
-  <img src="../Image/photo_2022-12-15_22-11-42.jpg" alt="">
-  <p>Welcome to the blog of <span class="w3-tag">Mustafa</span></p>
-</header>
-
-<!-- Grid -->
-<div class="w3-row">
-
-<!-- Blog entries -->
-<div class="w3-col l8 s12">
-  <!-- Blog entry -->
-  <div class="w3-card-4 w3-margin w3-white">
-    <img src="../Image/IMG_5031.jpg" alt="Nature" style="width:100%">
-    <div class="w3-container">
-      <h3><b>MY HOBBY GARDEN</b></h3>
-      <h5>Growing Peace and Vegetables, <span class="w3-opacity">March 26, 2025</span></h5>
-    </div>
-
-    <div class="w3-container">
-      <p>In my hobby garden, I find true peace and connection with nature. Every weekend, I dedicate hours to tending my vegetables and flowers, watching them grow from tiny seeds into beautiful living things. I've created raised beds for tomatoes and peppers, while maintaining a special section for herbs like basil, mint, and rosemary that add wonderful flavors to my cooking.</p>
-      <p>Gardening teaches me patience and persistence. Not everything grows as planned, but each challenge brings new learning. I especially enjoy experimenting with companion planting - discovering which plants help each other thrive. Recently, I've started composting, turning kitchen scraps into rich soil that completes the garden's natural cycle.</p>
-      <p>Beyond the practical aspects, my garden is my meditation space. The simple act of watering plants in the early morning sun brings a mindfulness that carries throughout my day. I want to share this journey with you - both the successes and the lessons learned along the way.</p>
-      <div class="w3-row">
-      <div class="w3-col m8 s12">
-        <p><button class="w3-button w3-padding-large w3-white w3-border"><b>READ MORE »</b></button></p>
-      </div>
-      <div class="w3-col m4 w3-hide-small">
-        <p><span class="w3-padding-large w3-right"><b>Comments  </b> <span class="w3-tag">0</span></span></p>
-      </div>
-      </div>
-    </div>
-  </div>
-  <hr>
-
-  <!-- Blog entry -->
-  <div class="w3-card-4 w3-margin w3-white">
-  <img src="../Image/IMG_1870.jpg" alt="Norway" style="width:100%">
-    <div class="w3-container">
-      <h3><b>KASSEL'S MAGNIFICENT BERGPARK</b></h3>
-      <h5>A Journey Through German Romanticism, <span class="w3-opacity">July 15, 2023</span></h5>
-    </div>
-
-    <div class="w3-container">
-      <p>During my visit to Kassel, Germany, I was captivated by the magnificent Bergpark Wilhelmshöhe, home to the famous Hercules Monument. The expansive park, a UNESCO World Heritage site, features an awe-inspiring cascade that begins beneath the watchful eye of the Hercules statue and flows dramatically down to the serene lake below.</p>
-      <p>The lake itself is a perfect mirror on calm days, reflecting the surrounding lush greenery and the distant silhouette of Hercules standing proudly atop the hill. Walking around the water's edge, I was struck by how the carefully designed landscape creates a harmonious blend of natural beauty and human artistry—a hallmark of German Romanticism.</p>
-      <p>As the evening light bathed the scene in golden hues, visitors gathered along the shore, some sketching the picturesque view, others simply sitting in quiet appreciation. This remarkable water feature is not just ornamental but an engineering marvel of its time, part of a complex hydraulic system that has fascinated visitors for centuries.</p>
-      <div class="w3-row">
-        <div class="w3-col m8 s12">
-          <p><button class="w3-button w3-padding-large w3-white w3-border"><b>READ MORE »</b></button></p>
+    <div class="w3-content" style="max-width: 1400px">
+      <!-- Header -->
+      <header class="w3-container w3-center w3-padding-32">
+        <div class="w3-row">
+          <div class="w3-col s4">
+            <h1 class="w3-center"><b></b></h1>
+          </div>
+          <div class="w3-col s4 w3-center">
+            <h1><b>MY BLOG</b></h1>
+          </div>
+          <div class="w3-col s4 w3-right-align" style="padding-top: 15px">
+            <a href="../../../index.html" class="w3-button">Home</a>
+          </div>
         </div>
-        <div class="w3-col m4 w3-hide-small">
-          <p><span class="w3-padding-large w3-right"><b>Comments  </b> <span class="w3-badge">2</span></span></p>
+        <img src="../Image/photo_2022-12-15_22-11-42.jpg" alt="" />
+        <p>Willkommen im Blog von <span class="w3-tag">Mustafa</span></p>
+      </header>
+
+      <!-- Grid -->
+      <div class="w3-row">
+        <!-- Blog entries -->
+        <div class="w3-col l8 s12">
+          <!-- Blog entry -->
+          <div class="w3-card-4 w3-margin w3-white">
+            <img src="../Image/IMG_5031.jpg" alt="Nature" style="width: 100%" />
+            <div class="w3-container">
+              <h3><b>MEIN HOBBYGARTEN</b></h3>
+              <h5>
+                Frieden und Gemüse anbauen,
+                <span class="w3-opacity">26. März 2025</span>
+              </h5>
+            </div>
+
+            <div class="w3-container">
+              <p>
+                In meinem Hobbygarten finde ich wahren Frieden und eine
+                Verbindung zur Natur. Jedes Wochenende widme ich Stunden der
+                Pflege meines Gemüses und meiner Blumen und beobachte, wie sie
+                aus kleinen Samen zu wunderschönen Lebewesen heranwachsen. Ich
+                habe Hochbeete für Tomaten und Paprika angelegt und einen
+                besonderen Bereich für Kräuter wie Basilikum, Minze und
+                Rosmarin, die meinen Gerichten wunderbare Aromen verleihen.
+              </p>
+              <p>
+                Gärtnern lehrt mich Geduld und Ausdauer. Nicht alles wächst wie
+                geplant, aber jede Herausforderung bringt neue Erkenntnisse.
+                Besonders gerne experimentiere ich mit Mischkulturen – ich
+                entdecke, welche Pflanzen sich gegenseitig unterstützen.
+                Kürzlich habe ich mit dem Kompostieren begonnen und verwandle
+                Küchenabfälle in nährstoffreiche Erde, die den natürlichen
+                Kreislauf im Garten schließt.
+              </p>
+              <p>
+                Über die praktischen Aspekte hinaus ist mein Garten mein
+                Meditationsraum. Das einfache Gießen der Pflanzen in der
+                Morgensonne bringt eine Achtsamkeit, die mich durch den Tag
+                begleitet. Ich möchte diese Reise mit Ihnen teilen – sowohl die
+                Erfolge als auch die Lektionen, die ich unterwegs gelernt habe.
+              </p>
+              <div class="w3-row">
+                <div class="w3-col m8 s12">
+                  <!--<p>
+                    <button
+                      class="w3-button w3-padding-large w3-white w3-border"
+                    >
+                      <b>READ MORE »</b>
+                    </button>
+                  </p>-->
+                </div>
+                <div class="w3-col m4 w3-hide-small">
+                  <!--
+                  <p>
+                    <span class="w3-padding-large w3-right"
+                      ><b>Comments </b> <span class="w3-tag">0</span></span
+                    >
+                  </p>
+                  -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr />
+
+          <!-- Blog entry -->
+          <div class="w3-card-4 w3-margin w3-white">
+            <img src="../Image/IMG_1870.jpg" alt="Norway" style="width: 100%" />
+            <div class="w3-container">
+              <h3><b>KASSEL'S PRÄCHTIGER BERGPARK</b></h3>
+              <h5>
+                Eine Reise durch die deutsche Romantik,
+                <span class="w3-opacity">15. Juli 2023</span>
+              </h5>
+            </div>
+
+            <div class="w3-container">
+              <p>
+                Während meines Besuchs in Kassel, Deutschland, war ich vom
+                prächtigen Bergpark Wilhelmshöhe, Heimat des berühmten
+                Herkules-Denkmals, fasziniert. Der weitläufige Park, ein
+                UNESCO-Weltkulturerbe, bietet eine beeindruckende Kaskade, die
+                unter dem wachsamen Blick der Herkulesstatue beginnt und
+                dramatisch zum ruhigen See hinabfließt.
+              </p>
+              <p>
+                Der See selbst ist an ruhigen Tagen ein perfekter Spiegel, der
+                das üppige Grün der Umgebung und die ferne Silhouette des
+                Herkules auf dem Hügel widerspiegelt. Beim Spaziergang am Ufer
+                fiel mir auf, wie die sorgfältig gestaltete Landschaft eine
+                harmonische Verbindung von natürlicher Schönheit und
+                menschlicher Kunstfertigkeit schafft – ein Markenzeichen der
+                deutschen Romantik.
+              </p>
+              <p>
+                Als das Abendlicht die Szene in goldene Töne tauchte,
+                versammelten sich Besucher am Ufer, einige skizzierten die
+                malerische Aussicht, andere saßen einfach in stiller
+                Bewunderung. Dieses bemerkenswerte Wasserspiel ist nicht nur
+                Zierde, sondern ein technisches Wunderwerk seiner Zeit und Teil
+                eines komplexen hydraulischen Systems, das Besucher seit
+                Jahrhunderten fasziniert.
+              </p>
+              <div class="w3-row">
+                <div class="w3-col m8 s12">
+                  <!--<p><button class="w3-button w3-padding-large w3-white w3-border"><b></b></button></p>-->
+                </div>
+                <div class="w3-col m4 w3-hide-small">
+                  <!--<p><span class="w3-padding-large w3-right"><b>Comments  </b> <span class="w3-badge">2</span></span>
+                  </p>-->
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END BLOG ENTRIES -->
         </div>
+
+        <!-- Introduction menu -->
+        <div class="w3-col l4">
+          <!-- About Card -->
+          <div class="w3-card w3-margin w3-margin-top">
+            <img src="../Image/IMG_2966.JPG" style="width: 100%" />
+            <div class="w3-container w3-white">
+              <h4><b>Mein Tag</b></h4>
+              <p>
+                Als ich heute Morgen im Garten sorgfältig die Tomatenblätter
+                zurückgeschnitten habe, fiel mir auf, wie jeder Schnitt stärkere
+                Stängel zum Vorschein brachte. Das Entfernen überschüssigen
+                Laubs sorgt für bessere Belüftung und lenkt die Energie in die
+                Fruchtbildung. Mit der Sonne, die durch das Rankgitter scheint,
+                habe ich diesen perfekten Gartenmoment eingefangen – Hände
+                voller Erde, der süße Duft von Tomaten in der Luft und die
+                Aussicht auf eine reiche Ernte. Diese einfachen Gartenrituale
+                verbinden mich mit den Jahreszeiten und Kreisläufen, die das
+                moderne Leben oft verdeckt.
+              </p>
+            </div>
+          </div>
+          <hr />
+
+          <!-- Posts -->
+          <div class="w3-card w3-margin">
+            <div class="w3-container w3-padding">
+              <h4>Popular Posts</h4>
+            </div>
+            <ul class="w3-ul w3-hoverable w3-white">
+              <li class="w3-padding-16">
+                <img
+                  src="../Image/IMG_5006.jpg"
+                  alt="Baking Day"
+                  class="w3-left w3-margin-right"
+                  style="width: 50px; height: 50px; object-fit: cover"
+                />
+                <span class="w3-large"><a href="../../Public/Html/backentag.html" style="text-decoration: none;">Backtag</a></span><br />
+                <span>Ein Tag voller Backen und Gebäck</span>
+              </li>
+              <li class="w3-padding-16">
+                <img
+                  src="../Image/photo_2022-05-15_14-15-05.jpg"
+                  alt="Marburg Museum"
+                  class="w3-left w3-margin-right"
+                  style="width: 50px; height: 50px; object-fit: cover"
+                />
+                <span class="w3-large"><a href="../../Public/Html/marburgMuseum.html" style="text-decoration: none;">Marburger Museumsbesuch</a></span><br />
+                <span>Entdeckung der Marburger Museen</span>
+              </li>
+              <li class="w3-padding-16">
+                <img
+                  src="../Image/photo_2021-08-19_22-35-45.jpg"
+                  alt="Kit Walk"
+                  class="w3-left w3-margin-right"
+                  style="width: 50px; height: 50px; object-fit: cover"
+                />
+
+                <span class="w3-large"><a href="../../Public/Html/sonnenuntergang.html" style="text-decoration: none;">Spaziergang in der Natur</a></span><br />
+                <span>Abenteuerlicher Spaziergang in der Natur</span>
+              </li>
+              <li class="w3-padding-16">
+                <img
+                  src="../Image/photo_2022-12-15_22-11-57.jpg"
+                  alt="Mazara Photo"
+                  class="w3-left w3-margin-right"
+                  style="width: 50px; height: 50px; object-fit: cover"
+                />
+                <span class="w3-large"><a href="../../Public/Html/naturfotografie.html" style="text-decoration: none;">Naturfotografie</a></span><br />
+                <span>Fotografie in meinem Dorf</span>
+              </li>
+            </ul>
+          </div>
+          <hr />
+
+          <!-- Labels / tags -->
+          <div class="w3-card w3-margin">
+            <div class="w3-container w3-padding">
+              <h4>Tags</h4>
+            </div>
+            <div class="w3-container w3-white">
+              <p>
+                <span class="w3-tag w3-black w3-margin-bottom">Travel</span>
+                <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                  >New York</span
+                >
+                <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                  >London</span
+                >
+                <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                  >IKEA</span
+                >
+                <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                  >NORWAY</span
+                >
+                <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                  >DIY</span
+                >
+                <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                  >Ideas</span
+                >
+                <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                  >Baby</span
+                >
+                <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                  >Family</span
+                >
+                <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                  >News</span
+                >
+                <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                  >Clothing</span
+                >
+                <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                  >Shopping</span
+                >
+                <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                  >Sports</span
+                >
+                <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                  >Games</span
+                >
+              </p>
+            </div>
+          </div>
+
+          <!-- END Introduction Menu -->
+        </div>
+
+        <!-- END GRID -->
       </div>
-    </div>
-  </div>
-<!-- END BLOG ENTRIES -->
-</div>
+      <br />
 
-<!-- Introduction menu -->
-<div class="w3-col l4">
-  <!-- About Card -->
-  <div class="w3-card w3-margin w3-margin-top">
-  <img src="../Image/IMG_2966.JPG" style="width:100%">
-    <div class="w3-container w3-white">
-      <h4><b>My Mustafa</b></h4>
-      <p>As I carefully pruned the tomato leaves in my garden this morning, I noticed how each snip revealed stronger stems underneath. The process of removing excess foliage allows better airflow and directs energy to fruit production. With the sun filtering through the trellis, I captured that perfect gardening moment - hands covered in soil, the sweet tomato scent in the air, and the promise of a bountiful harvest ahead. These simple gardening rituals connect me to seasons and cycles that modern life often obscures.</p>
+      <!-- END w3-content -->
     </div>
-  </div><hr>
-  
-  <!-- Posts -->
-  <div class="w3-card w3-margin">
-    <div class="w3-container w3-padding">
-      <h4>Popular Posts</h4>
-    </div>
-    <ul class="w3-ul w3-hoverable w3-white">
-      <li class="w3-padding-16">
-        <img src="../Image/IMG_5006.jpg" alt="Baking Day" class="w3-left w3-margin-right" style="width:50px; height:50px; object-fit:cover">
-        <span class="w3-large">Baking Day</span><br>
-        <span>A day of baking and pastries</span>
-      </li>
-      <li class="w3-padding-16">
-        <img src="../Image/photo_2022-05-15_14-15-05.jpg" alt="Marburg Museum" class="w3-left w3-margin-right" style="width:50px; height:50px; object-fit:cover">
-        <span class="w3-large">Marburg Museum Tour</span><br>
-        <span>Exploring Marburg's museums</span>
-      </li> 
-      <li class="w3-padding-16">
-        <img src="../Image/photo_2021-08-19_22-35-45.jpg" alt="Kit Walk" class="w3-left w3-margin-right" style="width:50px; height:50px; object-fit:cover">
-        <span class="w3-large">Walk in nature</span><br>
-        <span>Walking adventure in nature</span>
-      </li>   
-      <li class="w3-padding-16">
-        <img src="../Image/photo_2022-12-15_22-11-57.jpg" alt="Mazara Photo" class="w3-left w3-margin-right" style="width:50px; height:50px; object-fit:cover">
-        <span class="w3-large">Nature Photography</span><br>
-        <span>Photography in my willage</span>
-      </li>  
-    </ul>
-  </div>
-  <hr> 
- 
-  <!-- Labels / tags -->
-  <div class="w3-card w3-margin">
-    <div class="w3-container w3-padding">
-      <h4>Tags</h4>
-    </div>
-    <div class="w3-container w3-white">
-    <p><span class="w3-tag w3-black w3-margin-bottom">Travel</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">New York</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">London</span>
-      <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">IKEA</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">NORWAY</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">DIY</span>
-      <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Ideas</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Baby</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Family</span>
-      <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">News</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Clothing</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Shopping</span>
-      <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Sports</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Games</span>
-    </p>
-    </div>
-  </div>
-  
-<!-- END Introduction Menu -->
-</div>
 
-<!-- END GRID -->
-</div><br>
+    <footer class="w3-container w3-teal w3-center w3-margin-top">
+      <p>Finden Sie mich in den sozialen Medien.</p>
+      <a href="https://www.facebook.com/DeliDoluOne/" target="_blank"
+        ><i class="fa fa-facebook-official w3-hover-opacity"></i
+      ></a>
+      <a href="https://www.instagram.com/1pehlione1/" target="_blank"
+        ><i class="fa fa-instagram w3-hover-opacity"></i
+      ></a>
+      <a href="https://www.linkedin.com/in/mustafa-oezdemir/" target="_blank"
+        ><i class="fa fa-linkedin w3-hover-opacity"></i
+      ></a>
 
-<!-- END w3-content -->
-</div>
-
-<!-- Footer -->
-<footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top">
-  <button class="w3-button w3-black w3-disabled w3-padding-large w3-margin-bottom">Previous</button>
-  <button class="w3-button w3-black w3-padding-large w3-margin-bottom">Next »</button>
-  <p>Powered by <a href="#" target="_blank">Mustafa</a></p>
-</footer>
-
-</body>
+      <p>
+        Powered by
+        <a href="mailto:mustafa.ozdemir1408@gmail.com" target="_blank"
+          >Mustafa Özdemir</a
+        >
+      </p>
+    </footer>
+  </body>
 </html>
