@@ -1,0 +1,78 @@
+
+import { useState } from 'react'
+import './App.css'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import CV from './components/Sections/CV'
+import Hobbies from './components/Sections/Hobbies'
+import Certificates from './components/Sections/Certificates'
+import Projects from './components/Sections/Projects'
+import Repos from './components/Sections/Repos'
+import DeveloperInfo from './components/Sections/DeveloperInfo'
+import Box from '@mui/material/Box'
+import AgentDoc from './components/Lebenslauf'
+import Button from '@mui/material/Button'
+
+function App() {
+  const [drawerOpen, setDrawerOpen] = useState(false)
+  const [mainView, setMainView] = useState<'default' | 'agentDoc'>('default')
+  return (
+    <div className="min-h-dvh bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50">
+      <a id="home" />
+      <Header
+        open={drawerOpen}
+        onOpen={() => setDrawerOpen(true)}
+        onClose={() => setDrawerOpen(false)}
+        onSelectMain={(v) => {
+          setMainView(v)
+          setDrawerOpen(false)
+        }}
+      />
+      <Box
+        component="main"
+        sx={{
+          // AppBar yüksekliği kadar üst boşluk
+          pt: { xs: '65px', sm: '64px' },
+          // Mini (kapalı) ve açık durum için sol boşluk
+          ml: { xs: drawerOpen ? '240px' : '65px', sm: drawerOpen ? '240px' : '65px' },
+          mr: { xs: drawerOpen ? '240px' : '65px', sm: drawerOpen ? '240px' : '65px' },
+        }}
+      >
+        {mainView === 'agentDoc' ? (
+          <section className="w-full px-4 sm:px-6 lg:px-10 py-12">
+            <h1 className="text-3xl font-bold mb-4">Lebenslauf • Details</h1>
+            <AgentDoc />
+            <div className="mt-6">
+              <Button variant="outlined" onClick={() => setMainView('default')}>Zur Übersicht</Button>
+            </div>
+          </section>
+        ) : (
+          <>
+            <section className="w-full px-4 sm:px-6 lg:px-10 py-12">
+              <h1 className="text-3xl font-bold mb-2">Musta • Portfolio</h1>
+              <p className="text-neutral-700 dark:text-neutral-300">
+                Persönliches Portfolio mit React, TypeScript und Vite.
+              </p>
+            </section>
+            <CV onOpenDrawer={() => setDrawerOpen(true)} />
+            <Hobbies onOpenDrawer={() => setDrawerOpen(true)} />
+            <Certificates onOpenDrawer={() => setDrawerOpen(true)} />
+            <Projects onOpenDrawer={() => setDrawerOpen(true)} />
+            <Repos username="1DeliDolu" perPage={6} onOpenDrawer={() => setDrawerOpen(true)} />
+            <DeveloperInfo onOpenDrawer={() => setDrawerOpen(true)} />
+          </>
+        )}
+      </Box>
+      <Box
+        sx={{
+          ml: { xs: drawerOpen ? '240px' : '57px', sm: drawerOpen ? '240px' : '65px' },
+          mr: { xs: drawerOpen ? '240px' : '57px', sm: drawerOpen ? '240px' : '65px' },
+        }}
+      >
+        <Footer />
+      </Box>
+    </div>
+  )
+}
+
+export default App
