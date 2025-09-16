@@ -14,9 +14,10 @@ type Props = {
   username: string
   perPage?: number
   onOpenDrawer?: () => void
+  variant?: 'summary' | 'detail'
 }
 
-function Repos({ username, perPage = 5, onOpenDrawer }: Props) {
+function Repos({ username, perPage = 5, onOpenDrawer, variant = 'summary' }: Props) {
   const [repos, setRepos] = useState<Repo[] | null>(null)
   const [error, setError] = useState<string | null>(null)
 
@@ -36,6 +37,52 @@ function Repos({ username, perPage = 5, onOpenDrawer }: Props) {
       })
     return () => controller.abort()
   }, [username, perPage])
+
+  if (variant === 'detail') {
+    return (
+      <section id="repos" className="scroll-mt-24 w-full px-4 sm:px-6 lg:px-10 py-12">
+        <h2 className="text-3xl font-bold mb-6">Repositories</h2>
+        <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">@{username}</p>
+        {error && <p className="text-sm text-red-600">{error}</p>}
+        {!error && !repos && <p className="text-sm">Wird geladen...</p>}
+        {repos && (
+          <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+            {repos.map((r) => (
+              <li key={r.id} className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4">
+                <a href={r.html_url} target="_blank" rel="noreferrer" className="font-semibold hover:underline">
+                  {r.name}
+                </a>
+                {r.description && (
+                  <p className="text-sm text-neutral-700 dark:text-neutral-300 mt-1">{r.description}</p>
+                )}
+                <div className="text-xs text-neutral-500 dark:text-neutral-400 mt-2 flex gap-3">
+                  {r.language && <span>{r.language}</span>}
+                  <span>⭐ {r.stargazers_count}</span>
+                  <span>Aktualisiert am {new Date(r.updated_at).toLocaleDateString()}</span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <h3 className="text-xl font-semibold mb-2">Filter & Tipps</h3>
+        <ul className="list-disc pl-6 mb-6 text-neutral-800 dark:text-neutral-200">
+          <li>Sortierung nach „updated“ für die neuesten Änderungen</li>
+          <li>Star-Zahl und Sprache für schnelle Einschätzung</li>
+        </ul>
+
+        <h3 className="text-xl font-semibold mb-2">Links</h3>
+        <ul className="list-disc pl-6">
+          <li>
+            <a href="#projects" className="text-blue-600 hover:underline">Projekte</a>
+          </li>
+          <li>
+            <a href="#developer" className="text-blue-600 hover:underline">Entwicklerprofil</a>
+          </li>
+        </ul>
+      </section>
+    )
+  }
 
   return (
     <section id="repos" className="scroll-mt-24 w-full px-4 sm:px-6 lg:px-10 py-12">

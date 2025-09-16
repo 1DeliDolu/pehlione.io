@@ -4,9 +4,63 @@ const hobbies = [
   { title: 'Musik', detail: 'Ich spiele Gitarre und interessiere mich für Musikproduktion.' },
 ]
 
-type Props = { onOpenDrawer?: () => void }
+type Props = {
+  onOpenDrawer?: () => void
+  variant?: 'summary' | 'detail'
+}
 
-function Hobbies({ onOpenDrawer }: Props) {
+function Hobbies({ onOpenDrawer, variant = 'summary' }: Props) {
+  if (variant === 'detail') {
+    return (
+      <section id="hobbies" className="scroll-mt-24 w-full px-4 sm:px-6 lg:px-10 py-12">
+        <h2 className="text-3xl font-bold mb-6">Hobbys</h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+          {hobbies.map((h) => (
+            <article key={h.title} className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4">
+              <h3 className="font-semibold text-lg">{h.title}</h3>
+              <p className="text-sm text-neutral-700 dark:text-neutral-300">{h.detail}</p>
+            </article>
+          ))}
+        </div>
+
+        <h3 className="text-xl font-semibold mb-2">Outdoor</h3>
+        <ul className="list-disc pl-6 mb-6 text-neutral-800 dark:text-neutral-200">
+          <li>Gartenplanung: saisonale Beete, Bewässerung, Bodenpflege</li>
+          <li>Wandern & Naturerkundung in Hessen</li>
+        </ul>
+
+        <h3 className="text-xl font-semibold mb-2">Kreativ</h3>
+        <ul className="list-disc pl-6 mb-6 text-neutral-800 dark:text-neutral-200">
+          <li>Fotografie: Komposition, Bearbeitung, Lichtführung</li>
+          <li>Musik: Gitarre, grundlegende Aufnahme und Mix</li>
+        </ul>
+
+        <h3 className="text-xl font-semibold mb-2">Links</h3>
+        <ul className="list-disc pl-6 mb-8">
+          <li>
+            <a href="#projects" className="text-blue-600 hover:underline">Meine Projekte</a>
+          </li>
+          <li>
+            <a href="#repos" className="text-blue-600 hover:underline">Neueste Repositories</a>
+          </li>
+        </ul>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          <figure className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-3 flex items-center justify-center bg-white dark:bg-neutral-900">
+            <img src="/vite.svg" alt="Galerie 1" className="h-16" />
+          </figure>
+          <figure className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-3 flex items-center justify-center bg-white dark:bg-neutral-900">
+            <img src="/foto.JPG" alt="Galerie 2" className="h-16 object-cover" />
+          </figure>
+          <figure className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-3 flex items-center justify-center bg-white dark:bg-neutral-900">
+            <img src="/vite.svg" alt="Galerie 3" className="h-16" />
+          </figure>
+        </div>
+      </section>
+    )
+  }
+
+  // summary
   return (
     <section id="hobbies" className="scroll-mt-24 w-full px-4 sm:px-6 lg:px-10 py-12">
       <h2 className="text-2xl font-semibold mb-4">Hobbys</h2>

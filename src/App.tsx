@@ -15,7 +15,7 @@ import Button from '@mui/material/Button'
 
 function App() {
   const [drawerOpen, setDrawerOpen] = useState(false)
-  const [mainView, setMainView] = useState<'default' | 'agentDoc'>('default')
+  const [mainView, setMainView] = useState<'default' | 'agentDoc' | 'hobbies' | 'certificates' | 'projects' | 'repos' | 'developer'>('default')
   return (
     <div className="min-h-dvh bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50">
       <a id="home" />
@@ -40,8 +40,47 @@ function App() {
       >
         {mainView === 'agentDoc' ? (
           <section className="w-full px-4 sm:px-6 lg:px-10 py-12">
-            <h1 className="text-3xl font-bold mb-4">Lebenslauf • Details</h1>
             <AgentDoc />
+            <div className="mt-6">
+              <Button variant="outlined" onClick={() => setMainView('default')}>Zur Übersicht</Button>
+            </div>
+          </section>
+        ) : mainView === 'hobbies' ? (
+          <section className="w-full px-4 sm:px-6 lg:px-10 py-12">
+            <h1 className="text-3xl font-bold mb-4">Hobbys • Details</h1>
+            <Hobbies variant="detail" />
+            <div className="mt-6">
+              <Button variant="outlined" onClick={() => setMainView('default')}>Zur Übersicht</Button>
+            </div>
+          </section>
+        ) : mainView === 'certificates' ? (
+          <section className="w-full px-4 sm:px-6 lg:px-10 py-12">
+            <h1 className="text-3xl font-bold mb-4">Zertifikate • Details</h1>
+            <Certificates variant="detail" />
+            <div className="mt-6">
+              <Button variant="outlined" onClick={() => setMainView('default')}>Zur Übersicht</Button>
+            </div>
+          </section>
+        ) : mainView === 'projects' ? (
+          <section className="w-full px-4 sm:px-6 lg:px-10 py-12">
+            <h1 className="text-3xl font-bold mb-4">Projekte • Details</h1>
+            <Projects variant="detail" />
+            <div className="mt-6">
+              <Button variant="outlined" onClick={() => setMainView('default')}>Zur Übersicht</Button>
+            </div>
+          </section>
+        ) : mainView === 'repos' ? (
+          <section className="w-full px-4 sm:px-6 lg:px-10 py-12">
+            <h1 className="text-3xl font-bold mb-4">Repositories • Details</h1>
+            <Repos username="1DeliDolu" perPage={12} onOpenDrawer={() => setDrawerOpen(true)} variant="detail" />
+            <div className="mt-6">
+              <Button variant="outlined" onClick={() => setMainView('default')}>Zur Übersicht</Button>
+            </div>
+          </section>
+        ) : mainView === 'developer' ? (
+          <section className="w-full px-4 sm:px-6 lg:px-10 py-12">
+            <h1 className="text-3xl font-bold mb-4">Anwendungsentwickler • Details</h1>
+            <DeveloperInfo variant="detail" />
             <div className="mt-6">
               <Button variant="outlined" onClick={() => setMainView('default')}>Zur Übersicht</Button>
             </div>

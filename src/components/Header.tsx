@@ -110,7 +110,7 @@ export type Props = {
   open: boolean
   onOpen: () => void
   onClose: () => void
-  onSelectMain: (view: 'default' | 'agentDoc') => void
+  onSelectMain: (view: 'default' | 'agentDoc' | 'hobbies' | 'certificates' | 'projects' | 'repos' | 'developer') => void
 }
 
 function Header({ open, onOpen, onClose, onSelectMain }: Props) {
@@ -173,11 +173,26 @@ function Header({ open, onOpen, onClose, onSelectMain }: Props) {
           {navItems.map((item) => (
             <ListItem key={item.key} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
-                component={item.key === 'cv' ? 'button' : 'a'}
-                href={item.key === 'cv' ? undefined : item.href}
+                component={item.key === 'cv' || item.key === 'hobbies' || item.key === 'certificates' || item.key === 'projects' || item.key === 'repos' || item.key === 'developer' ? 'button' : 'a'}
+                href={item.key === 'cv' || item.key === 'hobbies' || item.key === 'certificates' || item.key === 'projects' || item.key === 'repos' || item.key === 'developer' ? undefined : item.href}
                 onClick={() => {
                   if (item.key === 'cv') {
                     onSelectMain('agentDoc')
+                    onClose()
+                  } else if (item.key === 'hobbies') {
+                    onSelectMain('hobbies')
+                    onClose()
+                  } else if (item.key === 'certificates') {
+                    onSelectMain('certificates')
+                    onClose()
+                  } else if (item.key === 'projects') {
+                    onSelectMain('projects')
+                    onClose()
+                  } else if (item.key === 'repos') {
+                    onSelectMain('repos')
+                    onClose()
+                  } else if (item.key === 'developer') {
+                    onSelectMain('developer')
                     onClose()
                   }
                 }}

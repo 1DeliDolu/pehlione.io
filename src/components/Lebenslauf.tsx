@@ -81,11 +81,11 @@ const CvPage: React.FC = () => {
                   </p>
                   <p>
                     <i className="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>
-                    mustafa.ozdemir1408gmail.com
+                    <a href="mailto:mustafa.ozdemir1408@gmail.com">mustafa.ozdemir1408@gmail.com</a>
                   </p>
                   <p>
                     <i className="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>
-                    017693153406
+                    <a href="tel:017693153406">017693153406</a>
                   </p>
                   <hr />
 
@@ -95,13 +95,20 @@ const CvPage: React.FC = () => {
                       Skills
                     </b>
                   </p>
-                  {skill("HTML", 99)}
-                  {skill("CSS", 99)}
-                  {skill("JavaScript", 99)}
-                  {skill("TypeScript", 100)}
+                  {skill("HTML", 100)}
+                  {skill("CSS", 100)}
+                  {skill("JavaScript", 100)}
                   {skill("React", 100)}
-                  {skill("Golang", 95)}
+                  {skill("TypeScript", 100)}
+                  {skill("PHP", 100)}
+                  {skill("Golang", 100)}
+                  {skill("Rust", 100)}
+                  {skill("Microsoft SQL", 100)}
+                  {skill("MySQL", 100)}
                   {skill("Java", 95)}
+                  {skill("Docker", 95)}
+                  <hr />
+                  
 
                   <br />
                   <p className="w3-large w3-text-theme">
@@ -114,12 +121,28 @@ const CvPage: React.FC = () => {
                   {lang("Deutsch", 90)}
                   {lang("Türkisch", 100)}
                   <br />
+                  <hr />
+                  <br />
+                  <p className="w3-large w3-text-theme">
+                    <b>
+                      <i className="fa fa-code fa-fw w3-margin-right w3-text-teal"></i>
+                      Interessen
+                    </b>
+                  </p>
+                  {skill("Coding und Software-Architektur", 100)}
+                  {skill("Wandern gehen", 100)}
+                  {skill("Bücher lesen", 100)}
+                  {skill("Handwerk & Reparatur", 100)}
+                  {skill("Aktives Mitglied bei Interkulturellen Garten", 100)}
+
+                  <br />
                 </div>
               </div>
               <br />
             </div>
 
             {/* Right Column */}
+            {/* Berufliche Werdegang Section */}
             <div className="w3-twothird">
               <div className="w3-container w3-card w3-white w3-margin-bottom">
                 <h2 className="w3-text-grey w3-padding-16">
@@ -128,27 +151,43 @@ const CvPage: React.FC = () => {
                 </h2>
                 <div className="w3-container">
                   <h5 className="w3-opacity">
-                    <b>Praktikum / Universität Marburg, Marburg</b>
+                    <b>Prüfungsvorbereitung, IAD GmbH, Marburg</b>
+                  </h5>
+                  <h6 className="w3-text-teal">
+                    <i className="fa fa-calendar fa-fw w3-margin-right"></i>
+                    06/2025 - 11/2025
+                  </h6>
+                  <ul className="list-disc pl-6">
+                    <li>Vorbereitung auf die Abschlussprüfung zum Fachinformatiker Anwendungsentwicklung</li>
+                    <li>JAVA-Zertifikat</li>
+                    <li>ISTQB-Zertifikat</li>
+                  </ul>
+                  <hr />
+
+                  <h5 className="w3-opacity">
+                    <b>Anwendungsentwickler im Praktikum zur Pluginsentwicklung für PRTG & Grafana (Universitätsstadt Marburg)</b>
                   </h5>
                   <h6 className="w3-text-teal">
                     <i className="fa fa-calendar fa-fw w3-margin-right"></i>
                     11/2024 - 06/2025
                   </h6>
-                  <p>Praktikum in der Universitätsstadt Marburg (Deutschland)</p>
+                  <ul className="list-disc pl-6">
+                    <li>Ermöglichung des Monitorings der IT-Systeme durch die Entwicklung eines Grafana-Datasource-Plugins für PRTG</li>
+                    <li>Implementierung von Authentifizierung, Logging und Monitoring-Funktionalitäten</li>
+                    <li>Testen, Dokumentieren und Präsentieren der Ergebnisse im Rahmen des Praktikums</li>
+                  </ul>
                   <hr />
+                </div>
 
+                <div className="w3-container">
                   <h5 className="w3-opacity">
-                    <b>Umschuler / Firma iad GmbH, Marburg</b>
+                    <b>Umschulung zum Anwendungsentwickler, IAD GmbH, Marburg</b>
                   </h5>
                   <h6 className="w3-text-teal">
                     <i className="fa fa-calendar fa-fw w3-margin-right"></i>
-                    07/2023 -
-                    <span className="w3-tag w3-teal w3-round">Aktuel</span>
+                    07/2023 - 06/2025
                   </h6>
-                  <p>
-                    Derzeit mache ich eine Umschulung zum Fachinformatiker für
-                    Anwendungsentwicklung.
-                  </p>
+
                   <hr />
                 </div>
                 <div className="w3-container">
@@ -162,7 +201,7 @@ const CvPage: React.FC = () => {
                     <i className="fa fa-calendar fa-fw w3-margin-right"></i>
                     12/2012 – 03/2019
                   </h6>
-                  <ul>
+                  <ul className="list-disc pl-6">
                     <li>Koordination von 650 Mitarbeiter*innen</li>
                     <li>
                       Prozessplanung für die Produktion von diversen
@@ -173,15 +212,31 @@ const CvPage: React.FC = () => {
                       Überprüfen der Fristen zum Einhalten der Lieferketten
                     </li>
                   </ul>
-                  <hr />
+                  <br />
                 </div>
               </div>
 
+
+              {/* Bildungsweg Section */}
               <div className="w3-container w3-card w3-white w3-margin-bottom">
                 <h2 className="w3-text-grey w3-padding-16">
                   <i className="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
                   Bildungsweg
                 </h2>
+                <div className="w3-container">
+                  <h5 className="w3-opacity">
+                    <b>Ausbildung zum Fachinformatiker Anwendungsentwicklung IAD Marburg</b>
+                  </h5>
+                  <h6 className="w3-text-teal">
+                    <i className="fa fa-calendar fa-fw w3-margin-right"></i>
+                    07/2023 – 06/2025
+                  </h6>
+                  <ul className="list-disc pl-6">
+                    <li>Während meiner Ausbildung habe ich fundierte berufliche Kenntnisse erworben, die mir helfen, mich in der IT-Branche sicher zu bewegen.</li>
+                  </ul>
+                  <br />
+                </div>
+                <hr />
                 <div className="w3-container">
                   <h5 className="w3-opacity">
                     <b>Deutschkurs (Level: B2) / VHS, Marburg</b>
@@ -190,48 +245,30 @@ const CvPage: React.FC = () => {
                     <i className="fa fa-calendar fa-fw w3-margin-right"></i>
                     09/2021 – 05/2023
                   </h6>
-                  <ul>
+                  <ul className="list-disc pl-6">
                     <li>Dort habe ich berufliche Deutsckentnisse gelernt.</li>
                   </ul>
                   <br />
                 </div>
+                <hr />
+
                 <div className="w3-container">
                   <h5 className="w3-opacity">
-                    <b>Industrial Engineer, Izmir</b>
+                    <b>Studium des Wirtschafts-Ingenieurwesen / Industrie-Ingenieurwesen Türkische Nationale Verteidigungsuniversität, Istanbul</b>
                   </h5>
                   <h6 className="w3-text-teal">
                     <i className="fa fa-calendar fa-fw w3-margin-right"></i>
-                    09/2012 – 12/2014
+                    09/2008 – 08/2012
                   </h6>
-                  <ul>
-                    <li>Absolvierung der Ausbildung zum Piloten</li>
-                  </ul>
-                  <br />
-                </div>
-                <div className="w3-container">
-                  <h5 className="w3-opacity">
-                    <b>
-                      Studium des Wirtschaftsingeniuerwesenschafts / Türkische
-                      Nationale Verteidigungsuniversität, Istanbul
-                    </b>
-                  </h5>
-                  <h6 className="w3-text-teal">
-                    <i className="fa fa-calendar fa-fw w3-margin-right"></i>
-                    12/2008 – 08/2012
-                  </h6>
-                  <ul>
-                    <li>
-                      <b>Abschluss</b>: Diplom Wirtschaftsingenieurwesen
-                    </li>
-                    <li>
-                      <b>Schwerpunkt</b>: Prozessplanung, Lieferung & Logistik,
-                      Verwaltung
-                    </li>
+                  <ul className="list-disc pl-6">
+                    <li>Abschluss: Diplom Wirtschaftsingenieur</li>
+                    <li>Schwerpunkt: Prozessplanung, Lieferung & Logistik, Verwaltung</li>
                   </ul>
                   <br />
                 </div>
               </div>
 
+              { }
               <div className="w3-container w3-card w3-white w3-margin-bottom">
                 <h2 className="w3-text-grey w3-padding-16">
                   <span className="fa fa-fw w3-margin-right w3-xxlarge w3-text-teal">
@@ -240,7 +277,7 @@ const CvPage: React.FC = () => {
                   Soziales Engagement
                 </h2>
                 <p>
-                  Seit Januar 2023 engagiere ich mich ehrenamtlich in
+                  Seit Januar 2021 engagiere ich mich ehrenamtlich in
                   verschiedenen Vereinen. Diese Tätigkeit hat meine
                   Kommunikationsfähigkeiten und mein Verantwortungsbewusstsein
                   gestärkt. Außerdem bin ich Mitglied im Interkulturellen
@@ -256,7 +293,7 @@ const CvPage: React.FC = () => {
                     09/2021 -
                     <span className="w3-tag w3-teal w3-round">Aktuel</span>
                   </h6>
-                  <ul>
+                  <ul className="list-disc pl-6">
                     <li>Begleitung und Unterstützung von älteren Menschen</li>
                   </ul>
                   <br />
@@ -269,10 +306,35 @@ const CvPage: React.FC = () => {
                     <i className="fa fa-calendar fa-fw w3-margin-right"></i>
                     06/2022 – 09/2023
                   </h6>
-                  <ul>
+                  <ul className="list-disc pl-6">
                     <li>
                       Besuch und Unterstützung von älteren Menschen im Alltag bei
                       sich zu Hause
+                    </li>
+                  </ul>
+                  <br />
+                </div>
+
+              </div>
+              {/* Referenz Section */}
+              <div className="w3-container w3-card w3-white w3-margin-bottom">
+                <div className="w3-container">
+                  <h2 className="w3-text-grey w3-padding-16">
+                    <span className="fa fa-id-card fa-fw w3-margin-right w3-xxlarge w3-text-teal"></span>
+                    Referenz
+                  </h2>
+                  <h5 className="w3-opacity">
+                    <b>Andrea Fritzsch: Förderung des freiwilligen Engagements beim WIR-Vielfaltszentrum der Universitätsstadt Marburg</b>
+                  </h5>
+
+                  <ul className="list-disc pl-6">
+                    <li>
+                      E-Mail: <a href="mailto:andrea.fritzsch@marburg.de" target="_blank" rel="noreferrer">
+                        andrea.fritzsch@marburg.de
+                      </a>
+                    </li>
+                    <li>
+                      Telefon: <a href="tel:064212011861">06421 201-1861</a>
                     </li>
                   </ul>
                   <br />
@@ -284,7 +346,7 @@ const CvPage: React.FC = () => {
 
         <footer className="w3-container w3-teal w3-center w3-margin-top">
           <p>Finden Sie mich in den sozialen Medien.</p>
-         
+
           <a
             href="https://www.linkedin.com/in/mustafa-oezdemir/"
             target="_blank"
@@ -294,8 +356,8 @@ const CvPage: React.FC = () => {
           </a>
           <p>
             Powered by{" "}
-            <a href="#" target="_blank" rel="noreferrer">
-              Mustafa
+            <a href="mailto:mustafa.ozdemir1408@gmail.com" target="_blank" rel="noreferrer">
+              Mustafa Özdemir
             </a>
           </p>
         </footer>
