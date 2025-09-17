@@ -114,7 +114,7 @@ function App() {
         ) : (
           <>
             <section className="w-full px-4 sm:px-6 lg:px-10 py-12">
-              <h1 className="text-3xl font-bold mb-2">Musta • Portfolio</h1>
+              <h1 className="text-3xl font-bold mb-2">Mustafa's Portfolio</h1>
               <p className="text-neutral-700 dark:text-neutral-300">
                 Persönliches Portfolio mit React, TypeScript und Vite.
               </p>
