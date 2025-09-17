@@ -1,48 +1,220 @@
-Aşağıdaki metni **“Agent” rolüyle** müşterinize veya takım arkadaşınıza gönderebileceğiniz net bir açıklama olarak kullanabilirsiniz.
-Bu açıklama, verdiğim MUI Grid + Pagination çözümünün **tam olarak ne yaptığını**, hangi durumlarda **3 kart yan yana** veya **1 kart** göründüğünü ve nasıl değiştirilebileceğini özetler.
+Aşağıdaki örnek, **TypeScript + React + Material-UI** kullanarak fotoğraf yükleme formunu adım adım gösterir.
+Form; **ana kategori (foto / garten)** ve **alt kategori** seçimi içerir,
+girdiğiniz **name, title, description** bilgileriyle birlikte `db.json` dosyasına POST isteği gönderir.
+
+> **Not:** Bu form **dosyayı fiziksel klasöre kopyalamaz**.
+> json-server yalnızca JSON kaydeder, resmin gerçek dosyasını `/public/foto` veya `/public/garten` altına **siz elle koyarsınız**.
+> Form sadece `src` alanını, seçtiğiniz ana kategoriye göre otomatik oluşturur.
 
 ---
 
-### 📄 Teknik Açıklama (Agent Tarzı)
+## 1️⃣ db.json Yapısı (örnek)
 
-**Proje Özeti**
-Uygulama, Material UI’nin `Grid` ve `Pagination` bileşenlerini kullanarak fotoğrafları sayfalanmış kartlar halinde listeler.
-Her sayfada **3 fotoğraf** görüntülenir ve kullanıcı **Pagination** bileşeniyle ileri–geri sayfalar arasında gezebilir.
-
----
-
-**Ekran Davranışı**
-
-| Ekran Genişliği                    | Grid Ayarı       | Sonuç                                                                   |
-| ---------------------------------- | ---------------- | ----------------------------------------------------------------------- |
-| **Masaüstü / Tablet (≥ 900 px)**   | `xs={12} md={4}` | 1 satırda **3 kart yan yana** (12/4 = 3 sütun). **Alt alta resim yok.** |
-| **Telefon / Dar ekran (< 900 px)** | `xs={12}`        | 1 satırda **1 kart** (kartlar otomatik olarak alta dizilir).            |
-
-Bu yapı sayesinde masaüstünde 3’lü dizilim korunurken, mobil cihazlarda her kart tüm satırı kaplayarak okunabilirlik sağlanır.
-
----
-
-**Kodu Değiştirerek Davranışı Sabitleme**
-
-* Eğer **her ekranda** (mobil dahil) **3 kart yan yana** istiyorsanız, Grid item değerini `xs={4}` yapın.
-  Bu durumda küçük ekranlarda da **alt alta** dizilim gerçekleşmez; kartlar sıkışsa da hep 3’lü kalır.
-
-Örnek:
-
-```tsx
-<Grid item xs={4}> ... </Grid>
+```json
+{
+  "gardenPhotos": [],
+  "fotografiePhotos": []
+}
 ```
 
 ---
 
-**Pagination**
+## 2️⃣ TypeScript Tipleri
 
-* Her sayfada 3 fotoğraf gösterilir.
-* `Pagination` bileşeni toplam fotoğraf sayısına göre dinamik olarak sayfa sayısını hesaplar (`Math.ceil(total/3)`).
-* Kullanıcı sayfa değiştirdiğinde sadece ilgili 3 kart yeniden render edilir.
+`src/types.ts`
+
+```ts
+export interface FotoEintrag {
+  src: string;
+  name: string;
+  title: string;
+  description: string;
+  category: "foto" | "garten";
+  sub_category: string;
+}
+```
 
 ---
 
-**Özet**
-Bu çözüm, **masaüstü için 3 sütun**, **mobil için 1 sütun** sağlayan modern ve responsive bir galeri düzenidir.
-İhtiyaca göre tek satırda her zaman 3 kart kalacak şekilde kolayca ayarlanabilir.
+## 3️⃣ Kategori ve Alt Kategori Listesi
+
+`src/constants.ts`
+
+```ts
+export const hauptKategorien = ["foto", "garten"] as const;
+
+export const unterKategorien: Record<string, string[]> = {
+  foto: ["natur", "herbst", "blumen"],
+  garten: ["herbst", "ernte", "gemuese"]
+};
+```
+
+---
+
+## 4️⃣ UploadForm.tsx
+
+```tsx
+import React from "react";
+import {
+  Box,
+  Button,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+  Typography
+} from "@mui/material";
+import { hauptKategorien, unterKategorien } from "./constants";
+import { FotoEintrag } from "./types";
+
+export const UploadForm: React.FC = () => {
+  const [category, setCategory] = React.useState<"foto" | "garten">("foto");
+  const [subCategory, setSubCategory] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [title, setTitle] = React.useState("");
+  const [description, setDescription] = React.useState("");
+
+  const handleSubmit = async () => {
+    if (!name || !title || !subCategory) return;
+
+    // Ana kategoriye göre src yolu
+    const src = `/${category}/${name}`;
+
+    const payload: FotoEintrag = {
+      src,
+      name,
+      title,
+      description,
+      category,
+      sub_category: subCategory
+    };
+
+    // Hangi koleksiyon?
+    const endpoint =
+      category === "garten"
+        ? "http://localhost:4000/gardenPhotos"
+        : "http://localhost:4000/fotografiePhotos";
+
+    await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    // Formu sıfırla
+    setName("");
+    setTitle("");
+    setDescription("");
+    setSubCategory("");
+    alert("Foto wurde gespeichert!");
+  };
+
+  return (
+    <Box sx={{ maxWidth: 400, mx: "auto", mt: 4 }}>
+      <Typography variant="h6" mb={2}>
+        Foto hochladen
+      </Typography>
+
+      <Stack spacing={2}>
+        {/* Ana Kategori */}
+        <Select
+          value={category}
+          onChange={(e) => setCategory(e.target.value as "foto" | "garten")}
+        >
+          {hauptKategorien.map((cat) => (
+            <MenuItem key={cat} value={cat}>
+              {cat}
+            </MenuItem>
+          ))}
+        </Select>
+
+        {/* Alt Kategori */}
+        <Select
+          value={subCategory}
+          onChange={(e) => setSubCategory(e.target.value)}
+          displayEmpty
+        >
+          <MenuItem value="" disabled>
+            Unterkategorie wählen
+          </MenuItem>
+          {unterKategorien[category].map((sub) => (
+            <MenuItem key={sub} value={sub}>
+              {sub}
+            </MenuItem>
+          ))}
+        </Select>
+
+        <TextField
+          label="Dateiname (name)"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          helperText="z.B. blaetter_herbst.jpg"
+        />
+
+        <TextField
+          label="Titel"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+
+        <TextField
+          label="Beschreibung"
+          multiline
+          rows={3}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+
+        <Button variant="contained" onClick={handleSubmit}>
+          Speichern
+        </Button>
+      </Stack>
+    </Box>
+  );
+};
+```
+
+---
+
+## 5️⃣ Kullanım
+
+App.tsx’te:
+
+```tsx
+import { UploadForm } from "./UploadForm";
+
+function App() {
+  return <UploadForm />;
+}
+
+export default App;
+```
+
+---
+
+## 🔑 Çalışma Akışı
+
+1. Siz resmi manuel olarak `/public/foto/` veya `/public/garten/` altına koyarsınız
+   (adı formda girdiğiniz `name` ile aynı olmalı).
+2. Formda:
+
+   * **Ana kategori**: `foto` veya `garten`
+   * **Alt kategori**: otomatik dropdown
+   * **name**: örn. `blaetter_herbst.jpg`
+   * **title** ve **description**
+3. Kaydet dediğinizde json-server’a şu şekilde kayıt gider:
+
+```json
+{
+  "src": "/garten/blaetter_herbst.jpg",
+  "name": "blaetter_herbst.jpg",
+  "title": "Sonbahar Yaprakları",
+  "description": "Ein Blick auf den Herbst in meinem Garten.",
+  "category": "garten",
+  "sub_category": "herbst"
+}
+```
+
+Bu kayıt `gardenPhotos` veya `fotografiePhotos` listesine eklenir
+ve GitHub Pages’e push öncesi `generatePhotos.ts` scriptinizle
+`src/redux/photos.ts` dosyasına dönüştürülüp deploy edilebilir.

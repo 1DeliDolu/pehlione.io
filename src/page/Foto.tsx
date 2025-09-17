@@ -11,15 +11,15 @@ export default function Foto({ category }: Props) {
   const cfg =
     category === 'gartenarbeit'
       ? {
-          title: 'Gartenarbeit',
-          intro: 'Bahçede çektiğim fotoğraflar ve kısa açıklamaları.',
-          photos: gardenPhotos,
-        }
+        title: 'Gartenarbeit',
+        intro: 'Fotos, die ich im Garten gemacht habe, und ihre kurzen Beschreibungen.',
+        photos: gardenPhotos,
+      }
       : {
-          title: 'Fotografie',
-          intro: 'Çektiğim fotoğraflardan seçkiler.',
-          photos: fotografiePhotos,
-        }
+        title: 'Fotografie',
+        intro: 'Eine Auswahl von Fotos, die ich gemacht habe.',
+        photos: fotografiePhotos,
+      }
 
   return (
     <PhotoGallery title={cfg.title} intro={cfg.intro} photos={cfg.photos} itemsPerPage={3} />

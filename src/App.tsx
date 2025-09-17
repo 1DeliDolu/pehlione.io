@@ -13,11 +13,13 @@ import DeveloperInfo from './components/Sections/DeveloperInfo'
 import Box from '@mui/material/Box'
 import AgentDoc from './components/Lebenslauf'
 import Button from '@mui/material/Button'
+import UploadForm from '@/components/UploadForm'
 
 function App() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [mainView, setMainView] = useState<'default' | 'agentDoc' | 'hobbies' | 'certificates' | 'projects' | 'repos' | 'developer' | 'foto'>('default')
   const [fotoCategory, setFotoCategory] = useState<'gartenarbeit' | 'fotografie' | null>(null)
+  const showUploadForm = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('upload')
   return (
     <div className="min-h-dvh bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50">
       <a id="home" />
@@ -40,7 +42,16 @@ function App() {
           mr: { xs: drawerOpen ? '240px' : '65px', sm: drawerOpen ? '240px' : '65px' },
         }}
       >
-        {mainView === 'agentDoc' ? (
+        {showUploadForm ? (
+          <section className="w-full px-4 sm:px-6 lg:px-10 py-12">
+            <UploadForm />
+            <div className="mt-6">
+              <Button variant="outlined" href={window.location.pathname}>
+                App anzeigen
+              </Button>
+            </div>
+          </section>
+        ) : mainView === 'agentDoc' ? (
           <section className="w-full px-4 sm:px-6 lg:px-10 py-12">
             <AgentDoc />
             <div className="mt-6">
