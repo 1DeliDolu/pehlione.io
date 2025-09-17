@@ -1,94 +1,131 @@
-import React from 'react'
-import { Box, Button, MenuItem, Select, Stack, TextField, Typography } from '@mui/material'
-import { hauptKategorien, unterKategorien } from '@/constants'
-import type { FotoEintrag } from '@/types'
+import React, { useState } from "react";
+import {
+  Box,
+  Button,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import axios from "axios";
+import { subCategories } from "../constants/constants";
 
-export default function UploadForm() {
-  const [category, setCategory] = React.useState<'foto' | 'garten'>('foto')
-  const [subCategory, setSubCategory] = React.useState('')
-  const [name, setName] = React.useState('')
-  const [title, setTitle] = React.useState('')
-  const [description, setDescription] = React.useState('')
-  const [busy, setBusy] = React.useState(false)
-  const [error, setError] = React.useState<string | null>(null)
+const UploadForm: React.FC = () => {
+  const [category, setCategory] = useState<"foto" | "garten">("foto");
+  const [subCategory, setSubCategory] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const [name, setName] = useState("");
+
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files?.[0];
+    if (!f) return;
+    setFile(f);
+    const baseName = f.name.replace(/\.[^/.]+$/, "");
+    setName(baseName);
+  };
 
   const handleSubmit = async () => {
-    setError(null)
-    if (!name || !title || !subCategory) {
-      setError('Lütfen name, title ve alt kategori giriniz.')
-      return
+    if (!file || !subCategory || !title) {
+      alert("Lütfen dosya, başlık ve alt kategori seçin");
+      return;
     }
-
-    const src = `/${category}/${name}`
-    const payload: FotoEintrag = {
-      src,
-      name,
-      title,
-      description,
-      category,
-      sub_category: subCategory,
-    }
-
-    const endpoint =
-      category === 'garten'
-        ? 'http://localhost:4000/gardenPhotos'
-        : 'http://localhost:4000/fotografiePhotos'
 
     try {
-      setBusy(true)
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
-      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      // 1. Dosyayı backend'e yükle
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("category", category);
+      formData.append("name", name);
 
-      setName('')
-      setTitle('')
-      setDescription('')
-      setSubCategory('')
-      alert('Foto wurde gespeichert!')
-    } catch (e) {
-      const msg = e instanceof Error ? e.message : String(e)
-      setError(`Kaydedilemedi: ${msg}. json-server açık mı?`)
-    } finally {
-      setBusy(false)
+      await axios.post("http://localhost:3001/upload", formData, {
+        timeout: 10000,
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      // 2. JSON kaydını ekle
+      const newPhoto = {
+        src: `/${category}/${file.name}`,
+        name,
+        title,
+        description,
+        category,
+        sub_category: subCategory,
+      };
+
+      const endpoint =
+        category === "foto"
+          ? "http://localhost:4000/fotografiePhotos"
+          : "http://localhost:4000/gardenPhotos";
+
+      await axios.post(endpoint, newPhoto, { timeout: 10000 });
+
+      alert("✅ Fotoğraf kaydedildi!");
+      setFile(null);
+      setName("");
+      setTitle("");
+      setDescription("");
+      setSubCategory("");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error("Axios Hatası:", error.message);
+        alert(`Bir hata oluştu: ${error.message}`);
+      } else {
+        console.error("Bilinmeyen Hata:", error);
+        alert("Bilinmeyen bir hata oluştu. Lütfen tekrar deneyin.");
+      }
     }
-  }
+  };
 
   return (
-    <Box sx={{ maxWidth: 480, mx: 'auto', mt: 4 }}>
+    <Box sx={{ maxWidth: 400, mx: "auto", mt: 4 }}>
       <Typography variant="h6" mb={2}>
-        Foto hochladen
+        Neues Foto hinzufügen
       </Typography>
+
       <Stack spacing={2}>
-        <Select value={category} onChange={(e) => setCategory(e.target.value as 'foto' | 'garten')}>
-          {hauptKategorien.map((cat) => (
-            <MenuItem key={cat} value={cat}>
-              {cat}
-            </MenuItem>
-          ))}
+        <Select
+          value={category}
+          onChange={(e) => setCategory(e.target.value as "foto" | "garten")}
+        >
+          <MenuItem value="foto">foto</MenuItem>
+          <MenuItem value="garten">garten</MenuItem>
         </Select>
 
-        <Select value={subCategory} onChange={(e) => setSubCategory(e.target.value)} displayEmpty>
+        <Select
+          value={subCategory}
+          onChange={(e) => setSubCategory(e.target.value)}
+          displayEmpty
+        >
           <MenuItem value="" disabled>
             Unterkategorie wählen
           </MenuItem>
-          {unterKategorien[category].map((sub) => (
-            <MenuItem key={sub} value={sub}>
-              {sub}
+          {subCategories[category].map((s) => (
+            <MenuItem key={s} value={s}>
+              {s}
             </MenuItem>
           ))}
         </Select>
 
         <TextField
-          label="Dateiname (name)"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          helperText="z.B. blaetter_herbst.jpg"
+          type="file"
+          inputProps={{ accept: "image/*" }}
+          onChange={handleFile}
         />
 
-        <TextField label="Titel" value={title} onChange={(e) => setTitle(e.target.value)} />
+        <TextField
+          label="Dosya Adı"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+
+        <TextField
+          label="Titel"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
 
         <TextField
           label="Beschreibung"
@@ -98,17 +135,12 @@ export default function UploadForm() {
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        <Button variant="contained" onClick={handleSubmit} disabled={busy}>
-          {busy ? 'Speichert...' : 'Speichern'}
+        <Button variant="contained" onClick={handleSubmit}>
+          Speichern
         </Button>
-
-        {error && (
-          <Typography variant="body2" color="error">
-            {error}
-          </Typography>
-        )}
       </Stack>
     </Box>
-  )
-}
+  );
+};
 
+export default UploadForm;

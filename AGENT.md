@@ -1,220 +1,111 @@
-Aşağıdaki örnek, **TypeScript + React + Material-UI** kullanarak fotoğraf yükleme formunu adım adım gösterir.
-Form; **ana kategori (foto / garten)** ve **alt kategori** seçimi içerir,
-girdiğiniz **name, title, description** bilgileriyle birlikte `db.json` dosyasına POST isteği gönderir.
+`json-server` yalnızca **JSON verisini** saklar; dosyaları kendiliğinden bu klasörlere **kopyalamaz veya taşımayı bilmez**.
+Ama siz, hem `src` yolu doğru oluşsun hem de gerçek dosya gerçekten şu klasörlere yerleşsin istiyorsunuz:
 
-> **Not:** Bu form **dosyayı fiziksel klasöre kopyalamaz**.
-> json-server yalnızca JSON kaydeder, resmin gerçek dosyasını `/public/foto` veya `/public/garten` altına **siz elle koyarsınız**.
-> Form sadece `src` alanını, seçtiğiniz ana kategoriye göre otomatik oluşturur.
-
----
-
-## 1️⃣ db.json Yapısı (örnek)
-
-```json
-{
-  "gardenPhotos": [],
-  "fotografiePhotos": []
-}
+```
+D:\ISTQB\pehlione.io\public\foto
+D:\ISTQB\pehlione.io\public\garten
 ```
 
+Bunu başarmanın iki parçası vardır:
+
 ---
 
-## 2️⃣ TypeScript Tipleri
+## 1️⃣ `src` Yolunu Doğru Oluşturma
 
-`src/types.ts`
+Önceki form kodunda zaten şu satır var:
 
 ```ts
-export interface FotoEintrag {
-  src: string;
-  name: string;
-  title: string;
-  description: string;
-  category: "foto" | "garten";
-  sub_category: string;
-}
+const srcPath = `/${category}/${safeName}.${fileExt}`;
 ```
+
+Bu, GitHub Pages’de çalışacak şekilde doğru **URL yolu** üretir.
+Yani `category = "foto"` ve `safeName = "guzel_gun"` ise
+`src` = `/foto/guzel_gun.png` olur.
+Bu kısmı değiştirmeye gerek yok.
 
 ---
 
-## 3️⃣ Kategori ve Alt Kategori Listesi
+## 2️⃣ Gerçek Dosyayı Kopyalama
 
-`src/constants.ts`
+Tarayıcı üzerinden çalışan React/MUI uygulaması **Windows diskinize dosya yazamaz**.
+Kopyalama işi için küçük bir **Node.js backend** ya da elle kopyalama gerekir.
+
+### A. Manuel (en basit, deploy için önerilen)
+
+1. Kullanıcı formda resmi seçip kayıt oluşturur (JSON eklenir).
+2. Siz bu resmi **elle** şu klasöre kopyalarsınız:
+
+   * `public/foto/`   (category = "foto")
+   * `public/garten/` (category = "garten")
+3. Git commit/push yaparsınız → GitHub Pages’de hem dosya hem JSON güncellenmiş olur.
+
+### B. Otomatik (lokalde geliştirme için)
+
+Bir küçük Express sunucusu ekleyerek `multipart/form-data` kabul edip
+dosyayı doğru klasöre yazdırabilirsiniz:
+
+```bash
+npm install express multer
+```
+
+`server.js`:
+
+```js
+import express from "express";
+import multer from "multer";
+import path from "path";
+
+const app = express();
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    // formdan category geliyor: 'foto' veya 'garten'
+    const cat = req.body.category;
+    const dest = cat === "garten"
+      ? "public/garten"
+      : "public/foto";
+    cb(null, dest);
+  },
+  filename: (req, file, cb) => {
+    // formdan name geliyor
+    const ext = path.extname(file.originalname);
+    cb(null, `${req.body.name}${ext}`);
+  }
+});
+
+const upload = multer({ storage });
+
+app.post("/upload", upload.single("image"), (req, res) => {
+  res.json({ ok: true });
+});
+
+app.listen(5000, () => console.log("Upload server läuft auf Port 5000"));
+```
+
+Front-end tarafında:
 
 ```ts
-export const hauptKategorien = ["foto", "garten"] as const;
+const formData = new FormData();
+formData.append("image", file);
+formData.append("category", category);
+formData.append("name", name);
 
-export const unterKategorien: Record<string, string[]> = {
-  foto: ["natur", "herbst", "blumen"],
-  garten: ["herbst", "ernte", "gemuese"]
-};
+await fetch("http://localhost:5000/upload", {
+  method: "POST",
+  body: formData
+});
 ```
+
+Bu şekilde dosya seçilen kategoriye göre
+`D:\ISTQB\pehlione.io\public\foto` veya `...public\garten` altına **otomatik kopyalanır**.
 
 ---
 
-## 4️⃣ UploadForm.tsx
+### 🔑 Özet
 
-```tsx
-import React from "react";
-import {
-  Box,
-  Button,
-  MenuItem,
-  Select,
-  Stack,
-  TextField,
-  Typography
-} from "@mui/material";
-import { hauptKategorien, unterKategorien } from "./constants";
-import { FotoEintrag } from "./types";
+* **Sadece React/json-server:** JSON kaydı olur, resmi siz manuel kopyalarsınız.
+* **Otomatik kopyalama istenirse:** Küçük bir Node/Express + `multer` upload endpoint kurmanız gerekir.
+  Tarayıcı kodu tek başına Windows dosya sistemine yazamaz.
 
-export const UploadForm: React.FC = () => {
-  const [category, setCategory] = React.useState<"foto" | "garten">("foto");
-  const [subCategory, setSubCategory] = React.useState("");
-  const [name, setName] = React.useState("");
-  const [title, setTitle] = React.useState("");
-  const [description, setDescription] = React.useState("");
-
-  const handleSubmit = async () => {
-    if (!name || !title || !subCategory) return;
-
-    // Ana kategoriye göre src yolu
-    const src = `/${category}/${name}`;
-
-    const payload: FotoEintrag = {
-      src,
-      name,
-      title,
-      description,
-      category,
-      sub_category: subCategory
-    };
-
-    // Hangi koleksiyon?
-    const endpoint =
-      category === "garten"
-        ? "http://localhost:4000/gardenPhotos"
-        : "http://localhost:4000/fotografiePhotos";
-
-    await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
-    // Formu sıfırla
-    setName("");
-    setTitle("");
-    setDescription("");
-    setSubCategory("");
-    alert("Foto wurde gespeichert!");
-  };
-
-  return (
-    <Box sx={{ maxWidth: 400, mx: "auto", mt: 4 }}>
-      <Typography variant="h6" mb={2}>
-        Foto hochladen
-      </Typography>
-
-      <Stack spacing={2}>
-        {/* Ana Kategori */}
-        <Select
-          value={category}
-          onChange={(e) => setCategory(e.target.value as "foto" | "garten")}
-        >
-          {hauptKategorien.map((cat) => (
-            <MenuItem key={cat} value={cat}>
-              {cat}
-            </MenuItem>
-          ))}
-        </Select>
-
-        {/* Alt Kategori */}
-        <Select
-          value={subCategory}
-          onChange={(e) => setSubCategory(e.target.value)}
-          displayEmpty
-        >
-          <MenuItem value="" disabled>
-            Unterkategorie wählen
-          </MenuItem>
-          {unterKategorien[category].map((sub) => (
-            <MenuItem key={sub} value={sub}>
-              {sub}
-            </MenuItem>
-          ))}
-        </Select>
-
-        <TextField
-          label="Dateiname (name)"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          helperText="z.B. blaetter_herbst.jpg"
-        />
-
-        <TextField
-          label="Titel"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-
-        <TextField
-          label="Beschreibung"
-          multiline
-          rows={3}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-
-        <Button variant="contained" onClick={handleSubmit}>
-          Speichern
-        </Button>
-      </Stack>
-    </Box>
-  );
-};
-```
-
----
-
-## 5️⃣ Kullanım
-
-App.tsx’te:
-
-```tsx
-import { UploadForm } from "./UploadForm";
-
-function App() {
-  return <UploadForm />;
-}
-
-export default App;
-```
-
----
-
-## 🔑 Çalışma Akışı
-
-1. Siz resmi manuel olarak `/public/foto/` veya `/public/garten/` altına koyarsınız
-   (adı formda girdiğiniz `name` ile aynı olmalı).
-2. Formda:
-
-   * **Ana kategori**: `foto` veya `garten`
-   * **Alt kategori**: otomatik dropdown
-   * **name**: örn. `blaetter_herbst.jpg`
-   * **title** ve **description**
-3. Kaydet dediğinizde json-server’a şu şekilde kayıt gider:
-
-```json
-{
-  "src": "/garten/blaetter_herbst.jpg",
-  "name": "blaetter_herbst.jpg",
-  "title": "Sonbahar Yaprakları",
-  "description": "Ein Blick auf den Herbst in meinem Garten.",
-  "category": "garten",
-  "sub_category": "herbst"
-}
-```
-
-Bu kayıt `gardenPhotos` veya `fotografiePhotos` listesine eklenir
-ve GitHub Pages’e push öncesi `generatePhotos.ts` scriptinizle
-`src/redux/photos.ts` dosyasına dönüştürülüp deploy edilebilir.
+GitHub Pages’de yayınlamak istiyorsanız yine de dosyaları repo’ya ekleyip
+commit/push yapmanız gerekecek; Node sunucusu sadece **lokalde** çalışır.

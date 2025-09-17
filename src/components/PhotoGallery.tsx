@@ -5,12 +5,12 @@ import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Pagination from '@mui/material/Pagination'
-import type { Photo } from '@/redux/photos'
+import type { FotoEintrag } from '../types'
 
 type Props = {
   title: string
   intro?: string
-  photos: Photo[]
+  photos: FotoEintrag[]
   itemsPerPage?: number
 }
 

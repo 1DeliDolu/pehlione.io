@@ -32,6 +32,7 @@ function App() {
           setDrawerOpen(false)
         }}
       />
+      <UploadForm />
       <Box
         component="main"
         sx={{

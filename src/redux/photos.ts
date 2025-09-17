@@ -1,41 +1,114 @@
-export type Photo = {
-  src: string;
-  title: string;
-  description?: string;
-  category: string;
-};
+import type { FotoEintrag } from "../types";
 
-export const gardenPhotos: Photo[] = [
+export const gardenPhotos: FotoEintrag[] = [
   {
-    "src": "/blätter_herbst.jpg",
-    "title": "Sonbahar Yaprakları",
-    "description": "Ein Blick auf den Herbst in meinem Garten.",
-    "category": "garten"
-  },
-  {
-    "src": "/ernte.JPG",
-    "title": "Hasat",
-    "description": "Frische Produkte, die ich aus meinem Garten geerntet habe.",
-    "category": "garten"
-  }
-];
-export const fotografiePhotos: Photo[] = [
-  {
+    "id": "1",
     "src": "/foto/apfelblumen.png",
+    "name": "apfelblumen",
     "title": "Günün Fotoğrafı",
     "description": "Eine Aufnahme aus der Natur.",
-    "category": "foto"
+    "category": "foto",
+    "sub_category": "natur"
   },
   {
+    "id": "2",
     "src": "/foto/herbst.png",
+    "name": "herbst",
     "title": "Herbstfarben",
     "description": "Die Farben des Herbstes.",
-    "category": "foto"
+    "category": "foto",
+    "sub_category": "herbst"
   },
   {
+    "id": "3",
     "src": "/foto/licht.png",
+    "name": "licht",
     "title": "Sonnenblumen",
     "description": "Blumen, die der Sonne folgen.",
-    "category": "foto"
+    "category": "foto",
+    "sub_category": "blumen"
+  },
+  {
+    "id": "4",
+    "src": "/foto/tulpe.png",
+    "name": "wald",
+    "title": "Waldweg",
+    "description": "Ein ruhiger Pfad durch den Wald.",
+    "category": "foto",
+    "sub_category": "wald"
+  },
+  {
+    "id": "5",
+    "src": "/garten/wolke.png",
+    "name": "tulpe",
+    "title": "Tulpenfeld",
+    "description": "Ein Feld voller bunter Tulpen.",
+    "category": "foto",
+    "sub_category": "blumen"
+  },
+  {
+    "id": "6",
+    "src": "/garten/raps.png",
+    "name": "wolke",
+    "title": "Wolkenformation",
+    "description": "Interessante Wolkenformationen am Himmel.",
+    "category": "foto",
+    "sub_category": "natur"
+  }
+];
+export const fotografiePhotos: FotoEintrag[] = [
+  {
+    "id": "1",
+    "src": "/foto/apfelblumen.png",
+    "name": "apfelblumen",
+    "title": "Günün Fotoğrafı",
+    "description": "Eine Aufnahme aus der Natur.",
+    "category": "foto",
+    "sub_category": "natur"
+  },
+  {
+    "id": "2",
+    "src": "/foto/herbst.png",
+    "name": "herbst",
+    "title": "Herbstfarben",
+    "description": "Die Farben des Herbstes.",
+    "category": "foto",
+    "sub_category": "herbst"
+  },
+  {
+    "id": "3",
+    "src": "/foto/licht.png",
+    "name": "licht",
+    "title": "Sonnenblumen",
+    "description": "Blumen, die der Sonne folgen.",
+    "category": "foto",
+    "sub_category": "blumen"
+  },
+  {
+    "id": "4",
+    "src": "/foto/tulpe.png",
+    "name": "wald",
+    "title": "Waldweg",
+    "description": "Ein ruhiger Pfad durch den Wald.",
+    "category": "foto",
+    "sub_category": "wald"
+  },
+  {
+    "id": "5",
+    "src": "/foto/wolke.png",
+    "name": "tulpe",
+    "title": "Tulpenfeld",
+    "description": "Ein Feld voller bunter Tulpen.",
+    "category": "foto",
+    "sub_category": "blumen"
+  },
+  {
+    "id": "6",
+    "src": "/foto/raps.png",
+    "name": "wolke",
+    "title": "Wolkenformation",
+    "description": "Interessante Wolkenformationen am Himmel.",
+    "category": "foto",
+    "sub_category": "natur"
   }
 ];

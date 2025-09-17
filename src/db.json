@@ -1,0 +1,51 @@
+{
+  "gardenPhotos": [
+    {
+      "id": "1",
+      "src": "/garten/blätter_herbst.jpg",
+      "name": "blätter_herbst",
+      "title": "Sonbahar Yaprakları",
+      "description": "Ein Blick auf den Herbst in meinem Garten.",
+      "category": "garten",
+      "sub_category": "herbst"
+    },
+    {
+      "id": "2",
+      "src": "/garten/ernte.JPG",
+      "name": "ernte",
+      "title": "Hasat",
+      "description": "Frische Produkte, die ich aus meinem Garten geerntet habe.",
+      "category": "garten",
+      "sub_category": "ernte"
+    }
+  ],
+  "fotografiePhotos": [
+    {
+      "id": "1",
+      "src": "/foto/apfelblumen.png",
+      "name": "apfelblumen",
+      "title": "Günün Fotoğrafı",
+      "description": "Eine Aufnahme aus der Natur.",
+      "category": "foto",
+      "sub_category": "natur"
+    },
+    {
+      "id": "2",
+      "src": "/foto/herbst.png",
+      "name": "herbst",
+      "title": "Herbstfarben",
+      "description": "Die Farben des Herbstes.",
+      "category": "foto",
+      "sub_category": "herbst"
+    },
+    {
+      "id": "3",
+      "src": "/foto/licht.png",
+      "name": "licht",
+      "title": "Sonnenblumen",
+      "description": "Blumen, die der Sonne folgen.",
+      "category": "foto",
+      "sub_category": "blumen"
+    }
+  ]
+}
