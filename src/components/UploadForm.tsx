@@ -18,6 +18,7 @@ const UploadForm: React.FC = () => {
   const [description, setDescription] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
@@ -34,20 +35,32 @@ const UploadForm: React.FC = () => {
     }
 
     try {
-      // 1. Dosyayı backend'e yükle
-      const formData = new FormData();
-      formData.append("image", file);
-      formData.append("category", category);
-      formData.append("name", name);
+      setLoading(true);
+      const uploadPath = "http://localhost:3001/upload";
 
-      await axios.post("http://localhost:3001/upload", formData, {
-        timeout: 10000,
+      const formData = new FormData();
+      // Multer diskStorage filename/destination needs fields BEFORE file
+      formData.append("name", name);
+      formData.append("category", category);
+      formData.append("sub_category", subCategory);
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("image", file);
+
+      const { data } = await axios.post(uploadPath, formData, {
+        timeout: 30000,
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      // 2. JSON kaydını ekle
+      const savedFileName: string = data?.file?.filename ?? (() => {
+        const m = file.name.match(/\.[^.]+$/);
+        const ext = m ? m[0] : "";
+        return `${name}${ext}`;
+      })();
+
+      const srcFromServer: string | undefined = data?.src;
       const newPhoto = {
-        src: `/${category}/${file.name}`,
+        src: srcFromServer ?? `/${category}/${savedFileName}`,
         name,
         title,
         description,
@@ -62,7 +75,14 @@ const UploadForm: React.FC = () => {
 
       await axios.post(endpoint, newPhoto, { timeout: 10000 });
 
-      alert("✅ Fotoğraf kaydedildi!");
+      // Notify listeners to refresh photo lists
+      try {
+        window.dispatchEvent(
+          new CustomEvent('photos:updated', { detail: { category, subCategory } })
+        )
+      } catch {}
+
+      alert("✓ Fotoğraf kaydedildi!");
       setFile(null);
       setName("");
       setTitle("");
@@ -76,6 +96,8 @@ const UploadForm: React.FC = () => {
         console.error("Bilinmeyen Hata:", error);
         alert("Bilinmeyen bir hata oluştu. Lütfen tekrar deneyin.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -135,7 +157,7 @@ const UploadForm: React.FC = () => {
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        <Button variant="contained" onClick={handleSubmit}>
+        <Button variant="contained" onClick={handleSubmit} disabled={loading || !file}>
           Speichern
         </Button>
       </Stack>
@@ -143,4 +165,4 @@ const UploadForm: React.FC = () => {
   );
 };
 
-export default UploadForm;
+export { UploadForm };

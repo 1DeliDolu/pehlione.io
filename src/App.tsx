@@ -13,7 +13,7 @@ import DeveloperInfo from './components/Sections/DeveloperInfo'
 import Box from '@mui/material/Box'
 import AgentDoc from './components/Lebenslauf'
 import Button from '@mui/material/Button'
-import UploadForm from '@/components/UploadForm'
+import { UploadForm } from '@/components/UploadForm'
 
 function App() {
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -32,7 +32,6 @@ function App() {
           setDrawerOpen(false)
         }}
       />
-      <UploadForm />
       <Box
         component="main"
         sx={{

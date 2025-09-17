@@ -1,49 +1,31 @@
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+﻿Amac
+- UploadForm'dan secilen gorseller su klasorlere kaydedilir:
+  - D:\portfolio\public\foto
+  - D:\portfolio\public\garten
+- `name` alani dosya adina yansir (ornegin `demo` -> `demo.png`).
 
-export default function ImgMediaCard() {
-  return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        alt="green iguana"
-        height="140"
-        image="/static/images/cards/contemplative-reptile.jpg"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Lizard
-        </Typography>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card>
-  );
-}
+Sunucu (server/server.js)
+- Endpoint: `POST http://localhost:3001/upload`
+- Form alanlari: `name`, `category` (foto|garten), `sub_category`, `title`, `description`, ve en sonda `image` (dosya)
+- Onemli: `name` ve `category` alanlarini dosyadan once gonderin. (Multer filename icin `req.body` gerekir.)
+- Dosyalar `public/<category>` altina kaydedilir ve var olan isimle carpisma olursa `-1`, `-2` eklenir.
+- Yalnizca resim MIME turleri kabul edilir (20MB limit).
+- Donus: `{ ok, file, src, category, nameNormalized }` (`src` ornek: `/foto/cx.png`)
 
-#Pagination 
+Istemci (src/components/UploadForm.tsx)
+- FormData sirasini duzgun gonderir: once `name`, `category`, diger alanlar; en sonda `image`.
+- Sunucudan donen `data.src` varsa onu kullanir; yoksa `/${category}/${filename}` uretir.
+- Yukleme sirasinda buton devre disi olur.
 
-import * as React from 'react';
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
+Foto Sayfasi (src/page/Foto.tsx)
+- Fotograflari `json-server` uzerinden ceker: `http://localhost:4000/fotografiePhotos` ve `http://localhost:4000/gardenPhotos`.
+- Hata olursa statik veriye duser (`src/redux/photos.ts`).
 
-export default function PaginationRanges() {
-  return (
-    <Stack spacing={2}>
-      
-      <Pagination count={11} defaultPage={6} siblingCount={0} boundaryCount={2} />
-    
-    </Stack>
-  );
-}
+Calistirma
+- Upload sunucusu: `cd server && node server.js`  -> http://localhost:3001
+- JSON Server: `cd server && json-server --watch db.json --port 4000`
+- Vite: `npm run dev` -> http://localhost:5173
+
+Notlar
+- `name = cx` girerseniz dosya `cx.png` (veya `cx-1.png`) olarak kaydedilir; timestamp'e dusmez.
+- Gerekirse dosya turu ve boyut limitleri CODE.md'ye gore guncellenebilir.
