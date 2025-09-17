@@ -9,14 +9,14 @@ const projects: Project[] = [
   {
     name: 'Portfolio-Website',
     description: 'Persönliche Website mit React + TypeScript + Vite.',
-    demoUrl: '#',
-    repoUrl: '#',
+    demoUrl: 'https://pehlione.com/',
+    repoUrl: 'https://github.com/1DeliDolu/pehlione.io/',
   },
   {
     name: 'Task Tracker',
     description: 'Einfache To-do-App mit Persistenz über localStorage.',
-    demoUrl: '#',
-    repoUrl: '#',
+    demoUrl: 'https://pehlione.com/',
+    repoUrl: 'https://github.com/1DeliDolu/pehlione.io',
   },
 ]
 

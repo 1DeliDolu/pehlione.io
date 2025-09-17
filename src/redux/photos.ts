@@ -8,22 +8,22 @@ export const gardenPhotos: Photo[] = [
   {
     src: "/blätter_herbst.jpg",
     title: "Sonbahar Yaprakları",
-    description: "Bahçemde sonbahardan bir görüntü.",
+    description: "Ein Blick auf den Herbst in meinem Garten.",
   },
   {
     src: "/ernte.JPG",
     title: "Hasat",
-    description: "Bahçeden topladığım taze ürünler.",
+    description: "Frische Produkte, die ich aus meinem Garten geerntet habe.",
   },
   {
     src: "/foto.JPG",
     title: "Bahçeden Bir Kare",
-    description: "Gün batımında çekilmiş bir fotoğraf.",
+    description: "Ein Foto, das bei Sonnenuntergang aufgenommen wurde.",
   },
   {
     src: "/sonnen_blumen.jpeg",
     title: "Ayçiçekleri",
-    description: "Güneşe dönen ayçiçekleri.",
+    description: "Sonnenblumen, die sich der Sonne zuwenden.",
   },
 ];
 
@@ -31,31 +31,31 @@ export const fotografiePhotos: Photo[] = [
   {
     src: "/foto/apfelblumen.png",
     title: "Günün Fotoğrafı",
-    description: "Doğadan bir kare.",
+    description: "Eine Aufnahme aus der Natur.",
   },
   {
     src: "/foto/herbst.png",
     title: "Herbstfarben",
-    description: "Sonbaharın renkleri.",
+    description: "Die Farben des Herbstes.",
   },
   {
     src: "/foto/licht.png",
     title: "Sonnenblumen",
-    description: "Güneşi takip eden çiçekler.",
+    description: "Blumen, die der Sonne folgen.",
   },
   {
     src: "/foto/raps.png",
     title: "Regentropfen",
-    description: "Yağmur damlalarının yakın çekimi.",
+    description: "Eine Nahaufnahme von Regentropfen.",
   },
   {
     src: "/foto/wolke.png",
     title: "Waldweg",
-    description: "Ormanda yürüyüş yolu.",
+    description: "Ein Wanderweg im Wald.",
   },
   {
     src: "/foto/tulpe.png",
     title: "Waldweg",
-    description: "Ormanda yürüyüş yolu.",
+    description: "Ein Wanderweg im Wald.",
   },
 ];

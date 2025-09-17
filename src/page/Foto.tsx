@@ -22,7 +22,7 @@ export default function Foto({ category }: Props) {
         }
 
   return (
-    <PhotoGallery title={cfg.title} intro={cfg.intro} photos={cfg.photos} itemsPerPage={9} />
+    <PhotoGallery title={cfg.title} intro={cfg.intro} photos={cfg.photos} itemsPerPage={3} />
   )
 }
 

@@ -14,7 +14,7 @@ type Props = {
   itemsPerPage?: number
 }
 
-export default function PhotoGallery({ title, intro, photos, itemsPerPage = 9 }: Props) {
+export default function PhotoGallery({ title, intro, photos, itemsPerPage = 3 }: Props) {
   const [page, setPage] = useState(1)
   const pageCount = Math.max(1, Math.ceil(photos.length / itemsPerPage))
   const current = useMemo(() => {
@@ -69,4 +69,3 @@ export default function PhotoGallery({ title, intro, photos, itemsPerPage = 9 }:
     </Box>
   )
 }
-
