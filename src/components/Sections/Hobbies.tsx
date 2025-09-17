@@ -1,22 +1,30 @@
 const hobbies = [
   { title: 'Gartenarbeit', detail: 'Pflanzenpflege und Landschaftsgestaltung.' },
   { title: 'Fotografie', detail: 'Ich fotografiere Natur- und Stadtmotive.' },
-  { title: 'Musik', detail: 'Ich spiele Gitarre und interessiere mich für Musikproduktion.' },
+  { title: 'Musik', detail: 'Ich höre gerne Musik und interessiere mich für verschiedene Genres.' },
 ]
 
 type Props = {
   onOpenDrawer?: () => void
   variant?: 'summary' | 'detail'
+  onOpenPage?: (page: 'gartenarbeit' | 'fotografie') => void
 }
 
-function Hobbies({ onOpenDrawer, variant = 'summary' }: Props) {
+function Hobbies({ onOpenDrawer, onOpenPage, variant = 'summary' }: Props) {
   if (variant === 'detail') {
     return (
       <section id="hobbies" className="scroll-mt-24 w-full px-4 sm:px-6 lg:px-10 py-12">
         <h2 className="text-3xl font-bold mb-6">Hobbys</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
           {hobbies.map((h) => (
-            <article key={h.title} className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4">
+            <article
+              key={h.title}
+              className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4"
+              onClick={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie') ? () => onOpenPage(h.title === 'Gartenarbeit' ? 'gartenarbeit' : 'fotografie') : undefined}
+              role={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie') ? 'button' : undefined}
+              tabIndex={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie') ? 0 : undefined}
+              style={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie') ? { cursor: 'pointer' } : undefined}
+            >
               <h3 className="font-semibold text-lg">{h.title}</h3>
               <p className="text-sm text-neutral-700 dark:text-neutral-300">{h.detail}</p>
             </article>
@@ -32,7 +40,7 @@ function Hobbies({ onOpenDrawer, variant = 'summary' }: Props) {
         <h3 className="text-xl font-semibold mb-2">Kreativ</h3>
         <ul className="list-disc pl-6 mb-6 text-neutral-800 dark:text-neutral-200">
           <li>Fotografie: Komposition, Bearbeitung, Lichtführung</li>
-          <li>Musik: Gitarre, grundlegende Aufnahme und Mix</li>
+          <li>Musik: Ich höre gerne Musik und interessiere mich für verschiedene Genres.</li>
         </ul>
 
         <h3 className="text-xl font-semibold mb-2">Links</h3>
@@ -47,13 +55,13 @@ function Hobbies({ onOpenDrawer, variant = 'summary' }: Props) {
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           <figure className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-3 flex items-center justify-center bg-white dark:bg-neutral-900">
-            <img src="/vite.svg" alt="Galerie 1" className="h-16" />
+            <img src="/public/sonnen_blumen.jpeg" alt="Galerie 1" className="h-16" />
           </figure>
           <figure className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-3 flex items-center justify-center bg-white dark:bg-neutral-900">
             <img src="/foto.JPG" alt="Galerie 2" className="h-16 object-cover" />
           </figure>
           <figure className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-3 flex items-center justify-center bg-white dark:bg-neutral-900">
-            <img src="/vite.svg" alt="Galerie 3" className="h-16" />
+            <img src="/public/ernte.jpg" alt="Galerie 3" className="h-16" />
           </figure>
         </div>
       </section>
@@ -66,7 +74,14 @@ function Hobbies({ onOpenDrawer, variant = 'summary' }: Props) {
       <h2 className="text-2xl font-semibold mb-4">Hobbys</h2>
       <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {hobbies.map((h) => (
-          <li key={h.title} className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4">
+          <li
+            key={h.title}
+            className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4"
+            onClick={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie') ? () => onOpenPage(h.title === 'Gartenarbeit' ? 'gartenarbeit' : 'fotografie') : undefined}
+            role={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie') ? 'button' : undefined}
+            tabIndex={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie') ? 0 : undefined}
+            style={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie') ? { cursor: 'pointer' } : undefined}
+          >
             <h3 className="font-medium">{h.title}</h3>
             <p className="text-sm text-neutral-700 dark:text-neutral-300">{h.detail}</p>
           </li>

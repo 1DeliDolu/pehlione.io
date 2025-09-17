@@ -5,6 +5,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import CV from './components/Sections/CV'
 import Hobbies from './components/Sections/Hobbies'
+import Foto from './page/Foto'
 import Certificates from './components/Sections/Certificates'
 import Projects from './components/Sections/Projects'
 import Repos from './components/Sections/Repos'
@@ -15,7 +16,8 @@ import Button from '@mui/material/Button'
 
 function App() {
   const [drawerOpen, setDrawerOpen] = useState(false)
-  const [mainView, setMainView] = useState<'default' | 'agentDoc' | 'hobbies' | 'certificates' | 'projects' | 'repos' | 'developer'>('default')
+  const [mainView, setMainView] = useState<'default' | 'agentDoc' | 'hobbies' | 'certificates' | 'projects' | 'repos' | 'developer' | 'foto'>('default')
+  const [fotoCategory, setFotoCategory] = useState<'gartenarbeit' | 'fotografie' | null>(null)
   return (
     <div className="min-h-dvh bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50">
       <a id="home" />
@@ -48,7 +50,20 @@ function App() {
         ) : mainView === 'hobbies' ? (
           <section className="w-full px-4 sm:px-6 lg:px-10 py-12">
             <h1 className="text-3xl font-bold mb-4">Hobbys • Details</h1>
-            <Hobbies variant="detail" />
+            <Hobbies
+              variant="detail"
+              onOpenPage={(page) => {
+                setFotoCategory(page)
+                setMainView('foto')
+              }}
+            />
+            <div className="mt-6">
+              <Button variant="outlined" onClick={() => setMainView('default')}>Zur Übersicht</Button>
+            </div>
+          </section>
+        ) : mainView === 'foto' ? (
+          <section className="w-full px-4 sm:px-6 lg:px-10 py-12">
+            <Foto category={(fotoCategory ?? 'gartenarbeit')} />
             <div className="mt-6">
               <Button variant="outlined" onClick={() => setMainView('default')}>Zur Übersicht</Button>
             </div>
@@ -94,7 +109,13 @@ function App() {
               </p>
             </section>
             <CV onOpenDrawer={() => setDrawerOpen(true)} />
-            <Hobbies onOpenDrawer={() => setDrawerOpen(true)} />
+            <Hobbies
+              onOpenDrawer={() => setDrawerOpen(true)}
+              onOpenPage={(page) => {
+                setFotoCategory(page)
+                setMainView('foto')
+              }}
+            />
             <Certificates onOpenDrawer={() => setDrawerOpen(true)} />
             <Projects onOpenDrawer={() => setDrawerOpen(true)} />
             <Repos username="1DeliDolu" perPage={6} onOpenDrawer={() => setDrawerOpen(true)} />
