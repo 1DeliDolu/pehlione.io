@@ -116,11 +116,14 @@ function App() {
         ) : (
           <>
             <section className="w-full px-4 sm:px-6 lg:px-10 py-12">
-              <h1 className="text-3xl font-bold mb-2">Mustafa's Portfolio in Development</h1>
+              <h1 className="text-3xl font-bold mb-2">Mustafa's Portfolio</h1>
 
               <p className="text-neutral-700 dark:text-neutral-300">
-                This website serves as Mustafa's portfolio and personal site. It is currently under development and will be launched soon. Here you can find information about my skills, projects, and hobbies.
+                Diese Website dient als Portfolio und persönliche Seite von Mustafa.
+                Die Grundversion ist fertiggestellt, weitere Funktionen und Inhalte werden nach und nach ergänzt.
+                Hier finden Sie Informationen über meine Fähigkeiten, Projekte und Hobbys.
               </p>
+
 
             </section>
             <CV onOpenDrawer={() => setDrawerOpen(true)} />

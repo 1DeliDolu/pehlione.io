@@ -1,0 +1,66 @@
+name: Dependencies Update (NPM)
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 1 * *' # monthly, 1st day at 00:00 UTC
+
+# To use the default github token with the following elevated permissions make sure to check:
+# **Allow GitHub Actions to create and approve pull requests** in https://github.com/ORG_NAME/REPO_NAME/settings/actions.
+# Alternatively create a fine-grained personal access token for your repository with
+# `contents: read and write` and `pull requests: read and write` and pass it to the action.
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  deps:
+    name: Update npm dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Show outdated (before)
+        run: |
+          npm outdated || true
+
+      - name: Install npm-check-updates
+        run: npm i -g npm-check-updates
+
+      - name: Update package.json versions (minor & patch)
+        run: ncu -u -t minor
+
+      - name: Install updated deps and refresh lockfile
+        run: npm install --no-audit --no-fund
+
+      - name: Lint & Typecheck
+        run: |
+          npm run lint
+          npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: 'chore(deps): update npm dependencies'
+          title: 'chore(deps): update npm dependencies'
+          body: |
+            Automated dependency update via npm-check-updates.
+
+            - Ran `ncu -u` to bump versions in package.json
+            - Refreshed lockfile with `npm install`
+            - Lint, typecheck and build completed
+          branch: chore/deps-update
+          delete-branch: true
+          draft: false
+          labels: dependencies

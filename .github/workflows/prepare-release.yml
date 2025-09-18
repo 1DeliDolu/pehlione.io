@@ -1,0 +1,44 @@
+name: Prepare Release (CHANGELOG)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Ensure CHANGELOG exists
+        run: |
+          touch CHANGELOG.md
+
+      - name: Generate CHANGELOG (last release)
+        run: |
+          npx --yes conventional-changelog-cli -p conventionalcommits -r 1 -i CHANGELOG.md -s
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: 'chore(changelog): update CHANGELOG.md for next release'
+          title: 'chore(changelog): update CHANGELOG.md for next release'
+          body: |
+            This PR updates CHANGELOG.md based on Conventional Commits since the last release tag.
+          branch: chore/changelog-update
+          delete-branch: true
+          draft: false
+          labels: changelog
+
