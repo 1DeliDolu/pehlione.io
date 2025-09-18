@@ -1,24 +1,4 @@
-type Project = {
-  name: string
-  description: string
-  demoUrl?: string
-  repoUrl?: string
-}
-
-const projects: Project[] = [
-  {
-    name: 'Portfolio-Website',
-    description: 'Persönliche Website mit React + TypeScript + Vite.',
-    demoUrl: 'https://pehlione.com/',
-    repoUrl: 'https://github.com/1DeliDolu/pehlione.io/',
-  },
-  {
-    name: 'Grafana Data Source Plugin für PRTG',
-    description: 'Plugin zur Integration von PRTG in Grafana.',
-    demoUrl: 'https://pehlione.com/',
-    repoUrl: 'https://github.com/1DeliDolu/PRTG',
-  },
-]
+import { projects } from '@/constants/constants'
 
 type Props = { onOpenDrawer?: () => void; variant?: 'summary' | 'detail' }
 
@@ -51,7 +31,8 @@ function Projects({ onOpenDrawer, variant = 'summary' }: Props) {
         <h3 className="text-xl font-semibold mb-2">Technologien</h3>
         <ul className="list-disc pl-6 mb-6 text-neutral-800 dark:text-neutral-200">
           <li>React + TypeScript + Vite</li>
-          <li>Material UI & Tailwind CSS</li>
+          <li>Go Backend & Rust CLI</li>
+          <li>Tailwind CSS & Material UI</li>
           <li>Git, GitHub Workflows</li>
         </ul>
 
@@ -59,6 +40,7 @@ function Projects({ onOpenDrawer, variant = 'summary' }: Props) {
         <ul className="list-disc pl-6 mb-6 text-neutral-800 dark:text-neutral-200">
           <li>Responsives Layout und performante Komponenten</li>
           <li>Saubere Typisierung und wiederverwendbare Bausteine</li>
+          <li>Erste Praxiserfahrungen mit Go und Rust</li>
         </ul>
 
         <h3 className="text-xl font-semibold mb-2">Weitere Links</h3>

@@ -1,12 +1,4 @@
-const skills = [
-  'JavaScript', 'TypeScript', 'React', 'HTML5', 'CSS3',
-  'Tailwind CSS', 'Bootstrap',
-  'Node.js', 'SQL', 'MySQL',
-  'Express.js', 'MongoDB',
-  'REST APIs', 'GraphQL',
-  'Golang', 'Docker','Rust','PHP','Laravel','Symfony',
-  'Git', 'GitHub', 'Vite', 'ESLint', 'Prettier','Java','C#','Playwright',
-]
+import { certificateSkills as skills } from "@/constants/constants";
 
 type Props = { onOpenDrawer?: () => void; variant?: 'summary' | 'detail' }
 

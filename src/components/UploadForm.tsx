@@ -79,8 +79,10 @@ const UploadForm: React.FC = () => {
       try {
         window.dispatchEvent(
           new CustomEvent('photos:updated', { detail: { category, subCategory } })
-        )
-      } catch {}
+        );
+      } catch {
+        // Intentionally left empty
+      }
 
       alert("✓ Fotoğraf kaydedildi!");
       setFile(null);

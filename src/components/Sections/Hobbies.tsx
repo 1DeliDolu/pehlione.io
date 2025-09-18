@@ -1,16 +1,5 @@
-const hobbies = [
-  { title: 'Gartenarbeit', detail: 'Pflanzenpflege und Landschaftsgestaltung.' },
-  { title: 'Fotografie', detail: 'Ich fotografiere Natur- und Stadtmotive.' },
-  { title: 'Musik', detail: 'Ich höre gerne Musik und interessiere mich für verschiedene Genres.' },
-]
-
-type Props = {
-  onOpenDrawer?: () => void
-  variant?: 'summary' | 'detail'
-  onOpenPage?: (page: 'gartenarbeit' | 'fotografie') => void
-}
-
-import ImageWithLoader from "@/components/ImageWithLoader";
+import type { Props } from '@/types'
+import hobbies from "@/constants/constants"
 
 function Hobbies({ onOpenDrawer, onOpenPage, variant = 'summary' }: Props) {
   if (variant === 'detail') {
@@ -22,7 +11,13 @@ function Hobbies({ onOpenDrawer, onOpenPage, variant = 'summary' }: Props) {
             <article
               key={h.title}
               className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4"
-              onClick={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie') ? () => onOpenPage(h.title === 'Gartenarbeit' ? 'gartenarbeit' : 'fotografie') : undefined}
+              onClick={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie')
+                ? () => onOpenPage(
+                  h.title === 'Gartenarbeit'
+                    ? 'gartenarbeit'
+                    : 'fotografie'
+                )
+                : undefined}
               role={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie') ? 'button' : undefined}
               tabIndex={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie') ? 0 : undefined}
               style={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie') ? { cursor: 'pointer' } : undefined}
@@ -41,8 +36,15 @@ function Hobbies({ onOpenDrawer, onOpenPage, variant = 'summary' }: Props) {
 
         <h3 className="text-xl font-semibold mb-2">Kreativ</h3>
         <ul className="list-disc pl-6 mb-6 text-neutral-800 dark:text-neutral-200">
-          <li>Fotografie: Komposition, Bearbeitung, Lichtführung</li>
-          <li>Musik: Ich höre gerne Musik und interessiere mich für verschiedene Genres.</li>
+          <li>Fotografie: Komposition, Bearbeitung, Lichtführung – überwiegend als Hobby auf Amateur-Niveau</li>
+          <li>Musik: hören, Interessen an verschiedenen Genres</li>
+        </ul>
+
+        <h3 className="text-xl font-semibold mb-2">Technik</h3>
+        <ul className="list-disc pl-6 mb-6 text-neutral-800 dark:text-neutral-200">
+          <li>Programmieren mit Go und Rust für CLI-Tools und Backend-Experimente</li>
+          <li>Moderne Webentwicklung mit TypeScript & React</li>
+          <li>Nutzung verschiedener UI-Bibliotheken wie shadcn/ui, Radix UI und Tailwind CSS</li>
         </ul>
 
         <h3 className="text-xl font-semibold mb-2">Links</h3>
@@ -54,45 +56,6 @@ function Hobbies({ onOpenDrawer, onOpenPage, variant = 'summary' }: Props) {
             <a href="#repos" className="text-blue-600 hover:underline">Neueste Repositories</a>
           </li>
         </ul>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4" style={{ contentVisibility: 'auto' }}>
-          <figure className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-3 flex items-center justify-center bg-white dark:bg-neutral-900">
-            <ImageWithLoader
-              src="/sonnen_blumen.jpeg"
-              alt="Galerie 1"
-              width={64}
-              height={64}
-              ratio={null}
-              wrapperClassName="h-16 w-16"
-              className="transition-transform duration-200 ease-out hover:scale-110"
-              overlayBg="rgba(0,0,0,0.05)"
-            />
-          </figure>
-          <figure className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-3 flex items-center justify-center bg-white dark:bg-neutral-900">
-            <ImageWithLoader
-              src="/foto.JPG"
-              alt="Galerie 2"
-              width={64}
-              height={64}
-              ratio={null}
-              wrapperClassName="h-16 w-16"
-              className="object-cover transition-transform duration-200 ease-out hover:scale-110"
-              overlayBg="rgba(0,0,0,0.05)"
-            />
-          </figure>
-          <figure className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-3 flex items-center justify-center bg-white dark:bg-neutral-900">
-            <ImageWithLoader
-              src="/foto/apfelblumen.png"
-              alt="Galerie 3"
-              width={64}
-              height={64}
-              ratio={null}
-              wrapperClassName="h-16 w-16"
-              className="transition-transform duration-200 ease-out hover:scale-110"
-              overlayBg="rgba(0,0,0,0.05)"
-            />
-          </figure>
-        </div>
       </section>
     )
   }
@@ -106,7 +69,13 @@ function Hobbies({ onOpenDrawer, onOpenPage, variant = 'summary' }: Props) {
           <li
             key={h.title}
             className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4"
-            onClick={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie') ? () => onOpenPage(h.title === 'Gartenarbeit' ? 'gartenarbeit' : 'fotografie') : undefined}
+            onClick={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie')
+              ? () => onOpenPage(
+                h.title === 'Gartenarbeit'
+                  ? 'gartenarbeit'
+                  : 'fotografie'
+              )
+              : undefined}
             role={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie') ? 'button' : undefined}
             tabIndex={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie') ? 0 : undefined}
             style={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie') ? { cursor: 'pointer' } : undefined}

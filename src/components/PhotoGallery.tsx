@@ -79,49 +79,49 @@ export default function PhotoGallery({ title, intro, photos, itemsPerPage = 3, o
           const dir = parts.slice(0, -1).join('/')
           const thumb = `${baseUrl}${`${dir}/thumbs/${name}.webp`.replace(/^\//, '')}`
           return (
-          <Card
-            key={p.src}
-            sx={{
-              height: '100%',
-              overflow: 'hidden',
-              boxShadow: 'none',
-              transition: 'transform .2s ease, box-shadow .2s ease',
-              '& .fancy-img': { transition: 'transform .25s ease, filter .25s ease' },
-              '&:hover .fancy-img': { transform: 'scale(1.035)', filter: 'saturate(1.04) brightness(1.02)' },
-              '&:hover': { boxShadow: 3 },
-            }}
-          >
-            <a href={encodeURI(full)} target="_blank" rel="noreferrer" aria-label={`Bild ${p.title} in groß öffnen`}>
-              <ImageWithLoader
-                src={thumb}
-                alt={p.title}
-                sizes="(max-width: 640px) 100vw, (max-width: 900px) 50vw, 33vw"
-                showLoader={perItemLoaderEnabledRef.current}
-                // fallback to full-size if thumbnail missing
-                onLoad={markDoneOnce}
-                onError={(e) => {
-                  const target = e.currentTarget as HTMLImageElement
-                  if (!target.dataset.fallback) {
-                    target.src = encodeURI(full)
-                    target.dataset.fallback = '1'
-                  } else {
-                    // second error -> consider it done to avoid hanging the loader
-                    markDoneOnce(e)
-                  }
-                }}
-              />
-            </a>
-            <CardContent>
-              <Typography gutterBottom variant="h6" component="div">
-                {p.title}
-              </Typography>
-              {p.description && (
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                  {p.description}
+            <Card
+              key={p.src}
+              sx={{
+                height: '100%',
+                overflow: 'hidden',
+                boxShadow: 'none',
+                transition: 'transform .2s ease, box-shadow .2s ease',
+                '& .fancy-img': { transition: 'transform .25s ease, filter .25s ease' },
+                '&:hover .fancy-img': { transform: 'scale(1.035)', filter: 'saturate(1.04) brightness(1.02)' },
+                '&:hover': { boxShadow: 3 },
+              }}
+            >
+              <a href={encodeURI(full)} target="_blank" rel="noreferrer" aria-label={`Bild ${p.title} in groß öffnen`}>
+                <ImageWithLoader
+                  src={thumb}
+                  alt={p.title}
+                  sizes="(max-width: 640px) 100vw, (max-width: 900px) 50vw, 33vw"
+                  showLoader={perItemLoaderEnabledRef.current}
+                  // fallback to full-size if thumbnail missing
+                  onLoad={markDoneOnce}
+                  onError={(e) => {
+                    const target = e.currentTarget as HTMLImageElement
+                    if (!target.dataset.fallback) {
+                      target.src = encodeURI(full)
+                      target.dataset.fallback = '1'
+                    } else {
+                      // second error -> consider it done to avoid hanging the loader
+                      markDoneOnce(e)
+                    }
+                  }}
+                />
+              </a>
+              <CardContent>
+                <Typography gutterBottom variant="h6" component="div">
+                  {p.title}
                 </Typography>
-              )}
-            </CardContent>
-          </Card>)
+                {p.description && (
+                  <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                    {p.description}
+                  </Typography>
+                )}
+              </CardContent>
+            </Card>)
         })}
       </Box>
 

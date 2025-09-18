@@ -15,13 +15,8 @@ import ListItemText from '@mui/material/ListItemText'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import DescriptionIcon from '@mui/icons-material/Description'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium'
-import WorkIcon from '@mui/icons-material/Work'
-import FolderIcon from '@mui/icons-material/Folder'
-import PersonIcon from '@mui/icons-material/Person'
 import Button from '@mui/material/Button'
+import { navItems } from '@/constants/constants'
 
 const drawerWidth = 240
 
@@ -115,15 +110,6 @@ export type Props = {
 
 function Header({ open, onOpen, onClose, onSelectMain }: Props) {
   const theme = useTheme()
-
-  const navItems = [
-    { key: 'cv', label: 'Lebenslauf', href: '#cv', icon: <DescriptionIcon />, detail: 'Kurzprofil und PDF-Download.' },
-    { key: 'hobbies', label: 'Hobbys', href: '#hobbies', icon: <FavoriteIcon />, detail: 'Interessen und Freizeit.' },
-    { key: 'certificates', label: 'Zertifikate', href: '#certificates', icon: <WorkspacePremiumIcon />, detail: 'Nachweise und Links.' },
-    { key: 'projects', label: 'Projekte', href: '#projects', icon: <WorkIcon />, detail: 'Ausgewählte Arbeiten und Demos.' },
-    { key: 'repos', label: 'Repositories', href: '#repos', icon: <FolderIcon />, detail: 'Neueste GitHub-Repositories.' },
-    { key: 'developer', label: 'Anwendungsentwickler', href: '#developer', icon: <PersonIcon />, detail: 'Profil und Skills.' },
-  ]
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -225,7 +211,7 @@ function Header({ open, onOpen, onClose, onSelectMain }: Props) {
                         },
                   ]}
                 >
-                  {item.icon}
+                  {item.icon && <item.icon />}
                 </ListItemIcon>
                 <ListItemText
                   primary={item.label}
@@ -250,5 +236,4 @@ function Header({ open, onOpen, onClose, onSelectMain }: Props) {
     </Box>
   )
 }
-
 export default Header

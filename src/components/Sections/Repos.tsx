@@ -1,23 +1,11 @@
 import { useEffect, useState } from 'react'
+import type { Repo_, Repo } from '@/types'
 
-type Repo = {
-  id: number
-  name: string
-  html_url: string
-  description: string | null
-  stargazers_count: number
-  language: string | null
-  updated_at: string
-}
 
-type Props = {
-  username: string
-  perPage?: number
-  onOpenDrawer?: () => void
-  variant?: 'summary' | 'detail'
-}
 
-function Repos({ username, perPage = 5, onOpenDrawer, variant = 'summary' }: Props) {
+
+
+function Repos({ username, perPage = 5, onOpenDrawer, variant = 'summary' }: Repo_) {
   const [repos, setRepos] = useState<Repo[] | null>(null)
   const [error, setError] = useState<string | null>(null)
 
@@ -69,6 +57,7 @@ function Repos({ username, perPage = 5, onOpenDrawer, variant = 'summary' }: Pro
         <ul className="list-disc pl-6 mb-6 text-neutral-800 dark:text-neutral-200">
           <li>Sortierung nach „updated“ für die neuesten Änderungen</li>
           <li>Star-Zahl und Sprache für schnelle Einschätzung</li>
+          <li>Besondere Beachtung: Go- und Rust-Repos für Backend/CLI-Erfahrungen</li>
         </ul>
 
         <h3 className="text-xl font-semibold mb-2">Links</h3>

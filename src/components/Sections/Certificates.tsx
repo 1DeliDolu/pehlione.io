@@ -1,56 +1,5 @@
-type Cert = {
-  name: string
-  issuer: string
-  img: string // served from /public
-}
-
-// Images under public/certificates
-const certificates: Cert[] = [
-  { name: 'PHP', issuer: 'BTK', img: '/certificates/php.png' },
-  { name: 'React', issuer: 'BTK', img: '/certificates/react.png' },
-  { name: 'Transact-SQL', issuer: 'Microsoft', img: '/certificates/tsql.png' },
-  {
-    name: 'Generative AI Engineering with LLMs',
-    issuer: 'Coursera',
-    img: '/certificates/6UJ5Q3W7Q4IT.png'
-  },
-  {
-    name: 'Building Generative AI-Powered Applications with Python',
-    issuer: 'Coursera',
-    img: '/certificates/SPUWYF1LZ4HN.png'
-  },
-  {
-    name: 'Generative AI and LLMs: Architecture and Data Preparation',
-    issuer: 'Coursera',
-    img: '/certificates/KDHR6PKZH6DX.png'
-  },
-  {
-    name: 'Java Programming: Solving Problems with Software',
-    issuer: 'Coursera',
-    img: '/certificates/GQAY75EGH85E.png'
-  },
-  {
-    name: 'Advanced Styling with Responsive Design',
-    issuer: 'Coursera',
-    img: '/certificates/HHVRQZCEKE9M.png'
-  },
-  {
-    name: 'Interactivity with JavaScript',
-    issuer: 'Coursera',
-    img: '/certificates/BBZHU77E8F6Y.png'
-  },
-  {
-    name: 'Introduction to HTML5',
-    issuer: 'Coursera',
-    img: '/certificates/V2USGSAUHM55.png'
-  },
-  {
-    name: 'Introduction to CSS3',
-    issuer: 'Coursera',
-    img: '/certificates/UXZ788Y7QCEG.png'
-  },
-
-]
+import OptimizedImage from "@/components/OptimizedImage";
+import { certificates } from "@/constants/constants";
 
 type Props = { onOpenDrawer?: () => void; variant?: 'summary' | 'detail' }
 
@@ -79,9 +28,10 @@ function Certificates({ onOpenDrawer, variant = 'summary' }: Props) {
 
         <h3 className="text-xl font-semibold mb-2">Schwerpunkte</h3>
         <ul className="list-disc pl-6 mb-6 text-neutral-800 dark:text-neutral-200">
-          <li>TypeScript: Typen, Generics, Tooling</li>
-          <li>React: Hooks, Performance, Testing</li>
+          <li>TypeScript & React: Hooks, Performance, Testing</li>
+          <li>Go und Rust: Grundlagen und erste Backend-/CLI-Projekte</li>
           <li>Abfragen von Daten mit Microsoft Transact-SQL</li>
+          <li>Generative AI: LLM-Architektur und Implementierung</li>
         </ul>
 
         <h3 className="text-xl font-semibold mb-2">Ressourcen</h3>
@@ -102,7 +52,7 @@ function Certificates({ onOpenDrawer, variant = 'summary' }: Props) {
       <h2 className="text-2xl font-semibold mb-4">Zertifikate</h2>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {certificates.slice(0, 3).map((c) => (
-            <article key={c.name} className="group rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4">
+          <article key={c.name} className="group rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4">
             <OptimizedImage
               src={c.img}
               alt={c.name}
@@ -127,5 +77,4 @@ function Certificates({ onOpenDrawer, variant = 'summary' }: Props) {
   )
 }
 
-export default Certificates
-import OptimizedImage from "@/components/OptimizedImage";
+export default Certificates;

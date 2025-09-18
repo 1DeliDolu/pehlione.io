@@ -15,6 +15,7 @@ import AgentDoc from './components/Lebenslauf'
 import Button from '@mui/material/Button'
 import { UploadForm } from '@/components/UploadForm'
 
+
 function App() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [mainView, setMainView] = useState<'default' | 'agentDoc' | 'hobbies' | 'certificates' | 'projects' | 'repos' | 'developer' | 'foto'>('default')

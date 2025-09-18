@@ -28,7 +28,7 @@ export default function ImageWithLoader({ overlayBg = 'rgba(0,0,0,0.06)', ratio 
     position: 'relative',
     width: '100%',
     overflow: 'hidden',
-    ...(ratio ? { aspectRatio: ratio as any } : {}),
+    ...(ratio ? { aspectRatio: ratio as string | number } : {}),
   }
 
   return (

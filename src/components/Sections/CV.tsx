@@ -1,10 +1,8 @@
 import { useState } from 'react'
-type Props = {
-  cvUrl?: string
-  onOpenDrawer?: () => void
-}
+import type { Cv } from '@/types'
 
-function CV({ cvUrl, onOpenDrawer }: Props) {
+
+function CV({ cvUrl, onOpenDrawer }: Cv) {
   // Default to the file in public/certificates, respecting Vite base path
   const defaultUrl = `${import.meta.env.BASE_URL}certificates/Lebenslauf.pdf`
   const href = cvUrl ?? defaultUrl
