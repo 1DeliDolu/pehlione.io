@@ -71,7 +71,7 @@ export default function PhotoGallery({ title, intro, photos, itemsPerPage = 3, o
         }}
       >
         {current.map((p) => {
-          const baseUrl = (import.meta as any).env?.BASE_URL ?? '/'
+          const baseUrl: string = import.meta.env.BASE_URL || '/'
           const full = `${baseUrl}${p.src.replace(/^\//, '')}`
           const parts = p.src.split('/')
           const file = parts[parts.length - 1]

@@ -27,7 +27,7 @@ export default function OptimizedImage({
 }: Props) {
   const loading: 'eager' | 'lazy' = priority ? 'eager' : 'lazy'
   const finalSizes = sizes ?? (typeof width === 'number' ? `${Math.ceil(width)}px` : '100vw')
-  const base = (import.meta as any).env?.BASE_URL ?? '/'
+  const base: string = import.meta.env.BASE_URL || '/'
   const normalized = src.startsWith('http') ? src : `${base}${src.replace(/^\//, '')}`
 
   return (
