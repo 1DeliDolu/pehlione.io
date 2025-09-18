@@ -1,141 +1,143 @@
+"Sprachen: [Deutsch (dieses Dokument)](README.md) · [English](README.en.md)"
+
 # pehlione.io – Portfolio (React + TypeScript + Vite)
 
-Modern, fast, and accessible personal portfolio. Built with React, TypeScript, Vite, MUI, and Tailwind. Includes an optimized photo gallery, certificate showcase, projects, GitHub repositories, and a developer profile.
+Modernes, schnelles und barrierearmes persönliches Portfolio. Erstellt mit React, TypeScript, Vite, MUI und Tailwind. Enthält eine optimierte Foto‑Galerie, Zertifikate, Projekte, GitHub‑Repositories und ein Entwickler‑Profil.
 
 ## Highlights
 
-- Optimized images with thumbnails (WebP) and lazy loading
-- Photo gallery with pagination and smooth hover effects
-- First-load overlay spinner and per-image loaders (configurable)
-- Certificates, Projects, Repos, Developer profile, CV download
-- Playwright E2E tests (Chromium, Firefox, WebKit) + GitHub Actions CI
-- Deployable to GitHub Pages (supports custom `base` path)
+- Optimierte Bilder mit Thumbnails (WebP) und Lazy Loading
+- Foto‑Galerie mit Pagination und weichen Hover‑Effekten
+- Overlay‑Spinner beim ersten Laden und optionale Loader pro Bild
+- Zertifikate, Projekte, Repos, Entwickler‑Profil, CV‑Download
+- Playwright E2E‑Tests (Chromium, Firefox, WebKit) + GitHub Actions CI
+- Bereitstellbar auf GitHub Pages (unterstützt benutzerdefinierten `base`‑Pfad)
 
-## Tech Stack
+## Technologien
 
 - React 19 + TypeScript + Vite
 - MUI (Material UI) + Tailwind CSS
-- Playwright for E2E tests
-- Sharp for thumbnail generation
-- Optional upload server (Express + Multer)
+- Playwright für E2E‑Tests
+- Sharp zur Thumbnail‑Erzeugung
+- Optionaler Upload‑Server (Express + Multer)
 
-## App Structure
+## Projektstruktur
 
 ```
 public/
-  certificates/           # Certificate images + CV PDF
-  foto/                   # Photography originals (and thumbs/)
-  garten/                 # Garden originals (and thumbs/)
+  certificates/           # Zertifikatsbilder + CV‑PDF
+  foto/                   # Foto‑Originale (und thumbs/)
+  garten/                 # Garten‑Originale (und thumbs/)
 src/
   components/
-    OptimizedImage.tsx    # Lazy, async decode, base-path safe
-    ImageWithLoader.tsx   # Per-image CircularProgress overlay
-    PhotoGallery.tsx      # Grid with thumbnails + fallback
-    Sections/             # CV, Hobbies, Projects, Repos, etc.
-  page/Foto.tsx           # Gallery screen + first-load overlay spinner
-  redux/photos.ts         # Generated from server/db.json
-  constants/constants.ts  # Navigation items, sample data
-  App.tsx                 # Main app + routing between sections
+    OptimizedImage.tsx    # Lazy, async decode, base‑path‑sicher
+    ImageWithLoader.tsx   # Overlay mit CircularProgress pro Bild
+    PhotoGallery.tsx      # Grid mit Thumbs + Fallback auf Original
+    Sections/             # CV, Hobbies, Projects, Repos, usw.
+  page/Foto.tsx           # Galerie + Overlay‑Spinner beim Erstladen
+  redux/photos.ts         # Generiert aus server/db.json
+  constants/constants.ts  # Navigation, Beispieldaten
+  App.tsx                 # Haupt‑App + Zustandsnavigation
 server/
-  server.js               # Optional upload endpoint (port 3001)
+  server.js               # Optionaler Upload‑Endpunkt (Port 3001)
 scripts/
-  gen-thumbs.mjs          # Generate WebP thumbnails
-  generatePhotos.ts       # Build-time photos data from server/db.json
+  gen-thumbs.mjs          # Erzeugt WebP‑Thumbnails
+  generatePhotos.ts       # Build‑Zeit‑Daten aus server/db.json
 e2e/
-  App.spec.tsx            # Playwright end-to-end tests
+  App.spec.tsx            # Playwright End‑to‑End‑Tests
 ```
 
-## Image Optimization
+## Bildoptimierung
 
-- Thumbnails are generated into `public/*/thumbs/*.webp` using `sharp`.
-- The gallery loads thumbnails first; clicking opens the original.
-- Components:
-  - `OptimizedImage`: lazy + `decoding="async"` + base path handling
-  - `ImageWithLoader`: wraps image with a CircularProgress overlay until `onLoad`
+- Thumbnails werden mit `sharp` in `public/*/thumbs/*.webp` erzeugt.
+- Die Galerie lädt zuerst Thumbnails; ein Klick öffnet das Original.
+- Komponenten:
+  - `OptimizedImage`: Lazy + `decoding="async"` + Base‑Path‑Handling
+  - `ImageWithLoader`: Zeigt bis `onLoad` einen CircularProgress an
 
-Generate thumbnails (runs automatically in build):
+Thumbnails erzeugen (im Build automatisch enthalten):
 
 ```bash
 npm run thumbs
-# Options (PowerShell)
+# Optionen (PowerShell)
 $env:THUMB_WIDTH=480; $env:THUMB_QUALITY=65; $env:THUMB_CONCURRENCY=2; npm run thumbs
 ```
 
-## Scripts
+## Skripte
 
-- `dev`: start Vite dev server
-- `build`: make thumbs → generate photos → type-check → Vite build
-- `preview`: preview production build
-- `lint`, `lint:fix`: run ESLint
-- `thumbs`: generate WebP thumbnails via `sharp`
-- `test:e2e`, `test:e2e:ui`, `test:e2e:headed`: Playwright tests
+- `dev`: Vite‑Dev‑Server starten
+- `build`: Thumbs → Fotos generieren → Typecheck → Vite‑Build
+- `preview`: Produktionsbuild lokal ansehen
+- `lint`, `lint:fix`: ESLint ausführen
+- `thumbs`: WebP‑Thumbnails mit `sharp` erzeugen
+- `test:e2e`, `test:e2e:ui`, `test:e2e:headed`: Playwright‑Tests
 
-## Development
+## Entwicklung
 
-Prerequisites: Node.js 18+
+Voraussetzungen: Node.js 22+
 
-Install deps and run in dev mode:
+Installation & Start:
 
 ```bash
 npm install
 npm run dev
 ```
 
-The gallery tries to fetch dynamic photos from `http://localhost:4000/…`. If not available, it falls back to the static, generated `redux/photos.ts`.
+Die Galerie versucht, dynamische Fotos von `http://localhost:4000/…` zu laden. Falls nicht verfügbar, wird auf die generierte, statische Datei `redux/photos.ts` zurückgefallen.
 
-Optional JSON API (recommended for dynamic photos):
+Optionale JSON‑API (empfohlen für dynamische Fotos):
 
 ```bash
 npm install -g json-server
 json-server --watch server/db.json --port 4000
 ```
 
-Optional upload server (saves images into `public/foto` or `public/garten`):
+Optionaler Upload‑Server (speichert Bilder in `public/foto` oder `public/garten`):
 
 ```bash
-node server/server.js   # runs on http://localhost:3001
+node server/server.js   # läuft auf http://localhost:3001
 ```
 
-## Environment
+## Umgebung
 
-- `BASE_PATH`: Vite base path for GitHub Pages or sub-path deploys. Example: `/pehlione.io/`.
+- `BASE_PATH`: Vite‑Basis‑Pfad für Deployments unter Unterpfaden, z. B. `/pehlione.io/`.
 
-## Testing (Playwright)
+## Tests (Playwright)
 
-Run E2E tests locally:
+Lokal ausführen:
 
 ```bash
 npx playwright install
 npm run test:e2e
 ```
 
-GitHub Actions: see `.github/workflows/e2e.yml` (runs Chromium/Firefox/WebKit).
+GitHub Actions: siehe `.github/workflows/e2e.yml` (Chromium/Firefox/WebKit).
 
 ## Deployment
 
-Deploy to GitHub Pages:
+Bereitstellung auf GitHub Pages:
 
 ```bash
 npm run build
 npm run deploy
 ```
 
-Notes:
-- `vite.config.ts` reads `BASE_PATH` for correct asset paths.
-- `public/CNAME` is included for custom domain support.
+Hinweise:
+- `vite.config.ts` liest `BASE_PATH` für korrekte Asset‑Pfade.
+- `public/CNAME` ist für die benutzerdefinierte Domain enthalten.
 
-## Accessibility & Performance
+## Barrierefreiheit & Performance
 
-- All images lazy-load and decode asynchronously.
-- Intrinsic sizes are set to reduce layout shifts.
-- Only the first gallery load shows a page overlay spinner; per-image spinners are limited to the first page for better UX.
+- Alle Bilder laden lazy und werden asynchron decodiert.
+- Intrinsische Größen reduzieren Layout‑Shifts.
+- Nur beim ersten Galerieladen erscheint ein Seiten‑Overlay; per‑Bild‑Loader sind auf die erste Seite begrenzt.
 
 ## Roadmap
 
-- Lightbox with keyboard navigation & zoom
-- Progressive image loading (LQIP/blur-up)
-- More CI checks (lint/typecheck) and visual tests
+- Lightbox mit Tastaturnavigation & Zoom
+- Progressive Bildladung (LQIP/Blur‑Up)
+- Weitere CI‑Checks (Lint/Typecheck) und visuelle Tests
 
-## License
+## Lizenz
 
-MIT
+MIT — siehe [LICENSE](./LICENSE)

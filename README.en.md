@@ -72,7 +72,7 @@ $env:THUMB_WIDTH=480; $env:THUMB_QUALITY=65; $env:THUMB_CONCURRENCY=2; npm run t
 
 ## Development
 
-Prerequisites: Node.js 18+
+Prerequisites: Node.js 22+
 
 Install deps and run in dev mode:
 
@@ -138,5 +138,4 @@ Notes:
 
 ## License
 
-MIT
-
+MIT — see [LICENSE](./LICENSE)
