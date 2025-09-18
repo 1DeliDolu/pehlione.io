@@ -61,12 +61,12 @@ function Certificates({ onOpenDrawer, variant = 'summary' }: Props) {
         <h2 className="text-3xl font-bold mb-6">Zertifikate</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
           {certificates.map((c) => (
-            <article key={c.name} className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4">
-              <img
-                src={encodeURI(c.img)}
+            <article key={c.name} className="group rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4">
+              <OptimizedImage
+                src={c.img}
                 alt={c.name}
-                className="w-full aspect-[4/3] object-contain bg-neutral-50 dark:bg-neutral-900 rounded mb-3"
-                loading="lazy"
+                className="w-full aspect-[4/3] object-contain bg-neutral-50 dark:bg-neutral-900 rounded mb-3 transition-transform duration-200 ease-out group-hover:scale-[1.02]"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
               <h3 className="font-semibold text-lg">{c.name}</h3>
               <p className="text-sm text-neutral-700 dark:text-neutral-300">{c.issuer}</p>
@@ -102,12 +102,12 @@ function Certificates({ onOpenDrawer, variant = 'summary' }: Props) {
       <h2 className="text-2xl font-semibold mb-4">Zertifikate</h2>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {certificates.slice(0, 3).map((c) => (
-          <article key={c.name} className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4">
-            <img
-              src={encodeURI(c.img)}
+            <article key={c.name} className="group rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4">
+            <OptimizedImage
+              src={c.img}
               alt={c.name}
-              className="w-full aspect-[4/3] object-contain bg-neutral-50 dark:bg-neutral-900 rounded mb-2"
-              loading="lazy"
+              className="w-full aspect-[4/3] object-contain bg-neutral-50 dark:bg-neutral-900 rounded mb-2 transition-transform duration-200 ease-out group-hover:scale-[1.02]"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
             <h3 className="font-medium">{c.name}</h3>
             <p className="text-sm text-neutral-700 dark:text-neutral-300">{c.issuer}</p>
@@ -128,3 +128,4 @@ function Certificates({ onOpenDrawer, variant = 'summary' }: Props) {
 }
 
 export default Certificates
+import OptimizedImage from "@/components/OptimizedImage";

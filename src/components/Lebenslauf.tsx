@@ -61,10 +61,11 @@ const CvPage: React.FC = () => {
             <div className="w3-third">
               <div className="w3-white w3-text-grey w3-card-4">
                 <div className="w3-display-container">
-                  <img
-                    src="./foto.JPG"
-                    style={{ width: "100%" }}
+                  <OptimizedImage
+                    src="/foto.JPG"
                     alt="Avatar"
+                    priority
+                    style={{ width: "100%" }}
                   />
                   <div className="w3-display-bottomleft w3-container w3-text-black">
                     <h2>Mustafa Özdemir</h2>
@@ -397,4 +398,5 @@ function lang(name: string, percent: number) {
   );
 }
 
+import OptimizedImage from './OptimizedImage'
 export default CvPage;

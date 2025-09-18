@@ -1,12 +1,56 @@
-Gartenarbeit
+import Typography from '@mui/joy/Typography';
+import * as React from 'react';
+import Box from '@mui/joy/Box';
+import CircularProgress from '@mui/joy/CircularProgress';
+import { VariantProp } from '@mui/joy';
+import Radio from '@mui/joy/Radio';
+import RadioGroup from '@mui/joy/RadioGroup';
+import Sheet from '@mui/joy/Sheet';
 
-Fotos, die ich im Garten gemacht habe, und ihre kurzen Beschreibungen.
-alt kategoriler herbst ernte gemuese  gözüksün ben katerigoriye ttiklayinca o  katerigoriye ait forolar gözüksün. 
-
-Fotografie
-
-Eine Auswahl von Fotos, die ich gemacht habe.
-
-alt kategoriler natur herbst blumen gözüksün ben katerigoriye ttiklayinca o  katerigoriye ait forolar gözüksün.
-
-D:\portfolio\src\constants\constants.ts burada alt gruplar var ona göre ayarla
+export default function CircularProgressColors() {
+  const [variant, setVariant] = React.useState<VariantProp>('solid');
+  return (
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, minmax(150px, 1fr))',
+          gap: 1,
+        }}
+      >
+     
+        <CircularProgress variant={variant} color="danger" />
+       
+      </Box>
+      <Sheet
+        sx={{
+          background: 'transparent',
+          pl: 4,
+          borderLeft: '1px solid',
+          borderColor: 'divider',
+        }}
+      >
+        <Typography
+          level="body-sm"
+          id="variant-label"
+          textColor="text.primary"
+          sx={{ fontWeight: 'xl', mb: 1 }}
+        >
+          Variant:
+        </Typography>
+        <RadioGroup
+          size="sm"
+          aria-labelledby="variant-label"
+          name="variant"
+          value={variant}
+          onChange={(event) => setVariant(event.target.value as VariantProp)}
+        >
+          <Radio label="Solid" value="solid" />
+          <Radio label="Soft" value="soft" />
+          <Radio label="Outlined" value="outlined" />
+          <Radio label="Plain" value="plain" />
+        </RadioGroup>
+      </Sheet>
+    </Box>
+  );
+}

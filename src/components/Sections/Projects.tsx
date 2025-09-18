@@ -13,10 +13,10 @@ const projects: Project[] = [
     repoUrl: 'https://github.com/1DeliDolu/pehlione.io/',
   },
   {
-    name: 'Task Tracker',
-    description: 'Einfache To-do-App mit Persistenz über localStorage.',
+    name: 'Grafana Data Source Plugin für PRTG',
+    description: 'Plugin zur Integration von PRTG in Grafana.',
     demoUrl: 'https://pehlione.com/',
-    repoUrl: 'https://github.com/1DeliDolu/pehlione.io',
+    repoUrl: 'https://github.com/1DeliDolu/PRTG',
   },
 ]
 

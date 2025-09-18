@@ -7,11 +7,12 @@
   "scripts": {
     "dev": "vite",
     "generate:photos": "tsx scripts/generatePhotos.ts",
-    "build": "npm run generate:photos && tsc -b && vite build",
+    "build": "npm run thumbs && npm run generate:photos && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "thumbs": "node scripts/gen-thumbs.mjs"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -48,6 +49,7 @@
     "tsx": "^4.20.5",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.39.1",
-    "vite": "^7.1.2"
+    "vite": "^7.1.2",
+    "sharp": "^0.33.5"
   }
 }

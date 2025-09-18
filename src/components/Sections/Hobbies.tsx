@@ -10,6 +10,8 @@ type Props = {
   onOpenPage?: (page: 'gartenarbeit' | 'fotografie') => void
 }
 
+import ImageWithLoader from "@/components/ImageWithLoader";
+
 function Hobbies({ onOpenDrawer, onOpenPage, variant = 'summary' }: Props) {
   if (variant === 'detail') {
     return (
@@ -53,15 +55,42 @@ function Hobbies({ onOpenDrawer, onOpenPage, variant = 'summary' }: Props) {
           </li>
         </ul>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4" style={{ contentVisibility: 'auto' }}>
           <figure className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-3 flex items-center justify-center bg-white dark:bg-neutral-900">
-            <img src="/public/sonnen_blumen.jpeg" alt="Galerie 1" className="h-16" />
+            <ImageWithLoader
+              src="/sonnen_blumen.jpeg"
+              alt="Galerie 1"
+              width={64}
+              height={64}
+              ratio={null}
+              wrapperClassName="h-16 w-16"
+              className="transition-transform duration-200 ease-out hover:scale-110"
+              overlayBg="rgba(0,0,0,0.05)"
+            />
           </figure>
           <figure className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-3 flex items-center justify-center bg-white dark:bg-neutral-900">
-            <img src="/foto.JPG" alt="Galerie 2" className="h-16 object-cover" />
+            <ImageWithLoader
+              src="/foto.JPG"
+              alt="Galerie 2"
+              width={64}
+              height={64}
+              ratio={null}
+              wrapperClassName="h-16 w-16"
+              className="object-cover transition-transform duration-200 ease-out hover:scale-110"
+              overlayBg="rgba(0,0,0,0.05)"
+            />
           </figure>
           <figure className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-3 flex items-center justify-center bg-white dark:bg-neutral-900">
-            <img src="/public/ernte.jpg" alt="Galerie 3" className="h-16" />
+            <ImageWithLoader
+              src="/foto/apfelblumen.png"
+              alt="Galerie 3"
+              width={64}
+              height={64}
+              ratio={null}
+              wrapperClassName="h-16 w-16"
+              className="transition-transform duration-200 ease-out hover:scale-110"
+              overlayBg="rgba(0,0,0,0.05)"
+            />
           </figure>
         </div>
       </section>

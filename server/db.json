@@ -47,15 +47,13 @@
     },
     {
       "id": "6",
-      "src": "/garten/mirabelle.png",
-      "name": "mirabelle",
+      "src": "/garten/mirabel.png",
+      "name": "mirabel",
       "title": "Mirabellenbaum",
       "description": "Ein Baum voller reifer Mirabellen.",
       "category": "foto",
       "sub_category": "natur"
     },
-  
- 
     {
       "id": "7",
       "src": "/garten/rotkohl.png",
@@ -67,6 +65,15 @@
     },
     {
       "id": "8",
+      "src": "/garten/mirabellen.png",
+      "name": "mirabellen",
+      "title": "Mirabellenbaum",
+      "description": "Ein Baum voller reifer Mirabellen.",
+      "category": "foto",
+      "sub_category": "natur"
+    },
+    {
+      "id": "9",
       "src": "/garten/sonnenblumen.png",
       "name": "sonnenblumen",
       "title": "Sonnenblumen",
@@ -75,40 +82,139 @@
       "sub_category": "blumen"
     },
     {
-      "id": "9",
-      "src": "/foto/topf.png",
+      "id": "10",
+      "src": "/garten/topf.png",
       "name": "licht",
       "title": "Fleischkochen im Topf",
       "description": "Ein Topf voller köstlicher Zutaten.",
       "category": "foto",
       "sub_category": "blumen"
+    },
+    {
+      "id": "11",
+      "src": "/garten/köfte.jpg",
+      "name": "köfte",
+      "title": "Köfte",
+      "description": "Leckere gegrillte Köfte.",
+      "category": "foto",
+      "sub_category": "natur"
+    },
+    {
+      "id": "12",
+      "src": "/garten/leber.jpeg",
+      "name": "ciger",
+      "title": "Leber-Spieß",
+      "description": "Auf dem Grill gegarter Leber-Spieß.",
+      "category": "foto",
+      "sub_category": "ciger"
     }
   ],
     "fotografiePhotos": [
     {
-      "id": "4",
+      "id": "1",
       "src": "/foto/tulpe.png",
       "name": "wald",
-      "title": "Waldweg",
-      "description": "Ein ruhiger Pfad durch den Wald.",
+      "title": "Tulpenfeld",
+      "description": "Ein Feld voller bunter Tulpen.",
       "category": "foto",
       "sub_category": "wald"
     },
     {
-      "id": "5",
+      "id": "2",
       "src": "/foto/wolke.png",
-      "name": "tulpe",
-      "title": "Tulpenfeld",
-      "description": "Ein Feld voller bunter Tulpen.",
+      "name": "wolke",
+      "title": "Wolken",
+      "description": "Sonnenlicht durch Wolken.",
+      "category": "foto",
+      "sub_category": "sonne"
+    },
+    {
+      "id": "3",
+      "src": "/foto/raps.png",
+      "name": "wolke",
+      "title": "Wolkenformation",
+      "description": "Interessante Wolkenformationen am Himmel.",
+      "category": "foto",
+      "sub_category": "natur"
+    },
+    {
+      "id": "4",
+      "src": "/foto/apfelblumen.png",
+      "name": "apfelblumen",
+      "title": "Apfelblüten",
+      "description": "Ein Baum voller blühender Apfelblüten.",
+      "category": "foto",
+      "sub_category": "natur"
+    },
+    {
+      "id": "5",
+      "src": "/foto/gelberosen.png",
+      "name": "gelbe_rose",
+      "title": "Gelbe Rose",
+      "description": "Eine strahlend gelbe Rose blüht im Garten.",
       "category": "foto",
       "sub_category": "blumen"
     },
     {
       "id": "6",
-      "src": "/foto/raps.png",
+      "src": "/foto/herbst.png",
+      "name": "herbst",
+      "title": "Herbstlandschaft",
+      "description": "Bunte Blätter im Herbst.",
+      "category": "foto",
+      "sub_category": "natur"
+    },
+    {
+      "id": "7",
+      "src": "/foto/kölner_domm.png",
+      "name": "kölner_domm",
+      "title": "Kölner Dom",
+      "description": "Der majestätische Kölner Dom.",
+      "category": "foto",
+      "sub_category": "architektur"
+    },
+    {
+      "id": "8",
+      "src": "/foto/sonne.jpeg",
+      "name": "sonne_durch_wolken",
+      "title": "Sonnenuntergang",
+      "description": "Ein wunderschöner Sonnenuntergang hinter den Wolken.",
+      "category": "foto",
+      "sub_category": "natur"
+    },
+    {
+      "id": "9",
+      "src": "/foto/meer.jpeg",
+      "name": "meer",
+      "title": "Meeresufer",
+      "description": "Ein ruhiger Strand mit klarem Wasser.",
+      "category": "foto",
+      "sub_category": "natur"
+    },
+    {
+      "id": "10",
+      "src": "/foto/wasserfall.jpeg",
+      "name": "wasserfall",
+      "title": "Wasserfall",
+      "description": "Ein majestätischer Wasserfall in der Natur.",
+      "category": "foto",
+      "sub_category": "natur"
+    },
+    {
+      "id": "11",
+      "src": "/foto/tropfen_auf_blüten.jpeg",
+      "name": "tropfen_auf_blüten",
+      "title": "Regentropfen",
+      "description": "Regentropfen auf den Blüten.",
+      "category": "foto",
+      "sub_category": "natur"
+    },
+    {
+      "id": "12",
+      "src": "/foto/wolke_.jpeg",
       "name": "wolke",
-      "title": "Wolkenformation",
-      "description": "Interessante Wolkenformationen am Himmel.",
+      "title": "Wolken und Sonne",
+      "description": "Interessante Wolken am Himmel.",
       "category": "foto",
       "sub_category": "natur"
     }
