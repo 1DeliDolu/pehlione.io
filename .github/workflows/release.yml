@@ -54,13 +54,13 @@ jobs:
       - name: Pack dist
         run: |
           cd dist
-          zip -r ../dist.zip .
+          zip -r ../mustafa_portfoli.zip .
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: dist-zip
-          path: dist.zip
+          path: mustafa_portfoli.zip
 
   release:
     name: Create GitHub Release
@@ -96,4 +96,4 @@ jobs:
           name: Release ${{ github.ref_name }}
           body_path: RELEASE_NOTES.md
           files: |
-            dist.zip
+            mustafa_portfoli.zip

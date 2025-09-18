@@ -1,0 +1,236 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - generic:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - button "open drawer" [ref=e6] [cursor=pointer]:
+          - img [ref=e7] [cursor=pointer]
+        - link "pehlione" [ref=e9]:
+          - /url: "#home"
+        - generic [ref=e10]:
+          - link "Lebenslauf" [ref=e11] [cursor=pointer]:
+            - /url: "#cv"
+          - link "Hobbys" [ref=e12] [cursor=pointer]:
+            - /url: "#hobbies"
+          - link "Zertifikate" [ref=e13] [cursor=pointer]:
+            - /url: "#certificates"
+          - link "Projekte" [ref=e14] [cursor=pointer]:
+            - /url: "#projects"
+          - link "Repositories" [ref=e15] [cursor=pointer]:
+            - /url: "#repos"
+          - link "Anwendungsentwickler" [ref=e16] [cursor=pointer]:
+            - /url: "#developer"
+    - generic [ref=e17]:
+      - button "close drawer" [ref=e19] [cursor=pointer]:
+        - img [ref=e20] [cursor=pointer]
+      - separator [ref=e22]
+      - list [ref=e23]:
+        - listitem [ref=e24]:
+          - button "Lebenslauf Kurzprofil und PDF-Download." [ref=e25] [cursor=pointer]:
+            - img [ref=e27] [cursor=pointer]
+            - generic [ref=e29] [cursor=pointer]:
+              - generic [ref=e30] [cursor=pointer]: Lebenslauf
+              - paragraph [ref=e31] [cursor=pointer]: Kurzprofil und PDF-Download.
+        - listitem [ref=e32]:
+          - button "Hobbys Interessen und Freizeit." [ref=e33] [cursor=pointer]:
+            - img [ref=e35] [cursor=pointer]
+            - generic [ref=e37] [cursor=pointer]:
+              - generic [ref=e38] [cursor=pointer]: Hobbys
+              - paragraph [ref=e39] [cursor=pointer]: Interessen und Freizeit.
+        - listitem [ref=e40]:
+          - button "Zertifikate Nachweise und Links." [ref=e41] [cursor=pointer]:
+            - img [ref=e43] [cursor=pointer]
+            - generic [ref=e45] [cursor=pointer]:
+              - generic [ref=e46] [cursor=pointer]: Zertifikate
+              - paragraph [ref=e47] [cursor=pointer]: Nachweise und Links.
+        - listitem [ref=e48]:
+          - button "Projekte Ausgewählte Arbeiten und Demos." [ref=e49] [cursor=pointer]:
+            - img [ref=e51] [cursor=pointer]
+            - generic [ref=e53] [cursor=pointer]:
+              - generic [ref=e54] [cursor=pointer]: Projekte
+              - paragraph [ref=e55] [cursor=pointer]: Ausgewählte Arbeiten und Demos.
+        - listitem [ref=e56]:
+          - button "Repositories Neueste GitHub-Repositories." [ref=e57] [cursor=pointer]:
+            - img [ref=e59] [cursor=pointer]
+            - generic [ref=e61] [cursor=pointer]:
+              - generic [ref=e62] [cursor=pointer]: Repositories
+              - paragraph [ref=e63] [cursor=pointer]: Neueste GitHub-Repositories.
+        - listitem [ref=e64]:
+          - button "Anwendungsentwickler Profil und Skills." [ref=e65] [cursor=pointer]:
+            - img [ref=e67] [cursor=pointer]
+            - generic [ref=e69] [cursor=pointer]:
+              - generic [ref=e70] [cursor=pointer]: Anwendungsentwickler
+              - paragraph [ref=e71] [cursor=pointer]: Profil und Skills.
+  - main [ref=e72]:
+    - generic [ref=e73]:
+      - heading "Mustafa's Portfolio" [level=1] [ref=e74]
+      - paragraph [ref=e75]: Diese Website dient als Portfolio und persönliche Seite von Mustafa. Die Grundversion ist fertiggestellt, weitere Funktionen und Inhalte werden nach und nach ergänzt. Hier finden Sie Informationen über meine Fähigkeiten, Projekte und Hobbys.
+    - generic [ref=e76]:
+      - heading "Lebenslauf" [level=2] [ref=e77]
+      - paragraph [ref=e78]: Unten können Sie das PDF herunterladen.
+      - generic [ref=e79]:
+        - button "Lebenslauf als PDF herunterladen" [ref=e80] [cursor=pointer]
+        - link "In neuem Tab öffnen" [ref=e81]:
+          - /url: /certificates/Lebenslauf.pdf
+      - paragraph [ref=e82]:
+        - text: Mehr Details im Drawer unter „Lebenslauf“.
+        - button "Im Drawer ansehen" [ref=e83] [cursor=pointer]
+    - generic [ref=e84]:
+      - heading "Hobbys" [level=2] [ref=e85]
+      - list [ref=e86]:
+        - button "Gartenarbeit Pflanzenpflege, Gemüseanbau und Landschaftsgestaltung." [ref=e87] [cursor=pointer]:
+          - heading "Gartenarbeit" [level=3] [ref=e88] [cursor=pointer]
+          - paragraph [ref=e89] [cursor=pointer]: Pflanzenpflege, Gemüseanbau und Landschaftsgestaltung.
+        - button "Fotografie Natur-, Stadt- und Makroaufnahmen, Bearbeitung und Komposition." [ref=e90] [cursor=pointer]:
+          - heading "Fotografie" [level=3] [ref=e91] [cursor=pointer]
+          - paragraph [ref=e92] [cursor=pointer]: Natur-, Stadt- und Makroaufnahmen, Bearbeitung und Komposition.
+        - listitem [ref=e93]:
+          - heading "Musik" [level=3] [ref=e94]
+          - paragraph [ref=e95]: Ich höre gerne Musik und interessiere mich für verschiedene Genres.
+        - button "Programmieren Experimentieren mit Go und Rust für kleine Projekte und Tools sowie moderne Webentwicklung mit TypeScript und React." [ref=e96] [cursor=pointer]:
+          - heading "Programmieren" [level=3] [ref=e97] [cursor=pointer]
+          - paragraph [ref=e98] [cursor=pointer]: Experimentieren mit Go und Rust für kleine Projekte und Tools sowie moderne Webentwicklung mit TypeScript und React.
+      - paragraph [ref=e99]:
+        - text: Mehr Details im Drawer unter „Hobbys“.
+        - button "Im Drawer ansehen" [ref=e100] [cursor=pointer]
+    - generic [ref=e101]:
+      - heading "Zertifikate" [level=2] [ref=e102]
+      - generic [ref=e103]:
+        - article [ref=e104]:
+          - img "PHP" [ref=e105]
+          - heading "PHP" [level=3] [ref=e106]
+          - paragraph [ref=e107]: BTK
+          - link "Bild öffnen" [ref=e108]:
+            - /url: /certificates/php.png
+        - article [ref=e109]:
+          - img "React" [ref=e110]
+          - heading "React" [level=3] [ref=e111]
+          - paragraph [ref=e112]: BTK
+          - link "Bild öffnen" [ref=e113]:
+            - /url: /certificates/react.png
+        - article [ref=e114]:
+          - img "Transact-SQL" [ref=e115]
+          - heading "Transact-SQL" [level=3] [ref=e116]
+          - paragraph [ref=e117]: Microsoft
+          - link "Bild öffnen" [ref=e118]:
+            - /url: /certificates/tsql.png
+      - paragraph [ref=e119]:
+        - text: Mehr Details im Drawer unter „Zertifikate“.
+        - button "Im Drawer ansehen" [ref=e120] [cursor=pointer]
+    - generic [ref=e121]:
+      - heading "Projekte" [level=2] [ref=e122]
+      - generic [ref=e123]:
+        - article [ref=e124]:
+          - heading "Portfolio-Website" [level=3] [ref=e125]
+          - paragraph [ref=e126]: Persönliche Website mit React + TypeScript + Vite.
+          - generic [ref=e127]:
+            - link "Live-Demo" [ref=e128]:
+              - /url: https://pehlione.com/
+            - link "Repository" [ref=e129]:
+              - /url: https://github.com/1DeliDolu/pehlione.io/
+        - article [ref=e130]:
+          - heading "Grafana Data Source Plugin für PRTG" [level=3] [ref=e131]
+          - paragraph [ref=e132]: Plugin zur Integration von PRTG in Grafana (Go Backend, TypeScript Frontend).
+          - generic [ref=e133]:
+            - link "Live-Demo" [ref=e134]:
+              - /url: https://pehlione.com/
+            - link "Repository" [ref=e135]:
+              - /url: https://github.com/1DeliDolu/PRTG
+      - paragraph [ref=e136]:
+        - text: Mehr Details im Drawer unter „Projekte“.
+        - button "Im Drawer ansehen" [ref=e137] [cursor=pointer]
+    - generic [ref=e138]:
+      - heading "Repositories" [level=2] [ref=e139]
+      - paragraph [ref=e140]: "@1DeliDolu"
+      - list [ref=e141]:
+        - listitem [ref=e142]:
+          - link "pehlione.io" [ref=e143]:
+            - /url: https://github.com/1DeliDolu/pehlione.io
+          - generic [ref=e144]:
+            - generic [ref=e145]: TypeScript
+            - generic [ref=e146]: ⭐ 0
+            - generic [ref=e147]: Aktualisiert am 9/18/2025
+        - listitem [ref=e148]:
+          - link "PRTG" [ref=e149]:
+            - /url: https://github.com/1DeliDolu/PRTG
+          - paragraph [ref=e150]: Grafana Datasource Plugin for PRTG
+          - generic [ref=e151]:
+            - generic [ref=e152]: TypeScript
+            - generic [ref=e153]: ⭐ 11
+            - generic [ref=e154]: Aktualisiert am 9/13/2025
+        - listitem [ref=e155]:
+          - link "istqb-quiz" [ref=e156]:
+            - /url: https://github.com/1DeliDolu/istqb-quiz
+          - generic [ref=e157]:
+            - generic [ref=e158]: TypeScript
+            - generic [ref=e159]: ⭐ 0
+            - generic [ref=e160]: Aktualisiert am 9/10/2025
+        - listitem [ref=e161]:
+          - link "QUIZ_APP" [ref=e162]:
+            - /url: https://github.com/1DeliDolu/QUIZ_APP
+          - generic [ref=e163]:
+            - generic [ref=e164]: TypeScript
+            - generic [ref=e165]: ⭐ 0
+            - generic [ref=e166]: Aktualisiert am 9/3/2025
+        - listitem [ref=e167]:
+          - link "Word_Press" [ref=e168]:
+            - /url: https://github.com/1DeliDolu/Word_Press
+          - generic [ref=e169]:
+            - generic [ref=e170]: ⭐ 0
+            - generic [ref=e171]: Aktualisiert am 8/31/2025
+        - listitem [ref=e172]:
+          - link "Github-Docs" [ref=e173]:
+            - /url: https://github.com/1DeliDolu/Github-Docs
+          - generic [ref=e174]:
+            - generic [ref=e175]: ⭐ 0
+            - generic [ref=e176]: Aktualisiert am 8/31/2025
+      - paragraph [ref=e177]:
+        - text: Mehr Details im Drawer unter „Repositories“.
+        - button "Im Drawer ansehen" [ref=e178] [cursor=pointer]
+    - generic [ref=e179]:
+      - heading "Junior Anwendungsentwickler" [level=2] [ref=e180]
+      - paragraph [ref=e181]: "Einstieg als Junior Developer: Schwerpunkt Webtechnologien und kontinuierliches Lernen."
+      - generic [ref=e182]:
+        - generic [ref=e183]: JavaScript
+        - generic [ref=e184]: TypeScript
+        - generic [ref=e185]: React
+        - generic [ref=e186]: HTML5
+        - generic [ref=e187]: CSS3
+        - generic [ref=e188]: Tailwind CSS
+        - generic [ref=e189]: Bootstrap
+        - generic [ref=e190]: Node.js
+        - generic [ref=e191]: SQL
+        - generic [ref=e192]: MySQL
+        - generic [ref=e193]: Express.js
+        - generic [ref=e194]: MongoDB
+        - generic [ref=e195]: REST APIs
+        - generic [ref=e196]: GraphQL
+        - generic [ref=e197]: Golang
+        - generic [ref=e198]: Docker
+        - generic [ref=e199]: Rust
+        - generic [ref=e200]: PHP
+        - generic [ref=e201]: Laravel
+        - generic [ref=e202]: Symfony
+        - generic [ref=e203]: Git
+        - generic [ref=e204]: GitHub
+        - generic [ref=e205]: Vite
+        - generic [ref=e206]: ESLint
+        - generic [ref=e207]: Prettier
+        - generic [ref=e208]: Java
+        - generic [ref=e209]: C#
+        - generic [ref=e210]: Playwright
+      - paragraph [ref=e211]:
+        - text: Mehr Details im Drawer unter „Junior Anwendungsentwickler“.
+        - button "Im Drawer ansehen" [ref=e212] [cursor=pointer]
+  - contentinfo [ref=e214]:
+    - generic [ref=e215]:
+      - generic [ref=e216]: © 2025 • Alle Rechte vorbehalten.
+      - generic [ref=e217]:
+        - text: "Kontakt:"
+        - link "mustafa.ozdmir1408@gmail.com" [ref=e218]:
+          - /url: mailto:mustafa.ozdmir1408@gmail.com
+      - link "GitHub • pehlione.io" [ref=e219]:
+        - /url: https://github.com/1DeliDolu/pehlione.io
+```
