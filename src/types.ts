@@ -18,6 +18,7 @@ export interface Props {
   onOpenDrawer?: () => void;
   variant?: "summary" | "detail";
   onOpenPage?: (page: "gartenarbeit" | "fotografie") => void;
+  onOpenDeveloper?: () => void;
 }
 
 export interface Project {

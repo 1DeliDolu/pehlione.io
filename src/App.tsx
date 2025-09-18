@@ -68,6 +68,7 @@ function App() {
                 setFotoCategory(page)
                 setMainView('foto')
               }}
+              onOpenDeveloper={() => setMainView('developer')}
             />
             <div className="mt-6">
               <Button variant="outlined" onClick={() => setMainView('default')}>Zur Übersicht</Button>
@@ -129,6 +130,7 @@ function App() {
                 setFotoCategory(page)
                 setMainView('foto')
               }}
+              onOpenDeveloper={() => setMainView('developer')}
             />
             <Certificates onOpenDrawer={() => setDrawerOpen(true)} />
             <Projects onOpenDrawer={() => setDrawerOpen(true)} />

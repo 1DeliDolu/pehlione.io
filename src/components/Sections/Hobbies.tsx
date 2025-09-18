@@ -1,31 +1,35 @@
 import type { Props } from '@/types'
 import hobbies from "@/constants/constants"
 
-function Hobbies({ onOpenDrawer, onOpenPage, variant = 'summary' }: Props) {
+function Hobbies({ onOpenDrawer, onOpenPage, onOpenDeveloper, variant = 'summary' }: Props) {
   if (variant === 'detail') {
     return (
       <section id="hobbies" className="scroll-mt-24 w-full px-4 sm:px-6 lg:px-10 py-12">
         <h2 className="text-3xl font-bold mb-6">Hobbys</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-          {hobbies.map((h) => (
+          {hobbies.map((h) => {
+            const isFoto = h.title === 'Fotografie' || h.title === 'Gartenarbeit'
+            const isProg = h.title === 'Programmieren'
+            const clickable = (isFoto && !!onOpenPage) || (isProg && !!onOpenDeveloper)
+            const handleClick = clickable
+              ? () => {
+                  if (isFoto && onOpenPage) onOpenPage(h.title === 'Gartenarbeit' ? 'gartenarbeit' : 'fotografie')
+                  else if (isProg && onOpenDeveloper) onOpenDeveloper()
+                }
+              : undefined
+            return (
             <article
               key={h.title}
               className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4"
-              onClick={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie')
-                ? () => onOpenPage(
-                  h.title === 'Gartenarbeit'
-                    ? 'gartenarbeit'
-                    : 'fotografie'
-                )
-                : undefined}
-              role={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie') ? 'button' : undefined}
-              tabIndex={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie') ? 0 : undefined}
-              style={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie') ? { cursor: 'pointer' } : undefined}
+              onClick={handleClick}
+              role={clickable ? 'button' : undefined}
+              tabIndex={clickable ? 0 : undefined}
+              style={clickable ? { cursor: 'pointer' } : undefined}
             >
               <h3 className="font-semibold text-lg">{h.title}</h3>
               <p className="text-sm text-neutral-700 dark:text-neutral-300">{h.detail}</p>
             </article>
-          ))}
+          )})}
         </div>
 
         <h3 className="text-xl font-semibold mb-2">Outdoor</h3>
@@ -65,25 +69,29 @@ function Hobbies({ onOpenDrawer, onOpenPage, variant = 'summary' }: Props) {
     <section id="hobbies" className="scroll-mt-24 w-full px-4 sm:px-6 lg:px-10 py-12">
       <h2 className="text-2xl font-semibold mb-4">Hobbys</h2>
       <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {hobbies.map((h) => (
+        {hobbies.map((h) => {
+          const isFoto = h.title === 'Fotografie' || h.title === 'Gartenarbeit'
+          const isProg = h.title === 'Programmieren'
+          const clickable = (isFoto && !!onOpenPage) || (isProg && !!onOpenDeveloper)
+          const handleClick = clickable
+            ? () => {
+                if (isFoto && onOpenPage) onOpenPage(h.title === 'Gartenarbeit' ? 'gartenarbeit' : 'fotografie')
+                else if (isProg && onOpenDeveloper) onOpenDeveloper()
+              }
+            : undefined
+          return (
           <li
             key={h.title}
             className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4"
-            onClick={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie')
-              ? () => onOpenPage(
-                h.title === 'Gartenarbeit'
-                  ? 'gartenarbeit'
-                  : 'fotografie'
-              )
-              : undefined}
-            role={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie') ? 'button' : undefined}
-            tabIndex={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie') ? 0 : undefined}
-            style={onOpenPage && (h.title === 'Gartenarbeit' || h.title === 'Fotografie') ? { cursor: 'pointer' } : undefined}
+            onClick={handleClick}
+            role={clickable ? 'button' : undefined}
+            tabIndex={clickable ? 0 : undefined}
+            style={clickable ? { cursor: 'pointer' } : undefined}
           >
             <h3 className="font-medium">{h.title}</h3>
             <p className="text-sm text-neutral-700 dark:text-neutral-300">{h.detail}</p>
           </li>
-        ))}
+        )})}
       </ul>
       <p className="mt-4 text-xs text-neutral-500">
         Mehr Details im Drawer unter „Hobbys“.
