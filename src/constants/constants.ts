@@ -56,7 +56,7 @@ export const certificates: Cert[] = [
   {
     name: "Transact-SQL",
     issuer: "Microsoft",
-    img: "/certificates/tsql.png"
+    img: "/certificates/tsql.png",
   },
   {
     name: "Generative AI Engineering with LLMs",
@@ -91,12 +91,12 @@ export const certificates: Cert[] = [
   {
     name: "PHP",
     issuer: "BTK",
-    img: "/certificates/php.png"
+    img: "/certificates/php.png",
   },
   {
-    name: "React",
+    name: "Web Programming with React",
     issuer: "BTK",
-    img: "/certificates/react.png"
+    img: "/certificates/react.png",
   },
   {
     name: "Introduction to HTML5",
@@ -113,10 +113,16 @@ export const certificates: Cert[] = [
     issuer: "FreeCodeCamp",
     img: "/certificates/legacy-js.png",
   },
+
   {
-    name: "Responsive Web Design",
-    issuer: "FreeCodeCamp",
-    img: "/certificates/responsive-web-design.png",
+    name: "Web Programlama with Node.js",
+    issuer: "BTK",
+    img: "/certificates/nodejs.png",
+  },
+  {
+    name: "Golang",
+    issuer: "BTK",
+    img: "/certificates/golang.png",
   },
 ];
 
@@ -149,6 +155,8 @@ export const certificateSkills = [
   "Java",
   "C#",
   "Playwright",
+  "Grafana",
+  "PRTG",
 ];
 
 export const navItems = [
