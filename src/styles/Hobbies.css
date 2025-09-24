@@ -1,0 +1,13 @@
+.hobby-button {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+.hobby-button:focus {
+  outline: 2px solid rgba(59,130,246,0.6); /* blue-500 at 60% */
+  outline-offset: 2px;
+}

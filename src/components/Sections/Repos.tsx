@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import type { Repo_, Repo } from '@/types'
+import type { Repo_, Repo } from '@/types/types'
 
 
 

@@ -1,4 +1,5 @@
 import React from "react";
+import "@/styles/Lebenslauf.css";
 
 const CvPage: React.FC = () => {
   return (
@@ -29,12 +30,10 @@ const CvPage: React.FC = () => {
       <body className="w3-light-grey">
         {/* Header */}
         <header
-          className="w3-display-container w3-content w3-center"
-          style={{ maxWidth: "1500px" }}
+          className="w3-display-container w3-content w3-center cv-header-container"
         >
           <div
-            className="w3-bar w3-light-grey w3-round w3-display-bottommiddle w3-hide-small"
-            style={{ bottom: "-16px" }}
+            className="w3-bar w3-light-grey w3-round w3-display-bottommiddle w3-hide-small cv-header-bar"
           >
           </div>
         </header>
@@ -55,7 +54,7 @@ const CvPage: React.FC = () => {
         </div>
 
         {/* Page Container */}
-        <div className="w3-content w3-margin-top" style={{ maxWidth: "1400px" }}>
+        <div className="w3-content w3-margin-top cv-page-container">
           <div className="w3-row-padding">
             {/* Left Column */}
             <div className="w3-third">
@@ -65,7 +64,7 @@ const CvPage: React.FC = () => {
                     src="/foto.JPG"
                     alt="Avatar"
                     priority
-                    style={{ width: "100%" }}
+                    className="cv-avatar"
                   />
                   <div className="w3-display-bottomleft w3-container w3-text-black">
                     <h2>Mustafa Özdemir</h2>
@@ -109,7 +108,7 @@ const CvPage: React.FC = () => {
                   {skill("Java", 95)}
                   {skill("Docker", 95)}
                   <hr />
-                  
+
 
                   <br />
                   <p className="w3-large w3-text-theme">
@@ -330,7 +329,7 @@ const CvPage: React.FC = () => {
 
                   <ul className="list-disc pl-6">
                     <li>
-                      E-Mail: <a href="mailto:andrea.fritzsch@marburg.de" target="_blank" rel="noreferrer">
+                      E-Mail: <a href="mailto:andrea.fritzsch@marburg.de" target="_blank" rel="noreferrer noopener" aria-label="E-Mail Andrea Fritzsch">
                         andrea.fritzsch@marburg.de
                       </a>
                     </li>
@@ -351,13 +350,14 @@ const CvPage: React.FC = () => {
           <a
             href="https://www.linkedin.com/in/mustafa-oezdemir/"
             target="_blank"
-            rel="noreferrer"
+            rel="noreferrer noopener"
+            aria-label="LinkedIn Mustafa Özdemir"
           >
             <i className="fa fa-linkedin w3-hover-opacity"></i>
           </a>
           <p>
             Powered by{" "}
-            <a href="mailto:mustafa.ozdemir1408@gmail.com" target="_blank" rel="noreferrer">
+            <a href="mailto:mustafa.ozdemir1408@gmail.com" target="_blank" rel="noreferrer noopener" aria-label="E-Mail Mustafa Özdemir">
               Mustafa Özdemir
             </a>
           </p>
@@ -369,13 +369,16 @@ const CvPage: React.FC = () => {
 
 // Yardımcı progress bar fonksiyonları
 function skill(name: string, percent: number) {
+  const widthClass = percent === 100 ? 'cv-w-100' : percent === 95 ? 'cv-w-95' : percent === 90 ? 'cv-w-90' : '';
+  const innerClass = `w3-container w3-center w3-round-xlarge w3-teal ${widthClass}`.trim();
   return (
     <>
       <p>{name}</p>
       <div className="w3-light-grey w3-round-xlarge w3-small">
         <div
-          className="w3-container w3-center w3-round-xlarge w3-teal"
-          style={{ width: `${percent}%` }}
+          className={innerClass}
+          role="progressbar"
+          aria-label={`${name} proficiency ${percent} percent`}
         >
           {percent}%
         </div>
@@ -385,14 +388,13 @@ function skill(name: string, percent: number) {
 }
 
 function lang(name: string, percent: number) {
+  const widthClass = percent === 100 ? 'cv-w-100' : percent === 95 ? 'cv-w-95' : percent === 90 ? 'cv-w-90' : '';
+  const innerClass = `w3-round-xlarge w3-teal ${widthClass} cv-lang`.trim();
   return (
     <>
       <p>{name}</p>
       <div className="w3-light-grey w3-round-xlarge">
-        <div
-          className="w3-round-xlarge w3-teal"
-          style={{ height: "24px", width: `${percent}%` }}
-        ></div>
+        <div className={innerClass} aria-label={`${name} language level ${percent} percent`}></div>
       </div>
     </>
   );

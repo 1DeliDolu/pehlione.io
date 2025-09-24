@@ -1,6 +1,7 @@
 import React from 'react'
+import "@/styles/OptimizedImage.css"
 
-type Props = Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'loading' | 'decoding' | 'src' | 'alt'> & {
+type Props = Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'loading' | 'decoding' | 'src' | 'alt' | 'style'> & {
   src: string
   alt: string
   priority?: boolean
@@ -22,7 +23,6 @@ export default function OptimizedImage({
   width,
   height,
   className,
-  style,
   ...rest
 }: Props) {
   const loading: 'eager' | 'lazy' = priority ? 'eager' : 'lazy'
@@ -40,8 +40,7 @@ export default function OptimizedImage({
       height={height}
       sizes={finalSizes}
       draggable={false}
-      className={className}
-      style={{ contentVisibility: 'auto', ...style }}
+      className={["optimized-image", className].filter(Boolean).join(' ')}
       {...rest}
     />
   )

@@ -9,7 +9,7 @@ function Footer() {
         <a
           href="https://github.com/1DeliDolu/pehlione.io"
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="hover:underline"
         >
           GitHub • pehlione.io

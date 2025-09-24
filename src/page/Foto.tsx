@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import axios from 'axios'
 import PhotoGallery from '@/components/PhotoGallery'
 import { gardenPhotos as gardenStatic, fotografiePhotos as fotoStatic } from '@/redux/photos'
-import type { FotoEintrag } from '@/types'
+import type { FotoEintrag } from '@/types/types'
 import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
 
@@ -22,18 +22,18 @@ export default function Foto({ category }: Props) {
   const cfg = useMemo(() => (
     category === 'gartenarbeit'
       ? {
-          title: 'Gartenarbeit',
-          intro:
-            'Fotos, die ich im Garten gemacht habe, und ihre kurzen Beschreibungen.',
-          resource: 'gardenPhotos' as const,
-          fallback: gardenStatic,
-        }
+        title: 'Gartenarbeit',
+        intro:
+          'Fotos, die ich im Garten gemacht habe, und ihre kurzen Beschreibungen.',
+        resource: 'gardenPhotos' as const,
+        fallback: gardenStatic,
+      }
       : {
-          title: 'Fotografie',
-          intro: 'Eine Auswahl von Fotos, die ich gemacht habe.',
-          resource: 'fotografiePhotos' as const,
-          fallback: fotoStatic,
-        }
+        title: 'Fotografie',
+        intro: 'Eine Auswahl von Fotos, die ich gemacht habe.',
+        resource: 'fotografiePhotos' as const,
+        fallback: fotoStatic,
+      }
   ), [category])
 
   useEffect(() => {

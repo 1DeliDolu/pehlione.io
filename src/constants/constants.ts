@@ -1,10 +1,10 @@
-import type { Cert, Project } from "@/types";
-import DescriptionIcon from '@mui/icons-material/Description'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium'
-import WorkIcon from '@mui/icons-material/Work'
-import FolderIcon from '@mui/icons-material/Folder'
-import PersonIcon from '@mui/icons-material/Person'
+import type { Cert, Project } from "@/types/types";
+import DescriptionIcon from "@mui/icons-material/Description";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import WorkIcon from "@mui/icons-material/Work";
+import FolderIcon from "@mui/icons-material/Folder";
+import PersonIcon from "@mui/icons-material/Person";
 
 export const subCategories: Record<"foto" | "garten", string[]> = {
   foto: ["natur", "herbst", "blumen"],
@@ -98,7 +98,6 @@ export const certificates: Cert[] = [
   },
 ];
 
-
 export const certificateSkills = [
   "JavaScript",
   "TypeScript",
@@ -129,7 +128,6 @@ export const certificateSkills = [
   "C#",
   "Playwright",
 ];
-
 
 export const navItems = [
   {

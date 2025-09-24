@@ -1,0 +1,25 @@
+.cv-header-container {
+  max-width: 1500px;
+}
+.cv-header-bar {
+  bottom: -16px;
+}
+.cv-page-container {
+  max-width: 1400px;
+}
+.cv-avatar {
+  width: 100%;
+  display: block;
+}
+.cv-lang {
+  height: 24px;
+}
+.cv-w-100 {
+  width: 100% !important;
+}
+.cv-w-95 {
+  width: 95% !important;
+}
+.cv-w-90 {
+  width: 90% !important;
+}

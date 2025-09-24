@@ -48,7 +48,7 @@ function CV({ cvUrl, onOpenDrawer }: Cv) {
           type="button"
           onClick={handleDownload}
           disabled={downloading}
-          className="inline-flex items-center px-4 py-2 rounded bg-neutral-900 text-black dark:bg-blue-600 dark:text-neutral-900 disabled:opacity-60 hover:opacity-90"
+          className="inline-flex items-center px-4 py-2 rounded bg-blue-600 dark:bg-orange-500 text-orange-500 disabled:opacity-60 hover:opacity-90"
         >
           {downloading ? 'Wird heruntergeladen…' : 'Lebenslauf als PDF herunterladen'}
         </button>

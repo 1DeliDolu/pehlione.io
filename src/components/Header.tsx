@@ -130,9 +130,16 @@ function Header({ open, onOpen, onClose, onSelectMain }: Props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="a" href="#home" sx={{ textDecoration: 'none', color: 'inherit' }}>
+            <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="#"
+            onClick={() => onSelectMain('default')}
+            sx={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
+            >
             pehlione
-          </Typography>
+            </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'flex' }, gap: 1, ml: 'auto' }}>
             {navItems.map((item) => (
               <Button

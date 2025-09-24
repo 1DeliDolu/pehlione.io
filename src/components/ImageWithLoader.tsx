@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react'
 import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
 import OptimizedImage from './OptimizedImage'
+import '@/styles/ImageWithLoader.css'
 
 type Props = React.ComponentProps<typeof OptimizedImage> & {
   overlayBg?: string
@@ -11,7 +12,7 @@ type Props = React.ComponentProps<typeof OptimizedImage> & {
   showLoader?: boolean
 }
 
-export default function ImageWithLoader({ overlayBg = 'rgba(0,0,0,0.06)', ratio = '4 / 3', wrapperClassName, wrapperStyle, className, style, onLoad, onError, showLoader = true, ...imgProps }: Props) {
+export default function ImageWithLoader({ overlayBg = 'rgba(0,0,0,0.06)', ratio = '4 / 3', wrapperClassName, wrapperStyle, className, onLoad, onError, showLoader = true, ...imgProps }: Props) {
   const [loaded, setLoaded] = useState(false)
 
   const handleLoad = useCallback<NonNullable<typeof onLoad>>((e) => {
@@ -44,8 +45,7 @@ export default function ImageWithLoader({ overlayBg = 'rgba(0,0,0,0.06)', ratio 
       )}
       <OptimizedImage
         {...imgProps}
-        className={`fancy-img ${className ?? ''}`}
-        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', ...style }}
+        className={`fancy-img image-with-loader-img ${className ?? ''}`}
         onLoad={handleLoad}
         onError={handleError}
       />

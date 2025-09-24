@@ -1,5 +1,6 @@
-import type { Props } from '@/types'
+import type { Props } from '@/types/types'
 import hobbies from "@/constants/constants"
+import "@/styles/Hobbies.css"
 
 function Hobbies({ onOpenDrawer, onOpenPage, onOpenDeveloper, variant = 'summary' }: Props) {
   if (variant === 'detail') {
@@ -13,23 +14,29 @@ function Hobbies({ onOpenDrawer, onOpenPage, onOpenDeveloper, variant = 'summary
             const clickable = (isFoto && !!onOpenPage) || (isProg && !!onOpenDeveloper)
             const handleClick = clickable
               ? () => {
-                  if (isFoto && onOpenPage) onOpenPage(h.title === 'Gartenarbeit' ? 'gartenarbeit' : 'fotografie')
-                  else if (isProg && onOpenDeveloper) onOpenDeveloper()
-                }
+                if (isFoto && onOpenPage) onOpenPage(h.title === 'Gartenarbeit' ? 'gartenarbeit' : 'fotografie')
+                else if (isProg && onOpenDeveloper) onOpenDeveloper()
+              }
               : undefined
             return (
-            <article
-              key={h.title}
-              className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4"
-              onClick={handleClick}
-              role={clickable ? 'button' : undefined}
-              tabIndex={clickable ? 0 : undefined}
-              style={clickable ? { cursor: 'pointer' } : undefined}
-            >
-              <h3 className="font-semibold text-lg">{h.title}</h3>
-              <p className="text-sm text-neutral-700 dark:text-neutral-300">{h.detail}</p>
-            </article>
-          )})}
+              <article
+                key={h.title}
+                className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4"
+              >
+                {clickable ? (
+                  <button type="button" className="hobby-button" onClick={handleClick} aria-label={`${h.title} öffnen`}>
+                    <h3 className="font-semibold text-lg">{h.title}</h3>
+                    <p className="text-sm text-neutral-700 dark:text-neutral-300">{h.detail}</p>
+                  </button>
+                ) : (
+                  <>
+                    <h3 className="font-semibold text-lg">{h.title}</h3>
+                    <p className="text-sm text-neutral-700 dark:text-neutral-300">{h.detail}</p>
+                  </>
+                )}
+              </article>
+            )
+          })}
         </div>
 
         <h3 className="text-xl font-semibold mb-2">Outdoor</h3>
@@ -75,23 +82,29 @@ function Hobbies({ onOpenDrawer, onOpenPage, onOpenDeveloper, variant = 'summary
           const clickable = (isFoto && !!onOpenPage) || (isProg && !!onOpenDeveloper)
           const handleClick = clickable
             ? () => {
-                if (isFoto && onOpenPage) onOpenPage(h.title === 'Gartenarbeit' ? 'gartenarbeit' : 'fotografie')
-                else if (isProg && onOpenDeveloper) onOpenDeveloper()
-              }
+              if (isFoto && onOpenPage) onOpenPage(h.title === 'Gartenarbeit' ? 'gartenarbeit' : 'fotografie')
+              else if (isProg && onOpenDeveloper) onOpenDeveloper()
+            }
             : undefined
           return (
-          <li
-            key={h.title}
-            className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4"
-            onClick={handleClick}
-            role={clickable ? 'button' : undefined}
-            tabIndex={clickable ? 0 : undefined}
-            style={clickable ? { cursor: 'pointer' } : undefined}
-          >
-            <h3 className="font-medium">{h.title}</h3>
-            <p className="text-sm text-neutral-700 dark:text-neutral-300">{h.detail}</p>
-          </li>
-        )})}
+            <li
+              key={h.title}
+              className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4"
+            >
+              {clickable ? (
+                <button type="button" className="hobby-button" onClick={handleClick} aria-label={`${h.title} öffnen`}>
+                  <h3 className="font-medium">{h.title}</h3>
+                  <p className="text-sm text-neutral-700 dark:text-neutral-300">{h.detail}</p>
+                </button>
+              ) : (
+                <>
+                  <h3 className="font-medium">{h.title}</h3>
+                  <p className="text-sm text-neutral-700 dark:text-neutral-300">{h.detail}</p>
+                </>
+              )}
+            </li>
+          )
+        })}
       </ul>
       <p className="mt-4 text-xs text-neutral-500">
         Mehr Details im Drawer unter „Hobbys“.

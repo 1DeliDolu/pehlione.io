@@ -5,7 +5,7 @@ import ImageWithLoader from '@/components/ImageWithLoader'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Pagination from '@mui/material/Pagination'
-import type { FotoEintrag } from '../types'
+import type { FotoEintrag } from '../types/types'
 
 type Props = {
   title: string
@@ -126,7 +126,15 @@ export default function PhotoGallery({ title, intro, photos, itemsPerPage = 3, o
       </Box>
 
       <Box sx={{ mt: 3, display: 'flex', justifyContent: 'center' }}>
-        <Pagination count={pageCount} page={page} onChange={(_, v) => setPage(v)} />
+        <Pagination
+          count={pageCount}
+          page={page}
+          onChange={(_, v) => setPage(v)}
+          sx={{
+            '& .MuiPaginationItem-root': { color: '#f97316' },
+            '& .MuiPaginationItem-root.Mui-selected': { backgroundColor: '#f97316', color: '#fff' },
+          }}
+        />
       </Box>
     </Box>
   )

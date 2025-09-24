@@ -1,0 +1,15 @@
+.optimized-image {
+  -webkit-font-smoothing: antialiased;
+  image-rendering: auto;
+  content-visibility: auto;
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.image-with-loader-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
