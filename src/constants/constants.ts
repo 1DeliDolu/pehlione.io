@@ -53,9 +53,11 @@ export const projects: Project[] = [
 ];
 
 export const certificates: Cert[] = [
-  { name: "PHP", issuer: "BTK", img: "/certificates/php.png" },
-  { name: "React", issuer: "BTK", img: "/certificates/react.png" },
-  { name: "Transact-SQL", issuer: "Microsoft", img: "/certificates/tsql.png" },
+  {
+    name: "Transact-SQL",
+    issuer: "Microsoft",
+    img: "/certificates/tsql.png"
+  },
   {
     name: "Generative AI Engineering with LLMs",
     issuer: "Coursera",
@@ -87,6 +89,16 @@ export const certificates: Cert[] = [
     img: "/certificates/BBZHU77E8F6Y.png",
   },
   {
+    name: "PHP",
+    issuer: "BTK",
+    img: "/certificates/php.png"
+  },
+  {
+    name: "React",
+    issuer: "BTK",
+    img: "/certificates/react.png"
+  },
+  {
     name: "Introduction to HTML5",
     issuer: "Coursera",
     img: "/certificates/V2USGSAUHM55.png",
@@ -95,6 +107,16 @@ export const certificates: Cert[] = [
     name: "Introduction to CSS3",
     issuer: "Coursera",
     img: "/certificates/UXZ788Y7QCEG.png",
+  },
+  {
+    name: "Legacy JavaScript Algorithms and Data Structures",
+    issuer: "FreeCodeCamp",
+    img: "/certificates/legacy-js.png",
+  },
+  {
+    name: "Responsive Web Design",
+    issuer: "FreeCodeCamp",
+    img: "/certificates/responsive-web-design.png",
   },
 ];
 
