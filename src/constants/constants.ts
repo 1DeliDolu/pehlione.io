@@ -54,6 +54,11 @@ export const projects: Project[] = [
 
 export const certificates: Cert[] = [
   {
+    name: "Responsive Web Design",
+    issuer: "FreeCodeCamp",
+    img: "/certificates/responsive-web-design.png",
+  },
+  {
     name: "Transact-SQL",
     issuer: "Microsoft",
     img: "/certificates/tsql.png",
