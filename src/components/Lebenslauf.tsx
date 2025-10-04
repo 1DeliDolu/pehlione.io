@@ -38,20 +38,6 @@ const CvPage: React.FC = () => {
           </div>
         </header>
 
-        {/* Navbar on small screens */}
-        <div className="w3-center w3-light-grey w3-padding-16 w3-hide-large w3-hide-medium">
-          <div className="w3-bar w3-light-grey">
-            <a href="#" className="w3-bar-item w3-button">
-              Home
-            </a>
-            <a href="../../../index.html" className="w3-bar-item w3-button">
-              Home
-            </a>
-            <a href="cv.html" className="w3-bar-item w3-button">
-              Lebenslauf
-            </a>
-          </div>
-        </div>
 
         {/* Page Container */}
         <div className="w3-content w3-margin-top cv-page-container">

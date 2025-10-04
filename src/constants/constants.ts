@@ -124,6 +124,16 @@ export const certificates: Cert[] = [
     issuer: "BTK",
     img: "/certificates/golang.png",
   },
+  {
+    name: "Kubernetes",
+    issuer: "BTK",
+    img: "/certificates/kubernetes.png",
+  },
+  {
+    name: "DevOps(Jenkins)",
+    issuer: "BTK",
+    img: "/certificates/devops.png",
+  },
 ];
 
 export const certificateSkills = [
@@ -157,6 +167,12 @@ export const certificateSkills = [
   "Playwright",
   "Grafana",
   "PRTG",
+  "Kubernetes",
+  "Jenkins",
+  "CI/CD",
+  "DevOps",
+  "Generative AI",
+  "LLMs",
 ];
 
 export const navItems = [
