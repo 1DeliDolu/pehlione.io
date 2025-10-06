@@ -6,7 +6,7 @@ function Projects({ onOpenDrawer, variant = 'summary' }: Props) {
   if (variant === 'detail') {
     return (
       <section id="projects" className="scroll-mt-24 w-full px-4 sm:px-6 lg:px-10 py-12">
-        <h2 className="text-3xl font-bold mb-6">Projekte</h2>
+        <h1 className="text-3xl font-bold mb-6">Projekte</h1>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
           {projects.map((p) => (
             <article key={p.name} className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4">

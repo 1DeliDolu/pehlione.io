@@ -28,8 +28,8 @@ function Repos({ username, perPage = 5, onOpenDrawer, variant = 'summary' }: Rep
 
   if (variant === 'detail') {
     return (
-      <section id="repos" className="scroll-mt-24 w-full px-4 sm:px-6 lg:px-10 py-12">
-        <h2 className="text-3xl font-bold mb-6">Repositories</h2>
+      <section id="repos" className="scroll-mt-24 w-screen -ml-[65px] -mr-[65px] px-[calc(65px+1rem)] sm:px-[calc(65px+1.5rem)] lg:px-[calc(65px+2.5rem)] py-12">
+        <h2 className="text-3xl font-bold mb-6">Repositories • Details</h2>
         <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">@{username}</p>
         {error && <p className="text-sm text-red-600">{error}</p>}
         {!error && !repos && <p className="text-sm">Wird geladen...</p>}

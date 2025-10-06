@@ -43,7 +43,7 @@ const CvPage: React.FC = () => {
         <div className="w3-content w3-margin-top cv-page-container">
           <div className="w3-row-padding">
             {/* Left Column */}
-            <div className="w3-third">
+            <div className="w3-third cv-left-column">
               <div className="w3-white w3-text-grey w3-card-4">
                 <div className="w3-display-container">
                   <OptimizedImage

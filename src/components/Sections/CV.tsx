@@ -38,7 +38,7 @@ function CV({ cvUrl, onOpenDrawer }: Cv) {
     }
   }
   return (
-    <section id="cv" className="scroll-mt-24 w-full px-4 sm:px-6 lg:px-10 py-12">
+    <section id="cv" className="scroll-mt-24 w-screen -ml-[65px] -mr-[65px] px-[calc(65px+1rem)] sm:px-[calc(65px+1.5rem)] lg:px-[calc(65px+2.5rem)] py-12">
       <h2 className="text-2xl font-semibold mb-4">Lebenslauf</h2>
       <p className="text-neutral-700 dark:text-neutral-300 mb-4">
         Unten können Sie das PDF herunterladen.

@@ -53,7 +53,7 @@ function App() {
             </div>
           </section>
         ) : mainView === 'agentDoc' ? (
-          <section className="w-full px-4 sm:px-6 lg:px-10 py-12">
+          <section className="w-screen -ml-[65px] -mr-[65px] px-[calc(65px+1rem)] sm:px-[calc(65px+1.5rem)] lg:px-[calc(65px+2.5rem)] py-12">
             <AgentDoc />
             <div className="mt-6">
               <Button variant="outlined" onClick={() => setMainView('default')}>Zur Übersicht</Button>

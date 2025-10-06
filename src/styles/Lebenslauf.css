@@ -1,11 +1,11 @@
 .cv-header-container {
-  max-width: 1500px;
+  max-width: 100%;
 }
 .cv-header-bar {
   bottom: -16px;
 }
 .cv-page-container {
-  max-width: 1400px;
+  max-width: 100%;
 }
 .cv-avatar {
   width: 100%;
@@ -22,4 +22,10 @@
 }
 .cv-w-90 {
   width: 90% !important;
+}
+
+.cv-left-column {
+  position: sticky;
+  top: 80px;
+  align-self: flex-start;
 }
