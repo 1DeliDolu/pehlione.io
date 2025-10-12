@@ -5,13 +5,13 @@ import type { Repo_, Repo } from '@/types/types'
 
 
 
-function Repos({ username, perPage = 5, onOpenDrawer, variant = 'summary' }: Repo_) {
+function Repos({ username, perPage = 10, onOpenDrawer, variant = 'summary' }: Repo_) {
   const [repos, setRepos] = useState<Repo[] | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const controller = new AbortController()
-    const url = `https://api.github.com/users/${encodeURIComponent(username)}/repos?sort=pushed&per_page=${variant === 'detail' ? 100 : perPage}`
+    const url = `https://api.github.com/users/${encodeURIComponent(username)}/repos?sort=pushed&per_page=${variant === 'detail' ? 10 : perPage}`
     setError(null)
     setRepos(null)
     fetch(url, { signal: controller.signal })
