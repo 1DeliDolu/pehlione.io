@@ -49,4 +49,5 @@ export interface Repo  {
   stargazers_count: number;
   language: string | null;
   updated_at: string;
+  pushed_at: string;
 };

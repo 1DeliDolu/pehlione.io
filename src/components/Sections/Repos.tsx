@@ -11,7 +11,7 @@ function Repos({ username, perPage = 5, onOpenDrawer, variant = 'summary' }: Rep
 
   useEffect(() => {
     const controller = new AbortController()
-    const url = `https://api.github.com/users/${encodeURIComponent(username)}/repos?sort=updated&per_page=${perPage}`
+    const url = `https://api.github.com/users/${encodeURIComponent(username)}/repos?sort=pushed&per_page=${variant === 'detail' ? 100 : perPage}`
     setError(null)
     setRepos(null)
     fetch(url, { signal: controller.signal })
@@ -24,7 +24,7 @@ function Repos({ username, perPage = 5, onOpenDrawer, variant = 'summary' }: Rep
         if (e.name !== 'AbortError') setError(String(e))
       })
     return () => controller.abort()
-  }, [username, perPage])
+  }, [username, perPage, variant])
 
   if (variant === 'detail') {
     return (
@@ -32,7 +32,7 @@ function Repos({ username, perPage = 5, onOpenDrawer, variant = 'summary' }: Rep
         <h2 className="text-3xl font-bold mb-6">Repositories • Details</h2>
         <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">@{username}</p>
         {error && <p className="text-sm text-red-600">{error}</p>}
-        {!error && !repos && <p className="text-sm">Wird geladen...</p>}
+        {!error && !repos && <p className="text-sm">Loading...</p>}
         {repos && (
           <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
             {repos.map((r) => (
@@ -46,27 +46,27 @@ function Repos({ username, perPage = 5, onOpenDrawer, variant = 'summary' }: Rep
                 <div className="text-xs text-neutral-500 dark:text-neutral-400 mt-2 flex gap-3">
                   {r.language && <span>{r.language}</span>}
                   <span>⭐ {r.stargazers_count}</span>
-                  <span>Aktualisiert am {new Date(r.updated_at).toLocaleDateString()}</span>
+                  <span>Pushed at {new Date(r.pushed_at).toLocaleDateString()}</span>
                 </div>
               </li>
             ))}
           </ul>
         )}
 
-        <h3 className="text-xl font-semibold mb-2">Filter & Tipps</h3>
+        <h3 className="text-xl font-semibold mb-2">Filters & Tips</h3>
         <ul className="list-disc pl-6 mb-6 text-neutral-800 dark:text-neutral-200">
-          <li>Sortierung nach „updated“ für die neuesten Änderungen</li>
-          <li>Star-Zahl und Sprache für schnelle Einschätzung</li>
-          <li>Besondere Beachtung: Go- und Rust-Repos für Backend/CLI-Erfahrungen</li>
+          <li>Sorted by "pushed" to show the latest changes</li>
+          <li>Star count and language for a quick assessment</li>
+          <li>Special attention: Go and Rust repos for backend/CLI experience</li>
         </ul>
 
         <h3 className="text-xl font-semibold mb-2">Links</h3>
         <ul className="list-disc pl-6">
           <li>
-            <a href="#projects" className="text-blue-600 hover:underline">Projekte</a>
+            <a href="#projects" className="text-blue-600 hover:underline">Projects</a>
           </li>
           <li>
-            <a href="#developer" className="text-blue-600 hover:underline">Entwicklerprofil</a>
+            <a href="#developer" className="text-blue-600 hover:underline">Developer Profile</a>
           </li>
         </ul>
       </section>
@@ -78,7 +78,7 @@ function Repos({ username, perPage = 5, onOpenDrawer, variant = 'summary' }: Rep
       <h2 className="text-2xl font-semibold mb-4">Repositories</h2>
       <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">@{username}</p>
       {error && <p className="text-sm text-red-600">{error}</p>}
-      {!error && !repos && <p className="text-sm">Wird geladen...</p>}
+      {!error && !repos && <p className="text-sm">Loading...</p>}
       {repos && (
         <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {repos.map((r) => (
@@ -92,16 +92,16 @@ function Repos({ username, perPage = 5, onOpenDrawer, variant = 'summary' }: Rep
               <div className="text-xs text-neutral-500 dark:text-neutral-400 mt-2 flex gap-3">
                 {r.language && <span>{r.language}</span>}
                 <span>⭐ {r.stargazers_count}</span>
-                <span>Aktualisiert am {new Date(r.updated_at).toLocaleDateString()}</span>
+                <span>Pushed at {new Date(r.pushed_at).toLocaleDateString()}</span>
               </div>
             </li>
           ))}
         </ul>
       )}
       <p className="mt-4 text-xs text-neutral-500">
-        Mehr Details im Drawer unter „Repositories“.
+        More details in the drawer under "Repositories".
         {onOpenDrawer && (
-          <button onClick={onOpenDrawer} className="ml-2 text-blue-600 hover:underline">Im Drawer ansehen</button>
+          <button onClick={onOpenDrawer} className="ml-2 text-blue-600 hover:underline">View in Drawer</button>
         )}
       </p>
     </section>
