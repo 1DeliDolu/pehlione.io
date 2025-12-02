@@ -139,6 +139,27 @@ export const certificates: Cert[] = [
     issuer: "BTK",
     img: "/certificates/devops.png",
   },
+  {
+    name: "Blazor for Front-End Development",
+    issuer: "Coursera",
+    img: "/certificates/M4MG23CVGISK.png",
+  },
+  {
+    name: "Laravel Protections",
+    issuer: "Coursera",
+    img: "/certificates/DQXMD3BRZA9Z.png",
+  },
+  {
+    name: "Y0PGW8LUDE7F",
+    issuer: "Coursera",
+    img: "/certificates/Y0PGW8LUDE7F.png",
+  },
+  {
+    name: "Secure Coding in Laravel",
+    issuer: "Coursera",
+    img: "/certificates/WA1NZF2O2J9H.png",
+  }
+
 ];
 
 export const certificateSkills = [
