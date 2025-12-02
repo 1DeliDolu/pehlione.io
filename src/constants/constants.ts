@@ -150,7 +150,7 @@ export const certificates: Cert[] = [
     img: "/certificates/DQXMD3BRZA9Z.png",
   },
   {
-    name: "Y0PGW8LUDE7F",
+    name: "Laravel Additional Security",
     issuer: "Coursera",
     img: "/certificates/Y0PGW8LUDE7F.png",
   },
