@@ -158,7 +158,11 @@ export const certificates: Cert[] = [
     name: "Secure Coding in Laravel",
     issuer: "Coursera",
     img: "/certificates/WA1NZF2O2J9H.png",
-  }
+  },
+  {
+    name: "Developing Back-End Apps with Node.js and Express", 
+    issuer: "Coursera/IBM", 
+    img: "/certificates/nodeJS_.png"},
 
 ];
 
