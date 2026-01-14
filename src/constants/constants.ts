@@ -120,7 +120,7 @@ export const certificates: Cert[] = [
   },
 
   {
-    name: "Web Programlama with Node.js",
+    name: "Web Programmaing with Node.js",
     issuer: "BTK",
     img: "/certificates/nodejs.png",
   },
