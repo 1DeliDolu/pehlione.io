@@ -123,6 +123,7 @@ npm run deploy
 ```
 
 Hinweise:
+
 - `vite.config.ts` liest `BASE_PATH` für korrekte Asset‑Pfade.
 - `public/CNAME` ist für die benutzerdefinierte Domain enthalten.
 
@@ -131,6 +132,36 @@ Hinweise:
 - Alle Bilder laden lazy und werden asynchron decodiert.
 - Intrinsische Größen reduzieren Layout‑Shifts.
 - Nur beim ersten Galerieladen erscheint ein Seiten‑Overlay; per‑Bild‑Loader sind auf die erste Seite begrenzt.
+
+## CMS Magement
+
+App.tsx 
+
+  {/* foto uploader */}
+
+    {/*`<div id="foto-uploader">`
+
+    `<UploadForm />`
+
+    `</div>` */}
+
+und constant.ts 
+
+/*  ,
+
+  {
+
+    key: "foto-uploader",
+
+    label: "Foto Uploader",
+
+    href: "#foto-uploader",
+
+    icon: CloudUploadIcon,
+
+    detail: "Profil und Skills.",
+
+  }, */
 
 ## Roadmap
 

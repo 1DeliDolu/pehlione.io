@@ -1,15 +1,12 @@
-import type { Cert, Project } from "@/types/types";
 import DescriptionIcon from "@mui/icons-material/Description";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import WorkIcon from "@mui/icons-material/Work";
 import FolderIcon from "@mui/icons-material/Folder";
 import PersonIcon from "@mui/icons-material/Person";
+/* import CloudUploadIcon from '@mui/icons-material/CloudUpload'; */
 
-export const subCategories: Record<"foto" | "garten", string[]> = {
-  foto: [ "natur", "herbst", "blumen" ],
-  garten: [ "herbst", "ernte", "gemuese" ],
-};
+
 
 const hobbies = [
   {
@@ -34,158 +31,6 @@ const hobbies = [
 ];
 
 export default hobbies;
-
-// Example projects; replace with your actual projects
-export const projects: Project[] = [
-  {
-    name: "Portfolio-Website",
-    description: "Persönliche Website mit React + TypeScript + Vite.",
-    demoUrl: "https://pehlione.com/",
-    repoUrl: "https://github.com/1DeliDolu/pehlione.io/",
-  },
-  {
-    name: "Grafana Data Source Plugin für PRTG",
-    description:
-      "Plugin zur Integration von PRTG in Grafana (Go Backend, TypeScript Frontend).",
-    demoUrl: "https://pehlione.com/",
-    repoUrl: "https://github.com/1DeliDolu/PRTG",
-  },
-];
-
-export const certificates: Cert[] = [
-  {
-    name: "Responsive Web Design",
-    issuer: "FreeCodeCamp",
-    img: "/certificates/responsive-web-design.png",
-  },
-  {
-    name: "Transact-SQL",
-    issuer: "Microsoft",
-    img: "/certificates/tsql.png",
-  },
-  {
-    name: "Generative AI Engineering with LLMs",
-    issuer: "Coursera",
-    img: "/certificates/6UJ5Q3W7Q4IT.png",
-  },
-  {
-    name: "Building Generative AI-Powered Applications with Python",
-    issuer: "Coursera",
-    img: "/certificates/SPUWYF1LZ4HN.png",
-  },
-  {
-    name: "Generative AI and LLMs: Architecture and Data Preparation",
-    issuer: "Coursera",
-    img: "/certificates/KDHR6PKZH6DX.png",
-  },
-  {
-    name: "Java Programming: Solving Problems with Software",
-    issuer: "Coursera",
-    img: "/certificates/GQAY75EGH85E.png",
-  },
-  {
-    name: "Advanced Styling with Responsive Design",
-    issuer: "Coursera",
-    img: "/certificates/HHVRQZCEKE9M.png",
-  },
-  {
-    name: "Interactivity with JavaScript",
-    issuer: "Coursera",
-    img: "/certificates/BBZHU77E8F6Y.png",
-  },
-  {
-    name: "PHP",
-    issuer: "BTK",
-    img: "/certificates/php.png",
-  },
-  {
-    name: "Web Programming with React",
-    issuer: "BTK",
-    img: "/certificates/react.png",
-  },
-  {
-    name: "Introduction to HTML5",
-    issuer: "Coursera",
-    img: "/certificates/V2USGSAUHM55.png",
-  },
-  {
-    name: "Introduction to CSS3",
-    issuer: "Coursera",
-    img: "/certificates/UXZ788Y7QCEG.png",
-  },
-  {
-    name: "Legacy JavaScript Algorithms and Data Structures",
-    issuer: "FreeCodeCamp",
-    img: "/certificates/legacy-js.png",
-  },
-
-  {
-    name: "Web Programmaing with Node.js",
-    issuer: "BTK",
-    img: "/certificates/nodejs.png",
-  },
-  {
-    name: "Golang",
-    issuer: "BTK",
-    img: "/certificates/golang.png",
-  },
-  {
-    name: "Kubernetes",
-    issuer: "BTK",
-    img: "/certificates/kubernetes.png",
-  },
-  {
-    name: "DevOps(Jenkins)",
-    issuer: "BTK",
-    img: "/certificates/devops.png",
-  },
-  {
-    name: "Blazor for Front-End Development",
-    issuer: "Coursera",
-    img: "/certificates/M4MG23CVGISK.png",
-  },
-  {
-    name: "Laravel Protections",
-    issuer: "Coursera",
-    img: "/certificates/DQXMD3BRZA9Z.png",
-  },
-  {
-    name: "Laravel Additional Security",
-    issuer: "Coursera",
-    img: "/certificates/Y0PGW8LUDE7F.png",
-  },
-  {
-    name: "Secure Coding in Laravel",
-    issuer: "Coursera",
-    img: "/certificates/WA1NZF2O2J9H.png",
-  },
-  {
-    name: "Developing Back-End Apps with Node.js and Express",
-    issuer: "Coursera/IBM",
-    img: "/certificates/nodeJS_.png",
-  },
-  /* 
-IBM DevOps and Software Engineering */
-  {
-    name: "DevOps and Software Engineering",
-    issuer: "Coursera/IBM",
-    img: "/certificates/devopss.png",
-  },
-  /* 
-IBM Full Stack Software Developer */
-  {
-    name: "Full Stack Software Developer",
-    issuer: "Coursera/IBM",
-    img: "/certificates/fullstack.png",
-  },
-  /* 
-IBM Back-End Development */
-  {
-    name: "Back-End Development",
-    issuer: "Coursera/IBM",
-    img: "/certificates/backend.png",
-  },
-];
 
 export const certificateSkills = [
   "JavaScript",
@@ -268,12 +113,27 @@ export const navItems = [
     href: "#developer",
     icon: PersonIcon,
     detail: "Profil und Skills.",
-  },
-];
+  }/*  ,
+  
+  {
+    key: "foto-uploader",
+    label: "Foto Uploader",
+    href: "#foto-uploader",
+    icon: CloudUploadIcon,
+    detail: "Profil und Skills.",
+  }, */
 
-export const hauptKategorien = [ "foto", "garten" ] as const;
+];
+export const subCategories: Record<"foto" | "garten" | "certificates", string[]> = {
+  foto: [ "natur", "herbst", "blumen", "frühling", "stadt", "makro", "sommer", "winter" ],
+  garten: [ "herbst", "ernte", "gemuese", "frühling", "pflanzen", "werkzeuge", "sommer", "winter" ],
+  certificates: [ "Coursera","BTK","Udemy" ],
+};
+
+export const hauptKategorien = [ "foto", "garten", "certificates" ] as const;
 
 export const unterKategorien: Record<string, string[]> = {
-  foto: [ "natur", "herbst", "blumen" ],
-  garten: [ "herbst", "ernte", "gemuese" ],
+  foto: [ "natur", "herbst", "blumen", "frühling", "stadt", "makro", "sommer", "winter" ],
+  garten: [ "herbst", "ernte", "gemuese", "frühling", "pflanzen", "werkzeuge", "sommer", "winter" ],
+  certificates: [ "Coursera","BTK","Udemy" ],
 };

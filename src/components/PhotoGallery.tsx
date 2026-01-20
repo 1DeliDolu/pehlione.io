@@ -32,6 +32,10 @@ export default function PhotoGallery({ title, intro, photos, itemsPerPage = 3, o
     }
   }, [page])
 
+  useEffect(() => {
+    setPage(1)
+  }, [photos])
+
   useMemo(() => {
     const count = current.length
     pendingRef.current = count

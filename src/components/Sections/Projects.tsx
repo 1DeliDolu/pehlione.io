@@ -1,14 +1,48 @@
-import { projects } from '@/constants/constants'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import type { Project } from '@/types/types'
 
 type Props = { onOpenDrawer?: () => void; variant?: 'summary' | 'detail' }
 
+type ProjectEntry = Project & { id?: string | number }
+
+const sortByIdDesc = (items: ProjectEntry[]) => {
+  const hasId = items.some((item) => item.id !== undefined)
+  if (!hasId) return items
+  return [...items].sort((a, b) => {
+    const aNum = Number(a.id)
+    const bNum = Number(b.id)
+    if (Number.isNaN(aNum) && Number.isNaN(bNum)) return 0
+    if (Number.isNaN(aNum)) return 1
+    if (Number.isNaN(bNum)) return -1
+    return bNum - aNum
+  })
+}
+
 function Projects({ onOpenDrawer, variant = 'summary' }: Props) {
+  const [items, setItems] = useState<ProjectEntry[]>([])
+
+  useEffect(() => {
+    let mounted = true
+    axios
+      .get<ProjectEntry[]>('http://localhost:4000/projects', { timeout: 5000 })
+      .then((res) => {
+        if (mounted) setItems(sortByIdDesc(res.data))
+      })
+      .catch(() => {
+        if (mounted) setItems([])
+      })
+    return () => {
+      mounted = false
+    }
+  }, [])
+
   if (variant === 'detail') {
     return (
       <section id="projects" className="scroll-mt-24 w-full px-4 sm:px-6 lg:px-10 py-12">
         <h1 className="text-3xl font-bold mb-6">Projekte</h1>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-          {projects.map((p) => (
+          {items.map((p) => (
             <article key={p.name} className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4">
               <h3 className="font-semibold text-lg mb-1">{p.name}</h3>
               <p className="text-sm text-neutral-700 dark:text-neutral-300 mb-3">{p.description}</p>
@@ -60,7 +94,7 @@ function Projects({ onOpenDrawer, variant = 'summary' }: Props) {
     <section id="projects" className="scroll-mt-24 w-full px-4 sm:px-6 lg:px-10 py-12">
       <h2 className="text-2xl font-semibold mb-4">Projekte</h2>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {projects.map((p) => (
+        {items.map((p) => (
           <article key={p.name} className="rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4">
             <h3 className="font-medium mb-1">{p.name}</h3>
             <p className="text-sm text-neutral-700 dark:text-neutral-300 mb-3">{p.description}</p>

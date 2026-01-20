@@ -12,6 +12,16 @@ type Props = {
   category: Category
 }
 
+const sortByIdDesc = (items: FotoEintrag[]) =>
+  [...items].sort((a, b) => {
+    const aNum = Number(a.id)
+    const bNum = Number(b.id)
+    if (Number.isNaN(aNum) && Number.isNaN(bNum)) return 0
+    if (Number.isNaN(aNum)) return 1
+    if (Number.isNaN(bNum)) return -1
+    return bNum - aNum
+  })
+
 export default function Foto({ category }: Props) {
   const [photos, setPhotos] = useState<FotoEintrag[]>([])
   const [showSpinner, setShowSpinner] = useState(true)
@@ -45,10 +55,10 @@ export default function Foto({ category }: Props) {
       axios
         .get<FotoEintrag[]>(`http://localhost:4000/${cfg.resource}`, { timeout: 5000 })
         .then((res) => {
-          if (mounted) setPhotos(res.data)
+          if (mounted) setPhotos(sortByIdDesc(res.data))
         })
         .catch(() => {
-          if (mounted) setPhotos(cfg.fallback)
+          if (mounted) setPhotos(sortByIdDesc(cfg.fallback))
         })
     }
 

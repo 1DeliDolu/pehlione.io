@@ -11,8 +11,8 @@ test.describe('Projects Section', () => {
 
   test('renders all projects with title, description and links', async ({ page }) => {
     const projects = page.locator('#projects').locator('article')
+    await expect.poll(async () => projects.count()).toBeGreaterThan(0)
     const count = await projects.count()
-    expect(count).toBeGreaterThan(0)
 
     for (let i = 0; i < count; i++) {
       const project = projects.nth(i)

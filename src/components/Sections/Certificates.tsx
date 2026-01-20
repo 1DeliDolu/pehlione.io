@@ -1,9 +1,53 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import OptimizedImage from "@/components/OptimizedImage";
-import { certificates } from "@/constants/constants";
+import type { Cert } from "@/types/types";
 
 type Props = { onOpenDrawer?: () => void; variant?: "summary" | "detail" };
 
+type CertEntry = Cert & { id?: string | number };
+
+const sortByIdDesc = (items: CertEntry[]) => {
+  const hasId = items.some((item) => item.id !== undefined);
+  if (!hasId) return [...items].reverse();
+  return [...items].sort((a, b) => {
+    const aNum = Number(a.id);
+    const bNum = Number(b.id);
+    if (Number.isNaN(aNum) && Number.isNaN(bNum)) return 0;
+    if (Number.isNaN(aNum)) return 1;
+    if (Number.isNaN(bNum)) return -1;
+    return bNum - aNum;
+  });
+};
+
 function Certificates({ onOpenDrawer, variant = "summary" }: Props) {
+  const [items, setItems] = useState<CertEntry[]>([]);
+
+  useEffect(() => {
+    let mounted = true;
+    const fetchData = () => {
+      axios
+        .get<CertEntry[]>("http://localhost:4000/certificates", { timeout: 5000 })
+        .then((res) => {
+          if (mounted) setItems(sortByIdDesc(res.data));
+        })
+        .catch(() => {
+          if (mounted) setItems([]);
+        });
+    };
+
+    fetchData();
+    const onUpdated = () => fetchData();
+    window.addEventListener("certificates:updated", onUpdated as EventListener);
+    return () => {
+      mounted = false;
+      window.removeEventListener(
+        "certificates:updated",
+        onUpdated as EventListener
+      );
+    };
+  }, []);
+
   if (variant === "detail") {
     return (
       <section
@@ -12,7 +56,7 @@ function Certificates({ onOpenDrawer, variant = "summary" }: Props) {
       >
         <h2 className="text-3xl font-bold mb-6">Zertifikate</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-          {[...certificates].reverse().map((c) => (
+          {items.map((c) => (
             <article
               key={c.name}
               className="group rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4"
@@ -75,10 +119,7 @@ function Certificates({ onOpenDrawer, variant = "summary" }: Props) {
     >
       <h2 className="text-2xl font-semibold mb-4">Zertifikate</h2>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {[...certificates]
-          .reverse()
-          .slice(0, 3)
-          .map((c) => (
+        {items.slice(0, 3).map((c) => (
             <article
               key={c.name}
               className="group rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4"

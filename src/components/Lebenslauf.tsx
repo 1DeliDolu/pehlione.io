@@ -1,310 +1,358 @@
 import React from "react";
+import "@/styles/Lebenslauf.css";
 
 const CvPage: React.FC = () => {
+  const today = new Date().toLocaleDateString( 'de-DE' );
   return (
-    <div>
-      <h1 className="text-3xl font-bold mb-6">Lebenslauf</h1>
-      <div className="w3-content w3-margin-top">
-        <div className="w3-row-padding">
-          <div className="w3-third">
-            <div className="w3-white w3-text-grey w3-card-4">
-              <div className="w3-container">
-                <p>
-                  <i className="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>
-                  Anwendungsentwickler
-                </p>
-                <p>
-                  <i className="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>
-                  Marburg, DE
-                </p>
-                <p>
-                  <i className="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>
-                  <a href="mailto:mustafa.ozdemir1408@gmail.com">mustafa.ozdemir1408@gmail.com</a>
-                </p>
-                <p>
-                  <i className="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>
-                  <a href="tel:017693153406">017693153406</a>
-                </p>
-                <hr />
-
-                <p className="w3-large">
-                  <b>
-                    <i className="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>
-                    Skills
-                  </b>
-                </p>
-                {skill("HTML", 100)}
-                {skill("CSS", 100)}
-                {skill("JavaScript", 100)}
-                {skill("React", 100)}
-                {skill("TypeScript", 100)}
-                {skill("PHP", 100)}
-                {skill("Golang", 100)}
-                {skill("Rust", 100)}
-                {skill("Microsoft SQL", 100)}
-                {skill("MySQL", 100)}
-                {skill("Java", 95)}
-                {skill("Docker", 95)}
-                <hr />
-
-                <br />
-                <p className="w3-large w3-text-theme">
-                  <b>
-                    <i className="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>
-                    Languages
-                  </b>
-                </p>
-                {lang("English", 90)}
-                {lang("Deutsch", 90)}
-                {lang("Türkisch", 100)}
-                <br />
-                <hr />
-                <br />
-                <p className="w3-large w3-text-theme">
-                  <b>
-                    <i className="fa fa-code fa-fw w3-margin-right w3-text-teal"></i>
-                    Interessen
-                  </b>
-                </p>
-                {skill("Coding und Software-Architektur", 100)}
-                {skill("Wandern gehen", 100)}
-                {skill("Bücher lesen", 100)}
-                {skill("Handwerk & Reparatur", 100)}
-                {skill("Aktives Mitglied bei Interkulturellen Garten", 100)}
-
-                <br />
+    <div className="cv-page">
+      <div className="cv-shell">
+        <div className="cv-grid">
+          <aside className="cv-side">
+            <div className="cv-card cv-card--profile">
+              <img
+                src="/bewerbung.jpg"
+                alt="Bewerbungsfoto von Mustafa Özdemir"
+                className="cv-avatar"
+              />
+              <div className="cv-kicker">Kontakt</div>
+              <h1 className="cv-name">Mustafa Özdemir</h1>
+              <p className="cv-role">Anwendungsentwickler</p>
+              <div className="cv-contact">
+                <div className="cv-contact-item">
+                  <span className="cv-contact-label">Adresse</span>
+                  <span className="cv-contact-value">Am Richtsberg 20, 35039 Marburg</span>
+                </div>
+                <div className="cv-contact-item">
+                  <span className="cv-contact-label">E-Mail</span>
+                  <a
+                    className="cv-contact-value"
+                    href="mailto:mustafa.ozdemir1408@gmail.com"
+                  >
+                    mustafa.ozdemir1408@gmail.com
+                  </a>
+                </div>
+                <div className="cv-contact-item">
+                  <span className="cv-contact-label">Telefon</span>
+                  <a className="cv-contact-value" href="tel:+4917693153406">
+                    +49 176 93153406
+                  </a>
+                </div>
+              </div>
+              <div className="cv-divider" />
+              <div className="cv-personal">
+                <div className="cv-personal-row">
+                  <span className="cv-personal-label">Geburtsdatum</span>
+                  <span className="cv-personal-value">25.11.1990</span>
+                </div>
+                <div className="cv-personal-row">
+                  <span className="cv-personal-label">Geburtsort</span>
+                  <span className="cv-personal-value">Gerze (Türkei)</span>
+                </div>
+                <div className="cv-personal-row">
+                  <span className="cv-personal-label">Familienstand</span>
+                  <span className="cv-personal-value">verheiratet</span>
+                </div>
+                <div className="cv-personal-row">
+                  <span className="cv-personal-label">Nationalität</span>
+                  <span className="cv-personal-value">Türkisch</span>
+                </div>
               </div>
             </div>
-            <br />
-          </div>
+          </aside>
 
-          <div className="w3-twothird">
-            <div className="w3-container w3-card w3-white w3-margin-bottom">
-              <h2 className="w3-text-grey w3-padding-16">
-                <i className="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
-                Berufliche Werdegang
-              </h2>
-              <div className="w3-container">
-                <h5 className="w3-opacity">
-                  <b>Prüfungsvorbereitung, IAD GmbH, Marburg</b>
-                </h5>
-                <h6 className="w3-text-teal">
-                  <i className="fa fa-calendar fa-fw w3-margin-right"></i>
-                  06/2025 - 11/2025
-                </h6>
-                <ul className="list-disc pl-6">
-                  <li>Vorbereitung auf die Abschlussprüfung zum Fachinformatiker Anwendungsentwicklung</li>
-                  <li>JAVA-Zertifikat</li>
-                  <li>ISTQB-Zertifikat</li>
+          <main className="cv-main">
+            <section className="cv-card">
+              <div className="cv-section-head">
+                <h2>Berufliche Werdegang</h2>
+                <p>Ausbildung, Praktika und berufliche Erfahrung.</p>
+              </div>
+
+              <div className="cv-item">
+                <div className="cv-item-header">
+                  <h3>Prüfungsvorbereitung IHK (AP2), IAD GmbH, Marburg</h3>
+                  <span className="cv-item-meta">07/2025 – 11/2025</span>
+                </div>
+                <ul className="cv-item-list">
+                  <li>Gezielte Vorbereitung auf die IHK‑Abschlussprüfung Teil-2 (Fachinformatiker Anwendungsentwicklung).</li>
+                  <li>Schwerpunkte: Java‑Programmierung, Testverfahren (ISTQB), Datenbanken und REST‑APIs.</li>
+                  <li>Prüfungsrelevante Übungen, Zeitmanagement und Simulation realer Prüfungsaufgaben.</li>
+                  <li>Erstellung und Präsentation einer praxisorientierten Projektarbeit gemäß IHK‑Anforderungen.</li>
                 </ul>
-                <hr />
+              </div>
 
-                <h5 className="w3-opacity">
-                  <b>Anwendungsentwickler im Praktikum zur Pluginsentwicklung für PRTG & Grafana (Universitätsstadt Marburg)</b>
-                </h5>
-                <h6 className="w3-text-teal">
-                  <i className="fa fa-calendar fa-fw w3-margin-right"></i>
-                  11/2024 - 06/2025
-                </h6>
-                <ul className="list-disc pl-6">
+              <div className="cv-item">
+                <div className="cv-item-header">
+                  <h3>Anwendungsentwickler im Praktikum zur Pluginsentwicklung für PRTG &amp; Grafana (Universitätsstadt Marburg)</h3>
+                  <span className="cv-item-meta">11/2024 – 06/2025</span>
+                </div>
+                <ul className="cv-item-list">
                   <li>Ermöglichung des Monitorings der IT-Systeme durch die Entwicklung eines Grafana-Datasource-Plugins für PRTG</li>
                   <li>Implementierung von Authentifizierung, Logging und Monitoring-Funktionalitäten</li>
                   <li>Testen, Dokumentieren und Präsentieren der Ergebnisse im Rahmen des Praktikums</li>
                 </ul>
-                <hr />
               </div>
 
-              <div className="w3-container">
-                <h5 className="w3-opacity">
-                  <b>Umschulung zum Anwendungsentwickler, IAD GmbH, Marburg</b>
-                </h5>
-                <h6 className="w3-text-teal">
-                  <i className="fa fa-calendar fa-fw w3-margin-right"></i>
-                  07/2023 - 06/2025
-                </h6>
-
-                <hr />
+              <div className="cv-item">
+                <div className="cv-item-header">
+                  <h3>Umschulung zum Anwendungsentwickler (IHK), IAD GmbH, Marburg</h3>
+                  <span className="cv-item-meta">07/2023 – 11/2024</span>
+                </div>
+                <ul className="cv-item-list">
+                  <li>Praxisorientierte Umschulung mit Fokus auf Softwareentwicklung und -betrieb.</li>
+                  <li>Kernthemen: Programmierung (z. B. Java, JavaScript/TypeScript), relationale Datenbanken (SQL), Web‑Technologien und REST‑APIs.</li>
+                  <li>Methoden & Tools: Anforderungsanalyse, Testverfahren (inkl. ISTQB‑Grundlagen), Versionsverwaltung (Git) und agile Arbeitsweisen.</li>
+                  <li>Abschlussorientiert: Erstellung einer praxisnahen Projektarbeit, Präsentation und Vorbereitung auf die IHK‑Abschlussprüfung (Teil-1 und Teil-2).</li>
+                </ul>
               </div>
-              <div className="w3-container">
-                <h5 className="w3-opacity">
-                  <b>
-                    Wirtschaftsingenieur mit Schwerpunkt Prozessplanung / Firma
-                    CBF, Tolat, Türkei
-                  </b>
-                </h5>
-                <h6 className="w3-text-teal">
-                  <i className="fa fa-calendar fa-fw w3-margin-right"></i>
-                  12/2012 – 03/2019
-                </h6>
-                <ul className="list-disc pl-6">
+
+              <div className="cv-item">
+                <div className="cv-item-header">
+                  <h3>Wirtschaftsingenieur mit Schwerpunkt Prozessplanung, Firma CBF, Tokat, Türkei</h3>
+                  <span className="cv-item-meta">12/2018 – 03/2019</span>
+                </div>
+                <ul className="cv-item-list">
                   <li>Koordination von 650 Mitarbeiter*innen</li>
-                  <li>
-                    Prozessplanung für die Produktion von diversen
-                    Kleidungsstücken
-                  </li>
-                  <li>Erstellen der Tagesistatiken</li>
-                  <li>
-                    Überprüfen der Fristen zum Einhalten der Lieferketten
-                  </li>
+                  <li>Prozessplanung für die Produktion von diversen Kleidungsstücken</li>
+                  <li>Erstellen der Tagesstatiken</li>
+                  <li>Überprüfen der Fristen zum Einhalten der Lieferketten</li>
                 </ul>
-                <br />
               </div>
-            </div>
 
-            <div className="w3-container w3-card w3-white w3-margin-bottom">
-              <h2 className="w3-text-grey w3-padding-16">
-                <i className="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
-                Bildungsweg
-              </h2>
-              <div className="w3-container">
-                <h5 className="w3-opacity">
-                  <b>Ausbildung zum Fachinformatiker Anwendungsentwicklung IAD Marburg</b>
-                </h5>
-                <h6 className="w3-text-teal">
-                  <i className="fa fa-calendar fa-fw w3-margin-right"></i>
-                  07/2023 – 06/2025
-                </h6>
-                <ul className="list-disc pl-6">
-                  <li>Während meiner Ausbildung habe ich fundierte berufliche Kenntnisse erworben, die mir helfen, mich in der IT-Branche sicher zu bewegen.</li>
+              <div className="cv-item">
+                <div className="cv-item-header">
+                  <h3>Pilot (Türkische Luftwaffe, in unterschiedlichen Orten, Türkei)</h3>
+                  <span className="cv-item-meta">12/2014 – 11/2018</span>
+                </div>
+                <ul className="cv-item-list">
+                  <li>Absolvierung von rund 1.200 Flugstunden</li>
+                  <li>Einweisung/Briefing des Personals</li>
+                  <li>Vorbereitung von Tagesplänen</li>
+                  <li>Besprechung und Planung der notwendigen Koordination</li>
                 </ul>
-                <br />
               </div>
-              <hr />
-              <div className="w3-container">
-                <h5 className="w3-opacity">
-                  <b>Deutschkurs (Level: B2) / VHS, Marburg</b>
-                </h5>
-                <h6 className="w3-text-teal">
-                  <i className="fa fa-calendar fa-fw w3-margin-right"></i>
-                  09/2021 – 05/2023
-                </h6>
-                <ul className="list-disc pl-6">
-                  <li>Dort habe ich berufliche Deutsckentnisse gelernt.</li>
-                </ul>
-                <br />
-              </div>
-              <hr />
+            </section>
 
-              <div className="w3-container">
-                <h5 className="w3-opacity">
-                  <b>Studium des Wirtschafts-Ingenieurwesen / Industrie-Ingenieurwesen Türkische Nationale Verteidigungsuniversität, Istanbul</b>
-                </h5>
-                <h6 className="w3-text-teal">
-                  <i className="fa fa-calendar fa-fw w3-margin-right"></i>
-                  09/2008 – 08/2012
-                </h6>
-                <ul className="list-disc pl-6">
+            <section className="cv-card">
+              <div className="cv-section-head">
+                <h2>Bildungsweg</h2>
+                <p>Ausbildung, Kurse und Studium.</p>
+              </div>
+
+              <div className="cv-item">
+                <div className="cv-item-header">
+                  <h3>Ausbildung zum Fachinformatiker Anwendungsentwicklung, IAD Marburg</h3>
+                  <span className="cv-item-meta">07/2023 – 11/2025</span>
+                </div>
+              </div>
+
+              <div className="cv-item">
+                <div className="cv-item-header">
+                  <h3>Deutschkurs mit B2-Zertifikat, VHS Marburg</h3>
+                  <span className="cv-item-meta">09/2021 – 05/2023</span>
+                </div>
+              </div>
+
+              <div className="cv-item">
+                <div className="cv-item-header">
+                  <h3>Ausbildung zum Piloten mit Lizenz, Türkische Luftwaffe, Izmir</h3>
+                  <span className="cv-item-meta">09/2012 – 12/2014</span>
+                </div>
+              </div>
+
+              <div className="cv-item">
+                <div className="cv-item-header">
+                  <h3>Studium des Wirtschafts-Ingenieurwesen / Industrie-Ingenieurwesen, Türkische Nationale Verteidigungsuniversität, Istanbul</h3>
+                  <span className="cv-item-meta">12/2008 – 08/2012</span>
+                </div>
+                <ul className="cv-item-list">
                   <li>Abschluss: Diplom Wirtschaftsingenieur</li>
-                  <li>Schwerpunkt: Prozessplanung, Lieferung & Logistik, Verwaltung</li>
+                  <li>Schwerpunkt: Prozessplanung, Lieferung &amp; Logistik, Verwaltung</li>
                 </ul>
-                <br />
               </div>
-            </div>
+            </section>
 
-            <div className="w3-container w3-card w3-white w3-margin-bottom">
-              <h2 className="w3-text-grey w3-padding-16">
-                <span className="fa fa-fw w3-margin-right w3-xxlarge w3-text-teal">
-                  &#128506;
-                </span>
-                Soziales Engagement
-              </h2>
-              <p>
-                Seit Januar 2021 engagiere ich mich ehrenamtlich in
-                verschiedenen Vereinen. Diese Tätigkeit hat meine
-                Kommunikationsfähigkeiten und mein Verantwortungsbewusstsein
-                gestärkt. Außerdem bin ich Mitglied im Interkulturellen
-                Gärtnerverein.
-              </p>
-              <hr />
-              <div className="w3-container">
-                <h5 className="w3-opacity">
-                  <b>Bürgerhelfer / Neustadt</b>
-                </h5>
-                <h6 className="w3-text-teal">
-                  <i className="fa fa-calendar fa-fw w3-margin-right"></i>
-                  09/2021 -
-                  <span className="w3-tag w3-teal w3-round">Aktuel</span>
-                </h6>
-                <ul className="list-disc pl-6">
-                  <li>Begleitung und Unterstützung von älteren Menschen</li>
-                </ul>
-                <br />
+            <section className="cv-card">
+              <div className="cv-section-head">
+                <h2>Weitere Kenntnisse</h2>
+                <p>Technologien und Fachbereiche im Überblick.</p>
               </div>
-              <div className="w3-container">
-                <h5 className="w3-opacity">
-                  <b>Ehrenamtliche Tätigkeit / Johanniter, Marburg</b>
-                </h5>
-                <h6 className="w3-text-teal">
-                  <i className="fa fa-calendar fa-fw w3-margin-right"></i>
-                  06/2022 – 09/2023
-                </h6>
-                <ul className="list-disc pl-6">
-                  <li>
-                    Besuch und Unterstützung von älteren Menschen im Alltag bei
-                    sich zu Hause
-                  </li>
+              <div className="cv-skill-group">
+                <h3>JavaScript / TypeScript / Node.js</h3>
+                <ul className="cv-inline-list">
+                  <li>JavaScript Grundlagen (Syntax, Grundstrukturen)</li>
+                  <li>Prozedurale & objektorientierte Programmierung</li>
+                  <li>DOM-Programmierung (dynamischer Seiteninhalt)</li>
+                  <li>HTML5 APIs (ausgewählte)</li>
+                  <li>TypeScript Grundlagen & OOP mit TypeScript</li>
+                  <li>Node.js Basics</li>
+                  <li>AJAX (asynchrones Laden von Daten)</li>
+                  <li>XML Grundlagen (DTD, Schema)</li>
+                  <li>Projektarbeit</li>
                 </ul>
-                <br />
               </div>
-            </div>
-            <div className="w3-container w3-card w3-white w3-margin-bottom">
-              <div className="w3-container">
-                <h2 className="w3-text-grey w3-padding-16">
-                  <span className="fa fa-id-card fa-fw w3-margin-right w3-xxlarge w3-text-teal"></span>
-                  Referenz
-                </h2>
-                <h5 className="w3-opacity">
-                  <b>Andrea Fritzsch: Förderung des freiwilligen Engagements beim WIR-Vielfaltszentrum der Universitätsstadt Marburg</b>
-                </h5>
 
-                <ul className="list-disc pl-6">
-                  <li>
-                    E-Mail: <a href="mailto:andrea.fritzsch@marburg.de" target="_blank" rel="noreferrer noopener" aria-label="E-Mail Andrea Fritzsch">
-                      andrea.fritzsch@marburg.de
-                    </a>
-                  </li>
-                  <li>
-                    Telefon: <a href="tel:064212011861">06421 201-1861</a>
-                  </li>
+              <div className="cv-skill-group">
+                <h3>HTML5 / CSS3</h3>
+                <ul className="cv-inline-list">
+                  <li>HTML5 Grundlagen (Semantik, Metadaten, Links, Bilder)</li>
+                  <li>Formulare & Tabellen</li>
+                  <li>CSS Grundlagen & Layout (Flexbox/Grid)</li>
+                  <li>Responsive Design</li>
+                  <li>Barrierefreiheit (Accessibility) & UX/Usability</li>
+                  <li>SEO & Microdata</li>
+                  <li>SASS (SCSS)</li>
+                  <li>Tailwind CSS</li>
+                  <li>Bootstrap</li>
+                  <li>Materialize</li>
                 </ul>
-                <br />
               </div>
+
+              <div className="cv-skill-group">
+                <h3>C# / .NET</h3>
+                <ul className="cv-inline-list">
+                  <li>.NET-Plattform im Überblick</li>
+                  <li>Entwicklungsumgebung einrichten</li>
+                  <li>C# Grundlagen (Syntax, Kontrollstrukturen, Methoden)</li>
+                  <li>Fehlerbehandlung mit Exceptions</li>
+                  <li>OOP (Klassen, Schnittstellen, Vererbung)</li>
+                  <li>Generische Collections & weitere Konzepte</li>
+                  <li>Automatische Speicherverwaltung (GC)</li>
+                  <li>Asynchrone Programmierung</li>
+                  <li>GUI Programmierung mit WPF</li>
+                  <li>Entwurfsmuster</li>
+                  <li>Netzwerkprogrammierung</li>
+                  <li>Test- & Buildmanagement + Projekt</li>
+                </ul>
+              </div>
+
+              <div className="cv-skill-group">
+                <h3>Java</h3>
+                <ul className="cv-inline-list">
+                  <li>Java Grundlagen (Syntax, Variablen, Operatoren)</li>
+                  <li>Kontrollstrukturen (Entscheidungen, Schleifen)</li>
+                  <li>Arrays & Objektarbeit</li>
+                  <li>Methoden & Methodenüberladung</li>
+                  <li>OOP (Kapselung, Konstruktoren, Konzepte)</li>
+                  <li>Fehlerbehandlung (Exceptions)</li>
+                  <li>Dateien & Datenströme (I/O)</li>
+                  <li>Ausgewählte Klassen (Core API)</li>
+                  <li>Lambda-Ausdrücke</li>
+                  <li>GUI mit Swing</li>
+                </ul>
+              </div>
+
+              <div className="cv-skill-group">
+                <h3>SQL</h3>
+                <ul className="cv-inline-list">
+                  <li>Microsoft SQL-Server</li>
+                  <li>MySQL</li>
+                </ul>
+              </div>
+              <div className="cv-skill-group">
+                <h3>Go(lang)</h3>
+                <ul className="cv-inline-list">
+                  <li>REST API</li>
+                  <li>Logging &amp; Monitoring</li>
+                  <li>Cache</li>
+                  <li>Schnittstellenprogrammierung</li>
+                </ul>
+              </div>
+              <div className="cv-skill-group">
+                <h3>PHP</h3>
+                <ul className="cv-inline-list">
+                  <li>OOP</li>
+                  <li>Symfony</li>
+                  <li>Laravel</li>
+                </ul>
+              </div>
+          </section>
+
+          <section className="cv-card">
+            <div className="cv-section-head">
+              <h2>Sprachkenntnisse</h2>
+              <p>Sprachliche Kompetenzen.</p>
             </div>
-          </div>
-        </div>
+            <ul className="cv-list">
+              <li>Türkisch – Muttersprache</li>
+              <li>Deutsch – gut in Wort und Schrift</li>
+              <li>Englisch – gut in Wort und Schrift</li>
+            </ul>
+          </section>
+
+          <section className="cv-card">
+            <div className="cv-section-head">
+              <h2>Interessen</h2>
+              <p>Was mich zusätzlich motiviert.</p>
+            </div>
+            <ul className="cv-tag-list">
+              <li>Coding und Software-Architektur</li>
+              <li>Wandern gehen</li>
+              <li>Bücher lesen</li>
+              <li>Handwerk &amp; Reparatur</li>
+              <li>Aktives Mitglied bei Interkulturellen Garten</li>
+            </ul>
+          </section>
+
+          <section className="cv-card">
+            <div className="cv-section-head">
+              <h2>Soziales Engagement</h2>
+              <p>Freiwillige Tätigkeiten und Ehrenamt.</p>
+            </div>
+            <div className="cv-item">
+              <div className="cv-item-header">
+                <h3>Bürgerhelfer (Bürgerhilfe, Neustadt, Deutschland)</h3>
+                <span className="cv-item-meta">09/2021 – aktuell</span>
+              </div>
+              <ul className="cv-item-list">
+                <li>Begleitung und Unterstützung von älteren Menschen</li>
+              </ul>
+            </div>
+            <div className="cv-item">
+              <div className="cv-item-header">
+                <h3>Ehrenamtliche Tätigkeit (Johanniter, Marburg, Deutschland)</h3>
+                <span className="cv-item-meta">06/2022 – 09/2023</span>
+              </div>
+              <ul className="cv-item-list">
+                <li>Besuch und Unterstützung von älteren Menschen im Alltag bei sich zu Hause</li>
+              </ul>
+            </div>
+          </section>
+
+          <section className="cv-card">
+            <div className="cv-section-head">
+              <h2>Referenz</h2>
+              <p>Kontakt für Rückfragen.</p>
+            </div>
+            <div className="cv-item">
+              <div className="cv-item-header">
+                <h3>Andrea Fritzsch</h3>
+                <span className="cv-item-meta">Förderung des freiwilligen Engagements</span>
+              </div>
+              <ul className="cv-item-list">
+                <li>WIR-Vielfaltszentrum der Universitätsstadt Marburg</li>
+                <li>
+                  E-Mail:{" "}
+                  <a
+                    href="mailto:Andrea.Fritzsch@marburg-stadt.de"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    Andrea.Fritzsch@marburg-stadt.de
+                  </a>
+                </li>
+                <li>
+                  Telefon: <a href="tel:064212011861">06421 201-1861</a>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <div className="cv-signoff">Marburg, den {today}</div>
+        </main>
       </div>
     </div>
+    </div >
   );
 };
-
-function skill(name: string, percent: number) {
-  return (
-    <>
-      <p>{name}</p>
-      <div className="w3-light-grey w3-round-xlarge w3-small">
-        <div
-          className="w3-container w3-center w3-round-xlarge w3-teal"
-          style={{ width: `${percent}%` }}
-        >
-          {percent}%
-        </div>
-      </div>
-    </>
-  );
-}
-
-function lang(name: string, percent: number) {
-  return (
-    <>
-      <p>{name}</p>
-      <div className="w3-light-grey w3-round-xlarge">
-        <div
-          className="w3-round-xlarge w3-teal"
-          style={{ height: "24px", width: `${percent}%` }}
-        ></div>
-      </div>
-    </>
-  );
-}
 
 export default CvPage;

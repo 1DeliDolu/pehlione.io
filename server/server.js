@@ -21,7 +21,10 @@ app.use(
 
 // Helpers
 function resolveCategoryDir(category) {
-  const cat = category === "garten" ? "garten" : "foto";
+  const cat =
+    category === "garten" || category === "certificates"
+      ? category
+      : "foto";
   return { cat, dir: path.join(path.resolve(__dirname, "..", "public"), cat) };
 }
 
