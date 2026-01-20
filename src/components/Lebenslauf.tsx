@@ -242,115 +242,142 @@ const CvPage: React.FC = () => {
               </div>
 
               <div className="cv-skill-group">
-                <h3>SQL</h3>
+                <h3>Microsoft SQL Server / T-SQL / Azure Data (DP-900)</h3>
                 <ul className="cv-inline-list">
-                  <li>Microsoft SQL-Server</li>
-                  <li>MySQL</li>
+                  <li>SQL-Datenbanken & Datenbankgrundlagen</li>
+                  <li>Datenmodellierung, Normalisierung & Beziehungen</li>
+                  <li>Datenbankobjekte & Performance-Grundlagen</li>
+                  <li>T-SQL Querying (SELECT, Filtern, Sortieren)</li>
+                  <li>Funktionen, Gruppierung & Aggregationen</li>
+                  <li>Unterabfragen & Set-Operatoren</li>
+                  <li>Azure Data Fundamentals (DP-900): relational / non-relational</li>
+                  <li>Data Warehouse & Analytics Grundlagen (Azure)</li>
+                  <li>Projekt: praktische Anwendung</li>
                 </ul>
               </div>
+
               <div className="cv-skill-group">
-                <h3>Go(lang)</h3>
+                <h3>Go (Golang)</h3>
                 <ul className="cv-inline-list">
-                  <li>REST API</li>
+                  <li>REST API (Gin)</li>
+                  <li>Datenbankzugriff & ORM (GORM)</li>
                   <li>Logging &amp; Monitoring</li>
                   <li>Cache</li>
                   <li>Schnittstellenprogrammierung</li>
                 </ul>
               </div>
+
               <div className="cv-skill-group">
                 <h3>PHP</h3>
                 <ul className="cv-inline-list">
-                  <li>OOP</li>
-                  <li>Symfony</li>
-                  <li>Laravel</li>
+                  <li>PHP Grundlagen & OOP</li>
+                  <li>Symfony (MVC, Routing, Doctrine, Twig)</li>
+                  <li>Laravel (Eloquent, Blade, Artisan, Routing)</li>
+                  <li>REST APIs</li>
+                  <li>Datenbankanbindung (MySQL) & Migrationen</li>
+                  <li>Validierung, Authentifizierung & Middleware</li>
+                  <li>Testing (PHPUnit) & Debugging</li>
                 </ul>
               </div>
-          </section>
-
-          <section className="cv-card">
-            <div className="cv-section-head">
-              <h2>Sprachkenntnisse</h2>
-              <p>Sprachliche Kompetenzen.</p>
-            </div>
-            <ul className="cv-list">
-              <li>Türkisch – Muttersprache</li>
-              <li>Deutsch – gut in Wort und Schrift</li>
-              <li>Englisch – gut in Wort und Schrift</li>
-            </ul>
-          </section>
-
-          <section className="cv-card">
-            <div className="cv-section-head">
-              <h2>Interessen</h2>
-              <p>Was mich zusätzlich motiviert.</p>
-            </div>
-            <ul className="cv-tag-list">
-              <li>Coding und Software-Architektur</li>
-              <li>Wandern gehen</li>
-              <li>Bücher lesen</li>
-              <li>Handwerk &amp; Reparatur</li>
-              <li>Aktives Mitglied bei Interkulturellen Garten</li>
-            </ul>
-          </section>
-
-          <section className="cv-card">
-            <div className="cv-section-head">
-              <h2>Soziales Engagement</h2>
-              <p>Freiwillige Tätigkeiten und Ehrenamt.</p>
-            </div>
-            <div className="cv-item">
-              <div className="cv-item-header">
-                <h3>Bürgerhelfer (Bürgerhilfe, Neustadt, Deutschland)</h3>
-                <span className="cv-item-meta">09/2021 – aktuell</span>
+              {/* Python */}
+              <div className="cv-skill-group">
+                <h3>Python</h3>
+                <ul className="cv-inline-list">
+                  <li>Python Grundlagen (Development / Data Science / AI)</li>
+                  <li>AI Applications mit Python</li>
+                  <li>Flask (Web / REST APIs)</li>
+                  <li>Django (ORM, SQL & Databases)</li>
+                  <li>Scripting & Automatisierung</li>
+                </ul>
               </div>
-              <ul className="cv-item-list">
-                <li>Begleitung und Unterstützung von älteren Menschen</li>
-              </ul>
-            </div>
-            <div className="cv-item">
-              <div className="cv-item-header">
-                <h3>Ehrenamtliche Tätigkeit (Johanniter, Marburg, Deutschland)</h3>
-                <span className="cv-item-meta">06/2022 – 09/2023</span>
-              </div>
-              <ul className="cv-item-list">
-                <li>Besuch und Unterstützung von älteren Menschen im Alltag bei sich zu Hause</li>
-              </ul>
-            </div>
-          </section>
 
-          <section className="cv-card">
-            <div className="cv-section-head">
-              <h2>Referenz</h2>
-              <p>Kontakt für Rückfragen.</p>
-            </div>
-            <div className="cv-item">
-              <div className="cv-item-header">
-                <h3>Andrea Fritzsch</h3>
-                <span className="cv-item-meta">Förderung des freiwilligen Engagements</span>
-              </div>
-              <ul className="cv-item-list">
-                <li>WIR-Vielfaltszentrum der Universitätsstadt Marburg</li>
-                <li>
-                  E-Mail:{" "}
-                  <a
-                    href="mailto:Andrea.Fritzsch@marburg-stadt.de"
-                    target="_blank"
-                    rel="noreferrer noopener"
-                  >
-                    Andrea.Fritzsch@marburg-stadt.de
-                  </a>
-                </li>
-                <li>
-                  Telefon: <a href="tel:064212011861">06421 201-1861</a>
-                </li>
-              </ul>
-            </div>
-          </section>
 
-          <div className="cv-signoff">Marburg, den {today}</div>
-        </main>
+            </section>
+
+            <section className="cv-card">
+              <div className="cv-section-head">
+                <h2>Sprachkenntnisse</h2>
+                <p>Sprachliche Kompetenzen.</p>
+              </div>
+              <ul className="cv-list">
+                <li>Türkisch – Muttersprache</li>
+                <li>Deutsch – gut in Wort und Schrift</li>
+                <li>Englisch – gut in Wort und Schrift</li>
+              </ul>
+            </section>
+
+            <section className="cv-card">
+              <div className="cv-section-head">
+                <h2>Interessen</h2>
+                <p>Was mich zusätzlich motiviert.</p>
+              </div>
+              <ul className="cv-tag-list">
+                <li>Coding und Software-Architektur</li>
+                <li>Wandern gehen</li>
+                <li>Bücher lesen</li>
+                <li>Handwerk &amp; Reparatur</li>
+                <li>Aktives Mitglied bei Interkulturellen Garten</li>
+              </ul>
+            </section>
+
+            <section className="cv-card">
+              <div className="cv-section-head">
+                <h2>Soziales Engagement</h2>
+                <p>Freiwillige Tätigkeiten und Ehrenamt.</p>
+              </div>
+              <div className="cv-item">
+                <div className="cv-item-header">
+                  <h3>Bürgerhelfer (Bürgerhilfe, Neustadt, Deutschland)</h3>
+                  <span className="cv-item-meta">09/2021 – aktuell</span>
+                </div>
+                <ul className="cv-item-list">
+                  <li>Begleitung und Unterstützung von älteren Menschen</li>
+                </ul>
+              </div>
+              <div className="cv-item">
+                <div className="cv-item-header">
+                  <h3>Ehrenamtliche Tätigkeit (Johanniter, Marburg, Deutschland)</h3>
+                  <span className="cv-item-meta">06/2022 – 09/2023</span>
+                </div>
+                <ul className="cv-item-list">
+                  <li>Besuch und Unterstützung von älteren Menschen im Alltag bei sich zu Hause</li>
+                </ul>
+              </div>
+            </section>
+
+            <section className="cv-card">
+              <div className="cv-section-head">
+                <h2>Referenz</h2>
+                <p>Kontakt für Rückfragen.</p>
+              </div>
+              <div className="cv-item">
+                <div className="cv-item-header">
+                  <h3>Andrea Fritzsch</h3>
+                  <span className="cv-item-meta">Förderung des freiwilligen Engagements</span>
+                </div>
+                <ul className="cv-item-list">
+                  <li>WIR-Vielfaltszentrum der Universitätsstadt Marburg</li>
+                  <li>
+                    E-Mail:{" "}
+                    <a
+                      href="mailto:Andrea.Fritzsch@marburg-stadt.de"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                    >
+                      Andrea.Fritzsch@marburg-stadt.de
+                    </a>
+                  </li>
+                  <li>
+                    Telefon: <a href="tel:064212011861">06421 201-1861</a>
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <div className="cv-signoff">Marburg, den {today}</div>
+          </main>
+        </div>
       </div>
-    </div>
     </div >
   );
 };
