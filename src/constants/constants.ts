@@ -7,8 +7,8 @@ import FolderIcon from "@mui/icons-material/Folder";
 import PersonIcon from "@mui/icons-material/Person";
 
 export const subCategories: Record<"foto" | "garten", string[]> = {
-  foto: ["natur", "herbst", "blumen"],
-  garten: ["herbst", "ernte", "gemuese"],
+  foto: [ "natur", "herbst", "blumen" ],
+  garten: [ "herbst", "ernte", "gemuese" ],
 };
 
 const hobbies = [
@@ -160,10 +160,31 @@ export const certificates: Cert[] = [
     img: "/certificates/WA1NZF2O2J9H.png",
   },
   {
-    name: "Developing Back-End Apps with Node.js and Express", 
-    issuer: "Coursera/IBM", 
-    img: "/certificates/nodeJS_.png"},
-
+    name: "Developing Back-End Apps with Node.js and Express",
+    issuer: "Coursera/IBM",
+    img: "/certificates/nodeJS_.png",
+  },
+  /* 
+IBM DevOps and Software Engineering */
+  {
+    name: "DevOps and Software Engineering",
+    issuer: "Coursera/IBM",
+    img: "/certificates/devopss.png",
+  },
+  /* 
+IBM Full Stack Software Developer */
+  {
+    name: "Full Stack Software Developer",
+    issuer: "Coursera/IBM",
+    img: "/certificates/fullstack.png",
+  },
+  /* 
+IBM Back-End Development */
+  {
+    name: "Back-End Development",
+    issuer: "Coursera/IBM",
+    img: "/certificates/backend.png",
+  },
 ];
 
 export const certificateSkills = [
@@ -250,9 +271,9 @@ export const navItems = [
   },
 ];
 
-export const hauptKategorien = ["foto", "garten"] as const;
+export const hauptKategorien = [ "foto", "garten" ] as const;
 
 export const unterKategorien: Record<string, string[]> = {
-  foto: ["natur", "herbst", "blumen"],
-  garten: ["herbst", "ernte", "gemuese"],
+  foto: [ "natur", "herbst", "blumen" ],
+  garten: [ "herbst", "ernte", "gemuese" ],
 };

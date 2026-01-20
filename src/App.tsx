@@ -29,6 +29,7 @@ function App() {
         onOpen={() => setDrawerOpen(true)}
         onClose={() => setDrawerOpen(false)}
         onSelectMain={(v) => {
+          console.log('mainView', v);
           setMainView(v)
           setDrawerOpen(false)
         }}

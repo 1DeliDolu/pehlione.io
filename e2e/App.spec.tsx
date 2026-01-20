@@ -25,7 +25,7 @@ test.describe('App navigation', () => {
     await page.goto('/')
     await page.getByLabel('open drawer').click()
     await page.getByRole('button', { name: 'Projekte' }).first().click()
-    await expect(page.getByRole('heading', { level: 1, name: /Projekte/ })).toBeVisible()
+    await expect(page.getByRole('heading', { level: 1, name: 'Projekte', exact: true })).toBeVisible()
   })
 
   test('drawer navigation to Repositories', async ({ page }) => {
