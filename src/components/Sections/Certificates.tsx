@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import OptimizedImage from "@/components/OptimizedImage";
 import type { Cert } from "@/types/types";
+import { staticCertificates } from "@/constants/staticData";
 
 type Props = { onOpenDrawer?: () => void; variant?: "summary" | "detail" };
 
@@ -22,17 +23,25 @@ const sortByIdDesc = (items: CertEntry[]) => {
 
 function Certificates({ onOpenDrawer, variant = "summary" }: Props) {
   const [items, setItems] = useState<CertEntry[]>([]);
+  const apiBase = (import.meta.env.VITE_API_BASE_URL as string | undefined)
+    ?? (import.meta.env.DEV ? "http://localhost:4000" : "");
+  const fallbackItems = useMemo(() => sortByIdDesc(staticCertificates), []);
 
   useEffect(() => {
     let mounted = true;
     const fetchData = () => {
+      const apiUrl = apiBase ? `${apiBase}/certificates` : "";
+      if (!apiUrl) {
+        if (mounted) setItems(fallbackItems);
+        return;
+      }
       axios
-        .get<CertEntry[]>("http://localhost:4000/certificates", { timeout: 5000 })
+        .get<CertEntry[]>(apiUrl, { timeout: 5000 })
         .then((res) => {
           if (mounted) setItems(sortByIdDesc(res.data));
         })
         .catch(() => {
-          if (mounted) setItems([]);
+          if (mounted) setItems(fallbackItems);
         });
     };
 
@@ -46,7 +55,7 @@ function Certificates({ onOpenDrawer, variant = "summary" }: Props) {
         onUpdated as EventListener
       );
     };
-  }, []);
+  }, [apiBase, fallbackItems]);
 
   if (variant === "detail") {
     return (

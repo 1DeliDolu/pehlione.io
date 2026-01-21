@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
 import type { Project } from '@/types/types'
+import { staticProjects } from '@/constants/staticData'
 
 type Props = { onOpenDrawer?: () => void; variant?: 'summary' | 'detail' }
 
@@ -21,21 +22,31 @@ const sortByIdDesc = (items: ProjectEntry[]) => {
 
 function Projects({ onOpenDrawer, variant = 'summary' }: Props) {
   const [items, setItems] = useState<ProjectEntry[]>([])
+  const apiBase = (import.meta.env.VITE_API_BASE_URL as string | undefined)
+    ?? (import.meta.env.DEV ? 'http://localhost:4000' : '')
+  const fallbackItems = useMemo(() => sortByIdDesc(staticProjects), [])
 
   useEffect(() => {
     let mounted = true
+    const apiUrl = apiBase ? `${apiBase}/projects` : ''
+    if (!apiUrl) {
+      if (mounted) setItems(fallbackItems)
+      return () => {
+        mounted = false
+      }
+    }
     axios
-      .get<ProjectEntry[]>('http://localhost:4000/projects', { timeout: 5000 })
+      .get<ProjectEntry[]>(apiUrl, { timeout: 5000 })
       .then((res) => {
         if (mounted) setItems(sortByIdDesc(res.data))
       })
       .catch(() => {
-        if (mounted) setItems([])
+        if (mounted) setItems(fallbackItems)
       })
     return () => {
       mounted = false
     }
-  }, [])
+  }, [apiBase, fallbackItems])
 
   if (variant === 'detail') {
     return (
