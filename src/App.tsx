@@ -250,7 +250,7 @@ function App() {
       >
         {/* foto uploader */}
 
-       {/*  <div id="foto-uploader">
+        {/*  <div id="foto-uploader">
           <UploadForm />
         </div> */}
 
