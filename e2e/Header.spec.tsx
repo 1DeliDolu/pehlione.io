@@ -5,8 +5,8 @@ test.describe('Header', () => {
     await page.goto('/')
 
     await expect(page.getByRole('button', { name: 'open drawer' })).toBeVisible()
-    await expect(page.getByRole('link', { name: 'pehlione', exact: true })).toBeVisible()
-    await expect(page.getByRole('link', { name: 'Lebenslauf' })).toHaveAttribute('href', '#cv')
+    await expect(page.getByRole('button', { name: 'pehlione', exact: true })).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Lebenslauf' })).toBeVisible()
   })
 
   test('drawer shows navigation items', async ({ page }) => {

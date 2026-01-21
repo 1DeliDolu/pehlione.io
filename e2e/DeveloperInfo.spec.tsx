@@ -7,9 +7,9 @@ test.describe('Developer info section', () => {
     const section = page.locator('#developer')
 
     await expect(
-      section.getByRole('heading', { level: 2, name: 'Junior Anwendungsentwickler' }),
+      section.getByRole('heading', { level: 2, name: 'Anwendungsentwickler' }),
     ).toBeVisible()
-    await expect(section.getByText('Einstieg als Junior Developer')).toBeVisible()
+    await expect(section.getByText('Teamorientiert')).toBeVisible()
     await expect(section.getByText('TypeScript')).toBeVisible()
     await expect(section.getByText('React')).toBeVisible()
     await expect(section.getByRole('button', { name: 'Im Drawer ansehen' })).toBeVisible()
@@ -25,11 +25,12 @@ test.describe('Developer info section', () => {
     const section = page.locator('#developer')
 
     await expect(
-      section.getByRole('heading', { level: 2, name: 'Junior Anwendungsentwickler' }),
+      section.getByRole('heading', { level: 2, name: 'Anwendungsentwickler' }),
     ).toBeVisible()
-    await expect(section.getByRole('heading', { level: 3, name: 'Grundkenntnisse' })).toBeVisible()
-    await expect(section.getByRole('heading', { level: 3, name: 'Aufgaben' })).toBeVisible()
-    await expect(section.getByRole('heading', { level: 3, name: 'Soft Skills' })).toBeVisible()
+    await expect(section.getByRole('heading', { level: 3, name: 'Arbeitsweise & Team' })).toBeVisible()
+    await expect(section.getByRole('heading', { level: 3, name: 'Motivation & Lernbereitschaft' })).toBeVisible()
+    await expect(section.getByRole('heading', { level: 3, name: 'Technische Kenntnisse (Auszug)' })).toBeVisible()
+    await expect(section.getByRole('heading', { level: 3, name: 'Persönliche Schwerpunkte' })).toBeVisible()
     await expect(section.getByRole('heading', { level: 3, name: 'Links' })).toBeVisible()
     await expect(section.getByRole('link', { name: 'Übungsprojekte' })).toHaveAttribute('href', '#projects')
     await expect(section.getByRole('link', { name: 'GitHub Repositories' })).toHaveAttribute('href', '#repos')

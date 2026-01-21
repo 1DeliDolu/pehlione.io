@@ -4,7 +4,7 @@ test.describe('App navigation', () => {
   test('loads home and shows portfolio intro', async ({ page }) => {
     await page.goto('/')
     await expect(page.getByRole('heading', { level: 1, name: /Mustafa's Portfolio/i })).toBeVisible()
-    await expect(page.locator('a[href="#cv"]').first()).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Lebenslauf' })).toBeVisible()
   })
 
   test('drawer navigation to Developer (Anwendungsentwickler)', async ({ page }) => {
@@ -67,5 +67,11 @@ test.describe('App navigation', () => {
     await expect(page.getByRole('heading', { level: 1, name: /Anwendungsentwickler/ })).toBeVisible()
   })
 
+  test('top nav routes to home hash from a detail view', async ({ page }) => {
+    await page.goto('/projects')
+    await page.getByRole('button', { name: 'Lebenslauf' }).click()
+    await expect(page).toHaveURL(/\/#cv$/)
+    await expect(page.getByRole('heading', { level: 2, name: 'Lebenslauf' })).toBeVisible()
+  })
 
 })
