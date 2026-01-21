@@ -1,5 +1,5 @@
 
-import { useState } from 'react'
+import { useEffect, useMemo, useState, useCallback } from 'react'
 import './App.css'
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -16,11 +16,112 @@ import Button from '@mui/material/Button'
 import { UploadForm } from '@/components/UploadForm'
 
 
+type MainView = 'default' | 'agentDoc' | 'hobbies' | 'certificates' | 'projects' | 'repos' | 'developer' | 'foto'
+type FotoCategory = 'gartenarbeit' | 'fotografie' | null
+
 function App() {
   const [ drawerOpen, setDrawerOpen ] = useState( false )
-  const [ mainView, setMainView ] = useState<'default' | 'agentDoc' | 'hobbies' | 'certificates' | 'projects' | 'repos' | 'developer' | 'foto'>( 'default' )
-  const [ fotoCategory, setFotoCategory ] = useState<'gartenarbeit' | 'fotografie' | null>( null )
+  const [ mainView, setMainView ] = useState<MainView>( 'default' )
+  const [ fotoCategory, setFotoCategory ] = useState<FotoCategory>( null )
+  const [ pendingHash, setPendingHash ] = useState<string | null>( null )
   const showUploadForm = typeof window !== 'undefined' && new URLSearchParams( window.location.search ).has( 'upload' )
+
+  const basePath = useMemo( () => {
+    const base = ( import.meta.env.BASE_URL as string | undefined ) || '/'
+    return base.endsWith( '/' ) ? base.slice( 0, -1 ) : base
+  }, [] )
+
+  const resolveRoute = useCallback( ( pathname: string ): { view: MainView; category: FotoCategory } => {
+    const withoutBase = basePath && pathname.startsWith( basePath )
+      ? pathname.slice( basePath.length ) || '/'
+      : pathname
+    const clean = withoutBase.split( '?' )[ 0 ].split( '#' )[ 0 ]
+    const [ segment, sub ] = clean.replace( /^\/+/, '' ).split( '/' )
+
+    if ( !segment ) return { view: 'default' as const, category: null }
+    if ( segment === 'cv' ) return { view: 'agentDoc' as const, category: null }
+    if ( segment === 'hobby' || segment === 'hobbies' ) return { view: 'hobbies' as const, category: null }
+    if ( segment === 'certificates' || segment === 'certificate' ) return { view: 'certificates' as const, category: null }
+    if ( segment === 'projects' ) return { view: 'projects' as const, category: null }
+    if ( segment === 'repos' || segment === 'repositories' ) return { view: 'repos' as const, category: null }
+    if ( segment === 'developer' ) return { view: 'developer' as const, category: null }
+    if ( segment === 'foto' ) {
+      const cat: FotoCategory = sub === 'fotografie'
+        ? 'fotografie'
+        : sub === 'gartenarbeit'
+          ? 'gartenarbeit'
+          : null
+      return { view: 'foto' as const, category: cat }
+    }
+
+    return { view: 'default' as const, category: null }
+  }, [ basePath ] )
+
+  const toPath = ( view: MainView, category?: FotoCategory ) => {
+    if ( view === 'default' ) return '/'
+    if ( view === 'agentDoc' ) return '/cv'
+    if ( view === 'hobbies' ) return '/hobby'
+    if ( view === 'certificates' ) return '/certificates'
+    if ( view === 'projects' ) return '/projects'
+    if ( view === 'repos' ) return '/repos'
+    if ( view === 'developer' ) return '/developer'
+    if ( view === 'foto' ) return `/foto/${ category ?? 'gartenarbeit' }`
+    return '/'
+  }
+
+  const pushRoute = ( view: MainView, category?: FotoCategory ) => {
+    if ( typeof window === 'undefined' ) return
+    const target = toPath( view, category )
+    const fullPath = basePath ? `${ basePath }${ target }` : target
+    if ( window.location.pathname !== fullPath ) {
+      window.history.pushState( {}, '', fullPath + window.location.search )
+    }
+  }
+
+  const navigate = ( view: MainView, category?: FotoCategory, hash?: string ) => {
+    if ( category !== undefined ) setFotoCategory( category )
+    setMainView( view )
+    pushRoute( view, category )
+    if ( hash ) setPendingHash( hash )
+  }
+
+  useEffect( () => {
+    if ( typeof window === 'undefined' ) return
+    const pending = sessionStorage.getItem( 'spa-redirect' )
+    if ( pending ) {
+      sessionStorage.removeItem( 'spa-redirect' )
+      window.history.replaceState( {}, '', pending )
+    }
+    const { view, category } = resolveRoute( window.location.pathname )
+    setMainView( view )
+    if ( category ) setFotoCategory( category )
+    const onPop = () => {
+      const next = resolveRoute( window.location.pathname )
+      setMainView( next.view )
+      setFotoCategory( next.category )
+    }
+    window.addEventListener( 'popstate', onPop )
+    return () => window.removeEventListener( 'popstate', onPop )
+  }, [ resolveRoute ] )
+
+  useEffect( () => {
+    if ( typeof window === 'undefined' ) return
+    if ( !pendingHash ) return
+    if ( mainView !== 'default' ) return
+    const id = pendingHash.replace( /^#/, '' )
+    const rootPath = basePath ? `${ basePath }/` : '/'
+    const hashValue = id ? `#${ id }` : ''
+    const nextUrl = rootPath + window.location.search + hashValue
+    const currentUrl = window.location.pathname + window.location.search + window.location.hash
+    if ( currentUrl !== nextUrl ) {
+      window.history.replaceState( {}, '', nextUrl )
+    }
+    const el = id ? document.getElementById( id ) : null
+    if ( el ) {
+      el.scrollIntoView( { behavior: 'smooth', block: 'start' } )
+    }
+    setPendingHash( null )
+  }, [ pendingHash, mainView, basePath ] )
   return (
     <div className="min-h-dvh bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50">
       <a id="home" />
@@ -28,9 +129,9 @@ function App() {
         open={drawerOpen}
         onOpen={() => setDrawerOpen( true )}
         onClose={() => setDrawerOpen( false )}
-        onSelectMain={( v ) => {
+        onSelectMain={( v, hash ) => {
           console.log( 'mainView', v );
-          setMainView( v )
+          navigate( v, undefined, hash )
           setDrawerOpen( false )
         }}
       />
@@ -57,7 +158,7 @@ function App() {
           <section className="w-screen -ml-[65px] -mr-[65px] px-[calc(65px+1rem)] sm:px-[calc(65px+1.5rem)] lg:px-[calc(65px+2.5rem)] py-12">
             <AgentDoc />
             <div className="mt-6">
-              <Button variant="outlined" onClick={() => setMainView( 'default' )}>Zur Übersicht</Button>
+              <Button variant="outlined" onClick={() => navigate( 'default' )}>Zur Übersicht</Button>
             </div>
           </section>
         ) : mainView === 'hobbies' ? (
@@ -66,20 +167,19 @@ function App() {
             <Hobbies
               variant="detail"
               onOpenPage={( page ) => {
-                setFotoCategory( page )
-                setMainView( 'foto' )
+                navigate( 'foto', page )
               }}
-              onOpenDeveloper={() => setMainView( 'developer' )}
+              onOpenDeveloper={() => navigate( 'developer' )}
             />
             <div className="mt-6">
-              <Button variant="outlined" onClick={() => setMainView( 'default' )}>Zur Übersicht</Button>
+              <Button variant="outlined" onClick={() => navigate( 'default' )}>Zur Übersicht</Button>
             </div>
           </section>
         ) : mainView === 'foto' ? (
           <section className="w-full px-4 sm:px-6 lg:px-10 py-12">
             <Foto category={( fotoCategory ?? 'gartenarbeit' )} />
             <div className="mt-6">
-              <Button variant="outlined" onClick={() => setMainView( 'default' )}>Zur Übersicht</Button>
+              <Button variant="outlined" onClick={() => navigate( 'default' )}>Zur Übersicht</Button>
             </div>
           </section>
         ) : mainView === 'certificates' ? (
@@ -87,7 +187,7 @@ function App() {
             <h1 className="text-3xl font-bold mb-4">Zertifikate • Details</h1>
             <Certificates variant="detail" />
             <div className="mt-6">
-              <Button variant="outlined" onClick={() => setMainView( 'default' )}>Zur Übersicht</Button>
+              <Button variant="outlined" onClick={() => navigate( 'default' )}>Zur Übersicht</Button>
             </div>
           </section>
         ) : mainView === 'projects' ? (
@@ -95,7 +195,7 @@ function App() {
             <h1 className="text-3xl font-bold mb-4">Projekte • Details</h1>
             <Projects variant="detail" />
             <div className="mt-6">
-              <Button variant="outlined" onClick={() => setMainView( 'default' )}>Zur Übersicht</Button>
+              <Button variant="outlined" onClick={() => navigate( 'default' )}>Zur Übersicht</Button>
             </div>
           </section>
         ) : mainView === 'repos' ? (
@@ -103,7 +203,7 @@ function App() {
             <h1 className="text-3xl font-bold mb-4">Repositories • Details</h1>
             <Repos username="1DeliDolu" perPage={12} onOpenDrawer={() => setDrawerOpen( true )} variant="detail" />
             <div className="mt-6">
-              <Button variant="outlined" onClick={() => setMainView( 'default' )}>Zur Übersicht</Button>
+              <Button variant="outlined" onClick={() => navigate( 'default' )}>Zur Übersicht</Button>
             </div>
           </section>
         ) : mainView === 'developer' ? (
@@ -111,7 +211,7 @@ function App() {
             <h1 className="text-3xl font-bold mb-4">Anwendungsentwickler • Details</h1>
             <DeveloperInfo variant="detail" />
             <div className="mt-6">
-              <Button variant="outlined" onClick={() => setMainView( 'default' )}>Zur Übersicht</Button>
+              <Button variant="outlined" onClick={() => navigate( 'default' )}>Zur Übersicht</Button>
             </div>
           </section>
         ) : (
@@ -131,10 +231,9 @@ function App() {
             <Hobbies
               onOpenDrawer={() => setDrawerOpen( true )}
               onOpenPage={( page ) => {
-                setFotoCategory( page )
-                setMainView( 'foto' )
+                navigate( 'foto', page )
               }}
-              onOpenDeveloper={() => setMainView( 'developer' )}
+              onOpenDeveloper={() => navigate( 'developer' )}
             />
             <Certificates onOpenDrawer={() => setDrawerOpen( true )} />
             <Projects onOpenDrawer={() => setDrawerOpen( true )} />

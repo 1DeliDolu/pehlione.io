@@ -16,7 +16,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import Button from '@mui/material/Button'
-import { navItems } from '@/constants/constants'
+import { navItems } from '@/constants/nav'
 
 const drawerWidth = 240
 
@@ -105,7 +105,7 @@ export type Props = {
   open: boolean
   onOpen: () => void
   onClose: () => void
-  onSelectMain: (view: 'default' | 'agentDoc' | 'hobbies' | 'certificates' | 'projects' | 'repos' | 'developer') => void
+  onSelectMain: (view: 'default' | 'agentDoc' | 'hobbies' | 'certificates' | 'projects' | 'repos' | 'developer', hash?: string) => void
 }
 
 function Header({ open, onOpen, onClose, onSelectMain }: Props) {
@@ -133,10 +133,9 @@ function Header({ open, onOpen, onClose, onSelectMain }: Props) {
             <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="#"
+            component="button"
             onClick={() => onSelectMain('default')}
-            sx={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
+            sx={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer', background: 'none', border: 0, padding: 0 }}
             >
             pehlione
             </Typography>
@@ -144,8 +143,7 @@ function Header({ open, onOpen, onClose, onSelectMain }: Props) {
             {navItems.map((item) => (
               <Button
                 key={item.key}
-                component="a"
-                href={item.href}
+                onClick={() => onSelectMain('default', item.href)}
                 size="small"
                 sx={{ color: 'text.primary' }}
               >
@@ -166,28 +164,22 @@ function Header({ open, onOpen, onClose, onSelectMain }: Props) {
           {navItems.map((item) => (
             <ListItem key={item.key} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
-                component={item.key === 'cv' || item.key === 'hobbies' || item.key === 'certificates' || item.key === 'projects' || item.key === 'repos' || item.key === 'developer' ? 'button' : 'a'}
-                href={item.key === 'cv' || item.key === 'hobbies' || item.key === 'certificates' || item.key === 'projects' || item.key === 'repos' || item.key === 'developer' ? undefined : item.href}
+                component="button"
                 onClick={() => {
                   if (item.key === 'cv') {
                     onSelectMain('agentDoc')
-                    onClose()
                   } else if (item.key === 'hobbies') {
                     onSelectMain('hobbies')
-                    onClose()
                   } else if (item.key === 'certificates') {
                     onSelectMain('certificates')
-                    onClose()
                   } else if (item.key === 'projects') {
                     onSelectMain('projects')
-                    onClose()
                   } else if (item.key === 'repos') {
                     onSelectMain('repos')
-                    onClose()
                   } else if (item.key === 'developer') {
                     onSelectMain('developer')
-                    onClose()
                   }
+                  onClose()
                 }}
                 sx={[
                   {
