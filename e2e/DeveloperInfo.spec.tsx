@@ -18,9 +18,14 @@ test.describe('Developer info section', () => {
   test('shows detail view content', async ({ page }) => {
     await page.goto('/')
     await page.getByLabel('open drawer').click()
-    await page.getByRole('button', { name: 'Anwendungsentwickler' }).click()
+    await page
+      .getByRole('list')
+      .getByRole('button', { name: /^Anwendungsentwickler Profil/ })
+      .click()
 
-    await expect(page.getByRole('heading', { level: 1, name: /Anwendungsentwickler/ })).toBeVisible()
+    await expect(
+      page.getByRole('heading', { level: 1, name: /Anwendungsentwickler • Details/ }),
+    ).toBeVisible()
 
     const section = page.locator('#developer')
 
@@ -32,8 +37,8 @@ test.describe('Developer info section', () => {
     await expect(section.getByRole('heading', { level: 3, name: 'Technische Kenntnisse (Auszug)' })).toBeVisible()
     await expect(section.getByRole('heading', { level: 3, name: 'Persönliche Schwerpunkte' })).toBeVisible()
     await expect(section.getByRole('heading', { level: 3, name: 'Links' })).toBeVisible()
-    await expect(section.getByRole('link', { name: 'Übungsprojekte' })).toHaveAttribute('href', '#projects')
-    await expect(section.getByRole('link', { name: 'GitHub Repositories' })).toHaveAttribute('href', '#repos')
+    await expect(section.getByRole('link', { name: 'Übungsprojekte' })).toHaveAttribute('href', 'https://github.com/1DeliDolu/PRTG.git')
+    await expect(section.getByRole('link', { name: 'GitHub Repositories' })).toHaveAttribute('href', 'https://github.com/1DeliDolu?tab=repositories')
 
     const skillCount = await section.locator('span').count()
     expect(skillCount).toBeGreaterThan(5)

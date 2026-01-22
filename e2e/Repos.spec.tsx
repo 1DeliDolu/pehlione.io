@@ -56,9 +56,12 @@ test.describe('Repos section', () => {
     await mockReposApi(page)
     await page.goto('/')
     await page.getByLabel('open drawer').click()
-    await page.getByRole('button', { name: 'Repositories' }).first().click()
+    await page
+      .getByRole('list')
+      .getByRole('button', { name: /^Repositories Neueste/ })
+      .click()
 
-    await expect(page.getByRole('heading', { level: 1, name: /Repositories/ })).toBeVisible()
+    await expect(page.getByRole('heading', { level: 1, name: /Repositories • Details/ })).toBeVisible()
 
     const section = page.locator('#repos')
 

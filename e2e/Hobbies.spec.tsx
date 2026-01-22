@@ -1,6 +1,8 @@
 import { test, expect } from '@playwright/test'
 
 test.describe('Hobbies section', () => {
+  const getDrawer = (page: import('@playwright/test').Page) => page.getByRole('list')
+
   test('shows summary grid on home', async ({ page }) => {
     await page.goto('/')
 
@@ -18,9 +20,9 @@ test.describe('Hobbies section', () => {
   test('shows detail view content', async ({ page }) => {
     await page.goto('/')
     await page.getByLabel('open drawer').click()
-    await page.getByRole('button', { name: 'Hobbys' }).click()
+    await getDrawer(page).getByRole('button', { name: /^Hobbys Interessen/ }).click()
 
-    await expect(page.getByRole('heading', { level: 1, name: /Hobbys/ })).toBeVisible()
+    await expect(page.getByRole('heading', { level: 1, name: /Hobbys • Details/ })).toBeVisible()
 
     const section = page.locator('#hobbies')
 

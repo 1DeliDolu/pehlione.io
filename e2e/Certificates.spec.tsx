@@ -18,12 +18,13 @@ test.describe('Certificates section', () => {
   test('shows detail view content', async ({ page }) => {
     await page.goto('/')
     await page.getByLabel('open drawer').click()
-    await page.getByRole('button', { name: 'Zertifikate' }).click()
+    await page.getByRole('button', { name: /^Zertifikate Nachweise/ }).click()
 
-    await expect(page.getByRole('heading', { level: 1, name: /Zertifikate/ })).toBeVisible()
+    await expect(page.getByRole('heading', { level: 1, name: /Zertifikate • Details/ })).toBeVisible()
 
     const section = page.locator('#certificates')
 
+    await expect(section.getByRole('heading', { level: 2, name: 'Zertifikate' })).toBeVisible()
     await expect(section.getByRole('heading', { level: 3, name: 'Schwerpunkte' })).toBeVisible()
     await expect(section.getByRole('heading', { level: 3, name: 'Ressourcen' })).toBeVisible()
     await expect(section.getByRole('link', { name: 'Beispiel-Projekte' })).toHaveAttribute('href', '#projects')

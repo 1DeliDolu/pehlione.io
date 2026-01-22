@@ -34,7 +34,10 @@ test.describe('Projects Section', () => {
 
   test('renders detail view with additional sections', async ({ page }) => {
     await page.getByLabel('open drawer').click()
-    await page.getByRole('button', { name: 'Projekte' }).first().click()
+    await page
+      .getByRole('list')
+      .getByRole('button', { name: /^Projekte Ausgewählte/ })
+      .click()
 
     await expect(
       page.getByRole('heading', { level: 1, name: 'Projekte • Details' }),
