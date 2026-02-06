@@ -369,6 +369,11 @@
       "name": "Back-End Development",
       "issuer": "Coursera/IBM",
       "img": "/certificates/backend.png"
+    },{
+      "id": "26",
+      "name": "Microsoft Full-Stack Developer",
+      "issuer": "Coursera/Microsoft",
+      "img": "/certificates/csharp.png"
     }
   ],
   "projects": [
