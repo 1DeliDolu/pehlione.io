@@ -142,44 +142,44 @@ export const staticCertificates: (Cert & { id: string })[] = [
   },
   {
     "id": "19",
-    "name": "Laravel Protections",
-    "issuer": "Coursera",
-    "img": "/certificates/DQXMD3BRZA9Z.png"
-  },
-  {
-    "id": "20",
-    "name": "Laravel Additional Security",
-    "issuer": "Coursera",
-    "img": "/certificates/Y0PGW8LUDE7F.png"
-  },
-  {
-    "id": "21",
     "name": "Secure Coding in Laravel",
     "issuer": "Coursera",
     "img": "/certificates/WA1NZF2O2J9H.png"
   },
   {
-    "id": "22",
-    "name": "Developing Back-End Apps with Node.js and Express",
+    "id": "20",
+    "name": "IBM Full-Stack JavaScript Developer",
     "issuer": "Coursera/IBM",
-    "img": "/certificates/nodeJS_.png"
+    "img": "/certificates/javascript.png"
   },
   {
-    "id": "23",
+    "id": "21",
     "name": "DevOps and Software Engineering",
     "issuer": "Coursera/IBM",
     "img": "/certificates/devopss.png"
   },
   {
-    "id": "24",
+    "id": "22",
     "name": "Full Stack Software Developer",
     "issuer": "Coursera/IBM",
     "img": "/certificates/fullstack.png"
   },
   {
-    "id": "25",
+    "id": "23",
     "name": "Back-End Development",
     "issuer": "Coursera/IBM",
     "img": "/certificates/backend.png"
+  },
+  {
+    "id": "24",
+    "name": "Microsoft Full-Stack Developer",
+    "issuer": "Coursera/Microsoft",
+    "img": "/certificates/csharp.png"
+  },
+  {
+    "id": "25",
+    "name": "IBM Java Developer",
+    "issuer": "Coursera/IBM",
+    "img": "/certificates/java.png"
   }
 ];
