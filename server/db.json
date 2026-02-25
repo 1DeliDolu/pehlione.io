@@ -407,5 +407,13 @@
       "demoUrl": "https://pehlione.com/",
       "repoUrl": "https://github.com/1DeliDolu/ecommerce_laravel.git"
     }
+      ,
+    {
+      "id": "6",
+      "name": "Dotnet E-Commerce Shop",
+      "description": "E-Commerce Plattform mit Dotnet und Razor Pages + TailwindCSS.",
+      "demoUrl": "https://pehlione.com/",
+      "repoUrl": "https://github.com/1DeliDolu/pehlione_dotnet"
+    }
   ]
 }

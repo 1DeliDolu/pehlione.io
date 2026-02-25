@@ -36,6 +36,13 @@ export const staticProjects: (Project & { id: string })[] = [
     "description": "E-Commerce Plattform mit Laravel und Blade + TailwindCSS.",
     "demoUrl": "https://pehlione.com/",
     "repoUrl": "https://github.com/1DeliDolu/ecommerce_laravel.git"
+  },
+  {
+    "id": "6",
+    "name": "Dotnet E-Commerce Shop",
+    "description": "E-Commerce Plattform mit Dotnet und Razor Pages + TailwindCSS.",
+    "demoUrl": "https://pehlione.com/",
+    "repoUrl": "https://github.com/1DeliDolu/pehlione_dotnet"
   }
 ];
 export const staticCertificates: (Cert & { id: string })[] = [
