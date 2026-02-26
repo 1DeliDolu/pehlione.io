@@ -73,33 +73,27 @@ const CvPage: React.FC = () => {
                 {/* maßnahme 02/2026 INTEGRAL gGmbH */}
                 <div className="cv-item-header">
                   <h3>Maßnahme, INTEGRAL gGmbH, Marburg</h3>
-                  <span className="cv-item-meta">02/2026</span>
+                  <span className="cv-item-meta">02/2026 - aktuell</span>
                 </div>
               </div>
-              <div className="cv-item">
+
+                <div className="cv-item">
                 <div className="cv-item-header">
-                  <h3>Prüfungsvorbereitung IHK (AP2), IAD GmbH, Marburg</h3>
-                  <span className="cv-item-meta">07/2025 – 01/2026</span>
+                  <h3>Onlinefortbildung IBM Java Developer, IBM, Coursera</h3>
+                  <span className="cv-item-meta">12/2025 – 02/2026</span>
                 </div>
                 <ul className="cv-item-list">
-                  <li>
-                    Gezielte Vorbereitung auf die IHK‑Abschlussprüfung Teil-2
-                    (Fachinformatiker Anwendungsentwicklung).
-                  </li>
-                  <li>
-                    Schwerpunkte: Java‑Programmierung, Testverfahren (ISTQB),
-                    Datenbanken und REST‑APIs.
-                  </li>
-                  <li>
-                    Prüfungsrelevante Übungen, Zeitmanagement und Simulation
-                    realer Prüfungsaufgaben.
-                  </li>
-                  <li>
-                    Erstellung und Präsentation einer praxisorientierten
-                    Projektarbeit gemäß IHK‑Anforderungen.
-                  </li>
+                  <li>IBM Java Developer</li>
                 </ul>
-              </div>
+                </div>
+
+                <div className="cv-item">
+                {/* maßnahme 02/2026 INTEGRAL gGmbH */}
+                <div className="cv-item-header">
+                  <h3>Maßnahme, INTEGRAL gGmbH, Marburg</h3>
+                  <span className="cv-item-meta">02/2026 - aktuell</span>
+                </div>
+                </div>
 
               <div className="cv-item">
                 <div className="cv-item-header">
@@ -130,7 +124,7 @@ const CvPage: React.FC = () => {
                   <h3>
                     Umschulung zum Anwendungsentwickler (IHK), IAD GmbH, Marburg
                   </h3>
-                  <span className="cv-item-meta">07/2023 – 11/2024</span>
+                  <span className="cv-item-meta">07/2023 – 11/2025</span>
                 </div>
                 <ul className="cv-item-list">
                   <li>
@@ -161,7 +155,7 @@ const CvPage: React.FC = () => {
                     Wirtschaftsingenieur mit Schwerpunkt Prozessplanung, Firma
                     CBF, Tokat, Türkei
                   </h3>
-                  <span className="cv-item-meta">12/2018 – 03/2019</span>
+                  <span className="cv-item-meta">12/2012 – 03/2019</span>
                 </div>
                 <ul className="cv-item-list">
                   <li>Koordination von 650 Mitarbeiter*innen</li>
@@ -171,22 +165,6 @@ const CvPage: React.FC = () => {
                   </li>
                   <li>Erstellen der Tagesstatiken</li>
                   <li>Überprüfen der Fristen zum Einhalten der Lieferketten</li>
-                </ul>
-              </div>
-
-              <div className="cv-item">
-                <div className="cv-item-header">
-                  <h3>
-                    Pilot (Türkische Luftwaffe, in unterschiedlichen Orten,
-                    Türkei)
-                  </h3>
-                  <span className="cv-item-meta">12/2014 – 11/2018</span>
-                </div>
-                <ul className="cv-item-list">
-                  <li>Absolvierung von rund 1.200 Flugstunden</li>
-                  <li>Einweisung/Briefing des Personals</li>
-                  <li>Vorbereitung von Tagesplänen</li>
-                  <li>Besprechung und Planung der notwendigen Koordination</li>
                 </ul>
               </div>
             </section>
@@ -217,21 +195,9 @@ const CvPage: React.FC = () => {
               <div className="cv-item">
                 <div className="cv-item-header">
                   <h3>
-                    Ausbildung zum Piloten mit Lizenz, Türkische Luftwaffe,
-                    Izmir
+                    Studium des Wirtschafts-Ingenieurwesen / MSÜ, Istanbul
                   </h3>
-                  <span className="cv-item-meta">09/2012 – 12/2014</span>
-                </div>
-              </div>
-
-              <div className="cv-item">
-                <div className="cv-item-header">
-                  <h3>
-                    Studium des Wirtschafts-Ingenieurwesen /
-                    Industrie-Ingenieurwesen, Türkische Nationale
-                    Verteidigungsuniversität, Istanbul
-                  </h3>
-                  <span className="cv-item-meta">12/2008 – 08/2012</span>
+                  <span className="cv-item-meta">09/2008 – 08/2012</span>
                 </div>
                 <ul className="cv-item-list">
                   <li>Abschluss: Diplom Wirtschaftsingenieur</li>
