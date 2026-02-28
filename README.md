@@ -1,5 +1,3 @@
-"Sprachen: [Deutsch (dieses Dokument)](README.md) · [English](README.en.md)"
-
 # pehlione.io – Portfolio (React + TypeScript + Vite)
 
 Modernes, schnelles und barrierearmes persönliches Portfolio. Erstellt mit React, TypeScript, Vite, MUI und Tailwind. Enthält eine optimierte Foto‑Galerie, Zertifikate, Projekte, GitHub‑Repositories und ein Entwickler‑Profil.
@@ -135,7 +133,7 @@ Hinweise:
 
 ## CMS Magement
 
-App.tsx 
+App.tsx
 
   {/* foto uploader */}
 
@@ -145,7 +143,7 @@ App.tsx
 
     `</div>` */}
 
-und constant.ts 
+und constant.ts
 
 /*  ,
 

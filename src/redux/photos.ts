@@ -149,7 +149,7 @@ export const fotografiePhotos: FotoEintrag[] = [
   },
   {
     "id": "5",
-    "src": "/foto/gelberosen.png",
+    "src": "/foto/gelberosen.jpeg",
     "name": "gelbe_rose",
     "title": "Gelbe Rose",
     "description": "Eine strahlend gelbe Rose blüht im Garten.",
@@ -167,7 +167,7 @@ export const fotografiePhotos: FotoEintrag[] = [
   },
   {
     "id": "7",
-    "src": "/foto/kölner_domm.png",
+    "src": "/foto/kölner_domm.jpeg",
     "name": "kölner_domm",
     "title": "Kölner Dom",
     "description": "Der majestätische Kölner Dom.",

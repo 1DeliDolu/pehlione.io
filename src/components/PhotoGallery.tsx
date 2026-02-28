@@ -24,13 +24,6 @@ export default function PhotoGallery({ title, intro, photos, itemsPerPage = 3, o
     return photos.slice(start, start + itemsPerPage)
   }, [page, itemsPerPage, photos])
   const pendingRef = useRef<number>(0)
-  const perItemLoaderEnabledRef = useRef<boolean>(true)
-
-  useEffect(() => {
-    if (page > 1 && perItemLoaderEnabledRef.current) {
-      perItemLoaderEnabledRef.current = false
-    }
-  }, [page])
 
   useEffect(() => {
     setPage(1)
@@ -74,7 +67,7 @@ export default function PhotoGallery({ title, intro, photos, itemsPerPage = 3, o
           gap: { xs: 1.5, sm: 2 },
         }}
       >
-        {current.map((p) => {
+        {current.map((p, index) => {
           const baseUrl: string = import.meta.env.BASE_URL || '/'
           const full = `${baseUrl}${p.src.replace(/^\//, '')}`
           const parts = p.src.split('/')
@@ -82,6 +75,7 @@ export default function PhotoGallery({ title, intro, photos, itemsPerPage = 3, o
           const name = file.replace(/\.[^.]+$/, '')
           const dir = parts.slice(0, -1).join('/')
           const thumb = `${baseUrl}${`${dir}/thumbs/${name}.webp`.replace(/^\//, '')}`
+          const isPriority = index < 3
           return (
             <Card
               key={p.src}
@@ -99,8 +93,9 @@ export default function PhotoGallery({ title, intro, photos, itemsPerPage = 3, o
                 <ImageWithLoader
                   src={thumb}
                   alt={p.title}
+                  priority={isPriority}
                   sizes="(max-width: 640px) 100vw, (max-width: 900px) 50vw, 33vw"
-                  showLoader={perItemLoaderEnabledRef.current}
+                  showLoader={false}
                   // fallback to full-size if thumbnail missing
                   onLoad={markDoneOnce}
                   onError={(e) => {

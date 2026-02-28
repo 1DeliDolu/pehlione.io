@@ -6,7 +6,7 @@ const tinyPng = Buffer.from(
 )
 
 test.describe('ImageWithLoader', () => {
-  test('shows loader until image loads', async ({ page }) => {
+  test('renders image without blocking overlay loader', async ({ page }) => {
     await page.route(/\/(garten|foto)\/thumbs\/.*\.webp$/i, async (route) => {
       await new Promise((resolve) => setTimeout(resolve, 1500))
       await route.fulfill({
@@ -21,8 +21,7 @@ test.describe('ImageWithLoader', () => {
     const img = page.locator('img.image-with-loader-img').first()
     const wrapper = img.locator('xpath=..')
 
-    await expect(wrapper.getByRole('progressbar')).toBeVisible()
     await expect(img).toBeVisible()
-    await expect(wrapper.getByRole('progressbar')).toBeHidden({ timeout: 6000 })
+    await expect(wrapper.getByRole('progressbar')).toHaveCount(0)
   })
 })

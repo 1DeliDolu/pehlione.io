@@ -9,7 +9,7 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
   webServer: {
-    command: 'npm run dev',
+    command: 'npm run dev:web',
     url: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:5173',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

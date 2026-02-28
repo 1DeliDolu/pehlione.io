@@ -26,6 +26,7 @@ export default function OptimizedImage({
   ...rest
 }: Props) {
   const loading: 'eager' | 'lazy' = priority ? 'eager' : 'lazy'
+  const decoding: 'sync' | 'async' = priority ? 'sync' : 'async'
   const finalSizes = sizes ?? (typeof width === 'number' ? `${Math.ceil(width)}px` : '100vw')
   const base: string = import.meta.env.BASE_URL || '/'
   const normalized = src.startsWith('http') ? src : `${base}${src.replace(/^\//, '')}`
@@ -35,7 +36,8 @@ export default function OptimizedImage({
       src={encodeURI(normalized)}
       alt={alt}
       loading={loading}
-      decoding="async"
+      decoding={decoding}
+      fetchPriority={priority ? 'high' : 'auto'}
       width={width}
       height={height}
       sizes={finalSizes}
