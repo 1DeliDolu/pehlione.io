@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /certificates/Lebenslauf.pdf
+
+Sitemap: https://pehlione.com/sitemap.xml
