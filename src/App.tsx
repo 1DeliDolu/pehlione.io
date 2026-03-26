@@ -19,6 +19,20 @@ import { UploadForm } from '@/components/UploadForm'
 type MainView = 'default' | 'agentDoc' | 'hobbies' | 'certificates' | 'projects' | 'repos' | 'developer' | 'foto'
 type FotoCategory = 'gartenarbeit' | 'fotografie' | null
 
+const seoDefaults = {
+  title: 'Mustafa Ozdemir | Junior Anwendungsentwickler, Software Developer & Software Entwickler',
+  description:
+    'Mustafa Ozdemir ist Junior Anwendungsentwickler und Software Developer in Deutschland mit Fokus auf Java, Golang, Java Spring, C# .NET, TypeScript, React, PHP Laravel, Symfony, Grafana und PRTG.',
+  keywords:
+    'Junior Anwendungsentwickler, Software Developer, Software Entwickler, Java, Golang, Java Spring, C# .NET, TypeScript, React, PHP, Laravel, Symfony, Grafana, PRTG, Webentwickler, Backend Developer, Frontend Developer, Deutschland',
+}
+
+const setMetaContent = (selector: string, content: string) => {
+  if (typeof document === 'undefined') return
+  const node = document.querySelector<HTMLMetaElement>(selector)
+  if (node) node.setAttribute('content', content)
+}
+
 function App() {
   const [ drawerOpen, setDrawerOpen ] = useState( false )
   const [ mainView, setMainView ] = useState<MainView>( 'default' )
@@ -122,6 +136,90 @@ function App() {
     }
     setPendingHash( null )
   }, [ pendingHash, mainView, basePath ] )
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const path = toPath(mainView, fotoCategory)
+    const absoluteUrl = new URL(path, 'https://pehlione.com').toString()
+    const routeSeo: Record<Exclude<MainView, 'foto'>, typeof seoDefaults> = {
+      default: seoDefaults,
+      agentDoc: {
+        title: 'Lebenslauf | Mustafa Ozdemir - Junior Anwendungsentwickler',
+        description:
+          'Lebenslauf von Mustafa Ozdemir, Junior Anwendungsentwickler und Software Entwickler mit Projekten in Java, Golang, React, PHP Laravel, Symfony und C# .NET.',
+        keywords:
+          'Lebenslauf Junior Anwendungsentwickler, CV Software Developer, Java, Golang, React, Laravel, Symfony, C# .NET',
+      },
+      hobbies: {
+        title: 'Hobbys und Interessen | Mustafa Ozdemir',
+        description:
+          'Persoenliche Interessen von Mustafa Ozdemir mit Einblicken in Fotografie, Gartenarbeit und die kreative Arbeitsweise hinter dem Portfolio.',
+        keywords:
+          'Mustafa Ozdemir Hobbys, Fotografie, Gartenarbeit, Portfolio Deutschland',
+      },
+      certificates: {
+        title: 'Zertifikate | Mustafa Ozdemir - Software Developer',
+        description:
+          'Zertifikate und Weiterbildungen von Mustafa Ozdemir in Java, React, Golang, PHP, Kubernetes, DevOps und Full-Stack-Entwicklung.',
+        keywords:
+          'Zertifikate Java React Golang PHP Kubernetes DevOps Full Stack Software Developer',
+      },
+      projects: {
+        title: 'Projekte | Mustafa Ozdemir - Java, Golang, React, Laravel, Symfony, .NET',
+        description:
+          'Softwareprojekte von Mustafa Ozdemir mit Java, Golang, TypeScript, React, PHP Laravel, Symfony, C# .NET, Grafana und PRTG.',
+        keywords:
+          'Java Projekte, Golang Projekte, React Portfolio, Laravel, Symfony, C# .NET, Grafana, PRTG',
+      },
+      repos: {
+        title: 'Repositories | Mustafa Ozdemir',
+        description:
+          'GitHub Repositories und Codebeispiele von Mustafa Ozdemir als Junior Anwendungsentwickler und Software Developer.',
+        keywords:
+          'GitHub Repositories Software Developer Junior Anwendungsentwickler',
+      },
+      developer: {
+        title: 'Entwicklerprofil | Mustafa Ozdemir - Junior Anwendungsentwickler',
+        description:
+          'Entwicklerprofil von Mustafa Ozdemir mit Schwerpunkten in Java, Java Spring, Golang, C# .NET, TypeScript, React, PHP Laravel, Symfony, Grafana und PRTG.',
+        keywords:
+          'Entwicklerprofil, Junior Anwendungsentwickler, Software Entwickler, Java Spring, Golang, .NET, React, Laravel, Symfony, Grafana, PRTG',
+      },
+    }
+
+    const fotoSeo =
+      fotoCategory === 'fotografie'
+        ? {
+            title: 'Fotografie | Mustafa Ozdemir',
+            description:
+              'Fotografie-Seite von Mustafa Ozdemir mit Natur- und Landschaftsaufnahmen als Teil des persoenlichen Portfolios.',
+            keywords: 'Fotografie Portfolio Mustafa Ozdemir Naturfotografie',
+          }
+        : {
+            title: 'Gartenarbeit | Mustafa Ozdemir',
+            description:
+              'Gartenarbeit und Pflanzenfotos von Mustafa Ozdemir als Teil des persoenlichen Portfolios und seiner praktischen Interessen.',
+            keywords: 'Gartenarbeit Portfolio Mustafa Ozdemir Pflanzen',
+          }
+
+    const currentSeo = mainView === 'foto' ? fotoSeo : routeSeo[mainView]
+
+    document.title = currentSeo.title
+    document.documentElement.lang = 'de'
+    setMetaContent('meta[name="title"]', currentSeo.title)
+    setMetaContent('meta[name="description"]', currentSeo.description)
+    setMetaContent('meta[name="keywords"]', currentSeo.keywords)
+    setMetaContent('meta[property="og:title"]', currentSeo.title)
+    setMetaContent('meta[property="og:description"]', currentSeo.description)
+    setMetaContent('meta[property="og:url"]', absoluteUrl)
+    setMetaContent('meta[property="twitter:title"]', currentSeo.title)
+    setMetaContent('meta[property="twitter:description"]', currentSeo.description)
+    setMetaContent('meta[property="twitter:url"]', absoluteUrl)
+
+    const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')
+    if (canonical) canonical.href = absoluteUrl
+  }, [mainView, fotoCategory])
   return (
     <div className="min-h-dvh bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50">
       <a id="home" />
@@ -224,7 +322,6 @@ function App() {
                 Die Grundversion ist fertiggestellt, weitere Funktionen und Inhalte werden nach und nach ergänzt.
                 Hier finden Sie Informationen über meine Fähigkeiten, Projekte und Hobbys.
               </p>
-
 
             </section>
             <CV onOpenDrawer={() => setDrawerOpen( true )} />
