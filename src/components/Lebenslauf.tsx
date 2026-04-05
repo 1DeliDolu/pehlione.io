@@ -155,7 +155,7 @@ const CvPage: React.FC = () => {
                     Wirtschaftsingenieur mit Schwerpunkt Prozessplanung, Firma
                     CBF, Tokat, Türkei
                   </h3>
-                  <span className="cv-item-meta">12/2012 – 03/2019</span>
+                  <span className="cv-item-meta">12/2018 – 03/2019</span>
                 </div>
                 <ul className="cv-item-list">
                   <li>Koordination von 650 Mitarbeiter*innen</li>
