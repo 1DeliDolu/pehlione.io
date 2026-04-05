@@ -31,6 +31,7 @@ export interface Project {
 export interface Cv {
   cvUrl?: string;
   onOpenDrawer?: () => void;
+  onNavigateToCv?: () => void;
 }
 
 export interface Repo_ {

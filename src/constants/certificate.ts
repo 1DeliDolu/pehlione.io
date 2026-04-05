@@ -36,4 +36,8 @@ export const certificateSkills = [
   "DevOps",
   "Generative AI",
   "LLMs",
+  "Python",
+  "Blazor",
+  "Spring Boot",
+  "Kafka",
 ];

@@ -39,10 +39,17 @@ export const staticProjects: (Project & { id: string })[] = [
   },
   {
     "id": "6",
-    "name": "Dotnet E-Commerce Shop",
-    "description": "E-Commerce Plattform mit Dotnet und Razor Pages + TailwindCSS.",
+    "name": "C#/ .NET E-Commerce Shop",
+    "description": "E-Commerce Plattform mit C# .NET und Razor Pages + TailwindCSS.",
     "demoUrl": "https://pehlione.com/",
     "repoUrl": "https://github.com/1DeliDolu/pehlione_dotnet"
+  },
+  {
+    "id": "7",
+    "name": "Spring Boot E-Commerce Shop mit Kafka",
+    "description": "E-Commerce Plattform mit Spring Boot und Kafka.",
+    "demoUrl": "https://pehlione.com/",
+    "repoUrl": "https://github.com/1DeliDolu/pehli_e_commerce.git"
   }
 ];
 export const staticCertificates: (Cert & { id: string })[] = [
