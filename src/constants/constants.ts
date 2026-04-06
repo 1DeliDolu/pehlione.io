@@ -6,21 +6,25 @@ const hobbies = [
   {
     title: "Gartenarbeit",
     detail: "Pflanzenpflege, Gemüseanbau und Landschaftsgestaltung.",
+    img: "garten/thumbs/garten.png",
   },
   {
     title: "Fotografie",
     detail: "Natur-, Stadt- und Makroaufnahmen, Bearbeitung und Komposition.",
+    img: "foto/thumbs/fotografie.png",
   },
   {
     title: "Musik",
     detail:
       "Ich höre gerne Musik und interessiere mich für verschiedene Genres.",
+    img: "foto/thumbs/Musik.png",
   },
 
   {
     title: "Programmieren",
     detail:
-      "Experimentieren mit Go und Rust für kleine Projekte und Tools sowie moderne Webentwicklung mit TypeScript und React.",
+      "Leidenschaft fürs Coden, Neugier auf neue Technologien und Freude daran, mit kleinen Projekten Neues auszuprobieren und stetig dazuzulernen.",
+    img: "foto/thumbs/code.png",
   },
 ];
 

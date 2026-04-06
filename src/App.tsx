@@ -238,12 +238,8 @@ function App() {
         sx={{
           // AppBar yüksekliği kadar üst boşluk
           pt: { xs: "65px", sm: "64px" },
-          // Mini (kapalı) ve açık durum için sol boşluk
+          // Mini (kapalı) ve açık durum için sol boşluk (drawer sol tarafta)
           ml: {
-            xs: drawerOpen ? "240px" : "65px",
-            sm: drawerOpen ? "240px" : "65px",
-          },
-          mr: {
             xs: drawerOpen ? "240px" : "65px",
             sm: drawerOpen ? "240px" : "65px",
           },

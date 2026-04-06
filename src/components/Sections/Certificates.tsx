@@ -4,6 +4,18 @@ import OptimizedImage from "@/components/OptimizedImage";
 import type { Cert } from "@/types/types";
 import { staticCertificates } from "@/constants/staticData";
 
+type Schwerpunkt = { id: string | number; text: string };
+
+const staticSchwerpunkte: Schwerpunkt[] = [
+  { id: "1", text: "TypeScript & React: Hooks, Performance, Testing" },
+  { id: "2", text: "Go: Grundlagen und erste Backend-/CLI-Projekte" },
+  { id: "3", text: "Rust: Grundlagen und erste CLI-/Backend-Projekte" },
+  { id: "4", text: "Abfragen von Daten mit Microsoft Transact-SQL" },
+  { id: "5", text: "Generative AI: LLM-Architektur und Implementierung" },
+  { id: "6", text: "PHP, Symfony, Laravel: Webentwicklung und Sicherheit" },
+  { id: "7", text: "Blazor: Front-End-Entwicklung mit C# und .NET" },
+];
+
 type Props = { onOpenDrawer?: () => void; variant?: "summary" | "detail" };
 
 type CertEntry = Cert & { id?: string | number };
@@ -23,6 +35,7 @@ const sortByIdDesc = (items: CertEntry[]) => {
 
 function Certificates({ onOpenDrawer, variant = "summary" }: Props) {
   const [items, setItems] = useState<CertEntry[]>([]);
+  const [schwerpunkte, setSchwerpunkte] = useState<Schwerpunkt[]>([]);
   const apiBase = (import.meta.env.VITE_API_BASE_URL as string | undefined)
     ?? (import.meta.env.DEV ? "http://localhost:4000" : "");
   const fallbackItems = useMemo(() => sortByIdDesc(staticCertificates), []);
@@ -43,6 +56,15 @@ function Certificates({ onOpenDrawer, variant = "summary" }: Props) {
         .catch(() => {
           if (mounted) setItems(fallbackItems);
         });
+
+      axios
+        .get<Schwerpunkt[]>(`${apiBase}/schwerpunkte`, { timeout: 5000 })
+        .then((res) => {
+          if (mounted) setSchwerpunkte(res.data);
+        })
+        .catch(() => {
+          if (mounted) setSchwerpunkte(staticSchwerpunkte);
+        });
     };
 
     fetchData();
@@ -61,15 +83,13 @@ function Certificates({ onOpenDrawer, variant = "summary" }: Props) {
     return (
       <section
         id="certificates"
-        className="scroll-mt-24 w-full px-4 sm:px-6 lg:px-10 py-12"
-      >
+        className="scroll-mt-24 w-full px-4 sm:px-6 lg:px-10 py-12">
         <h2 className="text-3xl font-bold mb-6">Zertifikate</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
           {items.map((c) => (
             <article
               key={c.name}
-              className="group rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4"
-            >
+              className="group rounded border border-neutral-200/60 dark:border-neutral-800/60 p-4">
               <OptimizedImage
                 src={c.img}
                 alt={c.name}
@@ -84,8 +104,7 @@ function Certificates({ onOpenDrawer, variant = "summary" }: Props) {
                 className="text-sm text-blue-600 hover:underline"
                 href={encodeURI(c.img)}
                 target="_blank"
-                rel="noreferrer"
-              >
+                rel="noreferrer">
                 Bild in neuem Tab öffnen
               </a>
             </article>
@@ -94,14 +113,11 @@ function Certificates({ onOpenDrawer, variant = "summary" }: Props) {
 
         <h3 className="text-xl font-semibold mb-2">Schwerpunkte</h3>
         <ul className="list-disc pl-6 mb-6 text-neutral-800 dark:text-neutral-200">
-          <li>TypeScript & React: Hooks, Performance, Testing</li>
-          <li>Go und Rust: Grundlagen und erste Backend-/CLI-Projekte</li>
-          <li>Abfragen von Daten mit Microsoft Transact-SQL</li>
-          <li>Generative AI: LLM-Architektur und Implementierung</li>
-          {/* php symfony laravel  */}
-          <li>PHP, Symfony, Laravel: Webentwicklung und Sicherheit</li>
-          {/* Blazor for Front-End Development  */}
-          <li>Blazor: Front-End-Entwicklung mit C# und .NET</li>
+          {(schwerpunkte.length > 0 ? schwerpunkte : staticSchwerpunkte).map(
+            (s) => (
+              <li key={s.id}>{s.text}</li>
+            ),
+          )}
         </ul>
 
         <h3 className="text-xl font-semibold mb-2">Ressourcen</h3>
