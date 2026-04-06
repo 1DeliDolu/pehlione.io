@@ -232,7 +232,6 @@
       "issuer": "Microsoft",
       "img": "/certificates/tsql.png"
     },
-
     {
       "id": "3",
       "name": "Advanced Styling with Responsive Design",
@@ -245,7 +244,6 @@
       "issuer": "Coursera",
       "img": "/certificates/BBZHU77E8F6Y.png"
     },
-
     {
       "id": "5",
       "name": "Introduction to HTML5",
@@ -270,7 +268,6 @@
       "issuer": "Coursera",
       "img": "/certificates/6UJ5Q3W7Q4IT.png"
     },
-
     {
       "id": "9",
       "name": "Secure Coding in Laravel",
@@ -313,7 +310,6 @@
       "issuer": "Coursera/IBM",
       "img": "/certificates/java.png"
     },
-
     {
       "id": "16",
       "name": "IBM DevOps and Software Engineering",
@@ -379,16 +375,45 @@
     }
   ],
   "schwerpunkte": [
-    { "id": "1", "text": "TypeScript & React: Hooks, Performance, Testing" },
-    { "id": "2", "text": "Go: Grundlagen und erste Backend-/CLI-Projekte" },
-    { "id": "3", "text": "Rust: Grundlagen und erste CLI-/Backend-Projekte" },
-    { "id": "4", "text": "Abfragen von Daten mit Microsoft Transact-SQL" },
-    { "id": "5", "text": "Generative AI: LLM-Architektur und Implementierung" },
-    { "id": "6", "text": "PHP, Symfony, Laravel: Webentwicklung und Sicherheit" },
-    { "id": "7", "text": "Blazor: Front-End-Entwicklung mit C# und .NET" },
-    { "id": "8", "text": "Spring Boot: Java-Backend-Entwicklung mit Kafka" },
-    { "id": "9", "text": "DevOps: CI/CD, Containerisierung, Cloud-Deployment" },
-    { "id": "10", "text": "Datenbanken: SQL, NoSQL, Datenmodellierung" }
-
+    {
+      "id": "1",
+      "text": "TypeScript & React: Hooks, Performance, Testing"
+    },
+    {
+      "id": "2",
+      "text": "Go: Grundlagen und erste Backend-/CLI-Projekte"
+    },
+    {
+      "id": "3",
+      "text": "Rust: Grundlagen und erste CLI-/Backend-Projekte"
+    },
+    {
+      "id": "4",
+      "text": "Abfragen von Daten mit Microsoft Transact-SQL"
+    },
+    {
+      "id": "5",
+      "text": "Generative AI: LLM-Architektur und Implementierung"
+    },
+    {
+      "id": "6",
+      "text": "PHP, Symfony, Laravel: Webentwicklung und Sicherheit"
+    },
+    {
+      "id": "7",
+      "text": "Blazor: Front-End-Entwicklung mit C# und .NET"
+    },
+    {
+      "id": "8",
+      "text": "Spring Boot: Java-Backend-Entwicklung mit Kafka"
+    },
+    {
+      "id": "9",
+      "text": "DevOps: CI/CD, Containerisierung, Cloud-Deployment"
+    },
+    {
+      "id": "10",
+      "text": "Datenbanken: SQL, NoSQL, Datenmodellierung"
+    }
   ]
 }

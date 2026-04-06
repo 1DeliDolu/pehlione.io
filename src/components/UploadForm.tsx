@@ -9,89 +9,51 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import { subCategories } from '../constants/constants';
+import { subCategories } from "../constants/constants";
 import { apiBaseUrl, uploadBaseUrl } from "@/constants/api";
 
-type LoginResponse = {
-  token?: string;
-  expiresIn?: number;
+type Props = {
+  accessToken: string;
+  tokenExpiresAt: number | null;
+  onSessionExpired: () => void;
 };
 
-const UploadForm: React.FC = () => {
-  const [ category, setCategory ] = useState<"foto" | "garten" | "certificates">( "foto" );
-  const [ subCategory, setSubCategory ] = useState( "" );
-  const [ title, setTitle ] = useState( "" );
-  const [ description, setDescription ] = useState( "" );
-  const [ file, setFile ] = useState<File | null>( null );
-  const [ name, setName ] = useState( "" );
-  const [ loading, setLoading ] = useState( false );
-  const [ username, setUsername ] = useState( "" );
-  const [ password, setPassword ] = useState( "" );
-  const [ accessToken, setAccessToken ] = useState( "" );
-  const [ tokenExpiresAt, setTokenExpiresAt ] = useState<number | null>( null );
+const UploadForm: React.FC<Props> = ({
+  accessToken,
+  tokenExpiresAt,
+  onSessionExpired,
+}) => {
+  const [category, setCategory] = useState<"foto" | "garten" | "certificates">(
+    "foto"
+  );
+  const [subCategory, setSubCategory] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false);
   const isCertificate = category === "certificates";
 
-  useEffect( () => {
-    if ( category === "certificates" ) {
-      setSubCategory( "all" );
-    } else if ( subCategory === "all" ) {
-      setSubCategory( "" );
+  useEffect(() => {
+    if (category === "certificates") {
+      setSubCategory("all");
+    } else if (subCategory === "all") {
+      setSubCategory("");
     }
-  }, [ category, subCategory ] );
+  }, [category, subCategory]);
 
-  useEffect( () => {
-    setAccessToken( "" );
-    setTokenExpiresAt( null );
-  }, [ username ] );
-
-  const handleFile = ( e: React.ChangeEvent<HTMLInputElement> ) => {
-    const f = e.target.files?.[ 0 ];
-    if ( !f ) return;
-    setFile( f );
-    const baseName = f.name.replace( /\.[^/.]+$/, "" );
-    setName( baseName );
-  };
-
-  const getValidAccessToken = async (
-    normalizedUsername: string,
-    currentPassword: string
-  ) => {
-    const now = Date.now();
-    if ( accessToken && tokenExpiresAt && tokenExpiresAt - now > 10_000 ) {
-      return accessToken;
-    }
-
-    const { data } = await axios.post<LoginResponse>(
-      `${ uploadBaseUrl }/auth/login`,
-      {
-        username: normalizedUsername,
-        password: currentPassword,
-      },
-      {
-        timeout: 10_000,
-      }
-    );
-
-    if ( !data?.token ) {
-      throw new Error( "Token alınamadı." );
-    }
-
-    const expiresInMs = Math.max( Number( data.expiresIn ?? 0 ), 1 ) * 1000;
-    setAccessToken( data.token );
-    setTokenExpiresAt( now + expiresInMs );
-    setPassword( "" );
-    return data.token;
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const nextFile = e.target.files?.[0];
+    if (!nextFile) return;
+    setFile(nextFile);
+    const baseName = nextFile.name.replace(/\.[^/.]+$/, "");
+    setName(baseName);
   };
 
   const handleSubmit = async () => {
     const normalizedSubCategory = isCertificate ? "all" : subCategory;
-    const normalizedUsername = username.trim();
-    const hasReusableToken =
-      Boolean( accessToken ) &&
-      Boolean( tokenExpiresAt ) &&
-      ( tokenExpiresAt ?? 0 ) - Date.now() > 10_000;
 
-    if ( !file || !title || ( !isCertificate && !normalizedSubCategory ) ) {
+    if (!file || !title || (!isCertificate && !normalizedSubCategory)) {
       alert(
         isCertificate
           ? "Lütfen dosya ve sertifika adını girin"
@@ -100,147 +62,155 @@ const UploadForm: React.FC = () => {
       return;
     }
 
-    if ( !normalizedUsername || ( !password && !hasReusableToken ) ) {
-      alert( "Lütfen kullanıcı adı ve şifre girin." );
+    if (
+      !accessToken ||
+      !tokenExpiresAt ||
+      tokenExpiresAt - Date.now() <= 10_000
+    ) {
+      onSessionExpired();
+      alert("Oturum süresi doldu. Lütfen yeniden giriş yapın.");
       return;
     }
 
-    if ( !uploadBaseUrl || !apiBaseUrl ) {
-      alert( "Upload API yapılandırılmamış." );
+    if (!uploadBaseUrl || !apiBaseUrl) {
+      alert("Upload API yapılandırılmamış.");
       return;
     }
 
     try {
-      setLoading( true );
-      const uploadPath = `${ uploadBaseUrl }/upload`;
-      const token = await getValidAccessToken( normalizedUsername, password );
+      setLoading(true);
 
       const formData = new FormData();
-      // Multer diskStorage filename/destination needs fields BEFORE file
-      formData.append( "name", name );
-      formData.append( "category", category );
-      formData.append( "sub_category", normalizedSubCategory );
-      formData.append( "title", title );
-      formData.append( "description", description );
-      formData.append( "image", file );
+      formData.append("name", name);
+      formData.append("category", category);
+      formData.append("sub_category", normalizedSubCategory);
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("image", file);
 
-      const { data } = await axios.post( uploadPath, formData, {
-        timeout: 30000,
+      const { data } = await axios.post(`${uploadBaseUrl}/upload`, formData, {
+        timeout: 30_000,
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${ token }`,
+          Authorization: `Bearer ${accessToken}`,
         },
-      } );
+      });
 
-      const savedFileName: string = data?.file?.filename ?? ( () => {
-        const m = file.name.match( /\.[^.]+$/ );
-        const ext = m ? m[ 0 ] : "";
-        return `${ name }${ ext }`;
-      } )();
+      const savedFileName: string =
+        data?.file?.filename ??
+        (() => {
+          const match = file.name.match(/\.[^.]+$/);
+          const ext = match ? match[0] : "";
+          return `${name}${ext}`;
+        })();
 
       const srcFromServer: string | undefined = data?.src;
       const assetSrc =
         srcFromServer ??
-        `/${ isCertificate ? "certificates" : category }/${ savedFileName }`;
+        `/${isCertificate ? "certificates" : category}/${savedFileName}`;
       const payload = isCertificate
         ? {
-          name: title,
-          issuer: description,
-          img: assetSrc,
-        }
+            name: title,
+            issuer: description,
+            img: assetSrc,
+          }
         : {
-          src: assetSrc,
-          name,
-          title,
-          description,
-          category,
-          sub_category: normalizedSubCategory,
-        };
+            src: assetSrc,
+            name,
+            title,
+            description,
+            category,
+            sub_category: normalizedSubCategory,
+          };
 
       const endpoint = isCertificate
-        ? `${ apiBaseUrl }/certificates`
+        ? `${apiBaseUrl}/certificates`
         : category === "foto"
-          ? `${ apiBaseUrl }/fotografiePhotos`
-          : `${ apiBaseUrl }/gardenPhotos`;
+          ? `${apiBaseUrl}/fotografiePhotos`
+          : `${apiBaseUrl}/gardenPhotos`;
       const eventName = isCertificate ? "certificates:updated" : "photos:updated";
       const itemLabel = isCertificate ? "Sertifika" : "Fotoğraf";
 
       let dbSaved = true;
+
       try {
-        await axios.post( endpoint, payload, {
-          timeout: 10000,
+        await axios.post(endpoint, payload, {
+          timeout: 10_000,
           headers: {
-            Authorization: `Bearer ${ token }`,
+            Authorization: `Bearer ${accessToken}`,
           },
-        } );
-      } catch ( dbError ) {
+        });
+      } catch (dbError) {
         dbSaved = false;
-        if ( axios.isAxiosError( dbError ) ) {
-          console.warn( "DB kaydı başarısız:", dbError.message );
+        if (axios.isAxiosError(dbError) && dbError.response?.status === 401) {
+          onSessionExpired();
+          alert("Oturum süresi doldu veya yetki geçersiz. Lütfen yeniden giriş yapın.");
+          return;
+        }
+
+        if (axios.isAxiosError(dbError)) {
+          console.warn("DB kaydı başarısız:", dbError.message);
           alert(
-            `${ itemLabel } yüklendi, ancak liste güncellenemedi: ${ dbError.message }`
+            `${itemLabel} yüklendi, ancak liste güncellenemedi: ${dbError.message}`
           );
         } else {
-          console.warn( "DB kaydı başarısız:", dbError );
-          alert( `${ itemLabel } yüklendi, ancak liste güncellenemedi.` );
+          console.warn("DB kaydı başarısız:", dbError);
+          alert(`${itemLabel} yüklendi, ancak liste güncellenemedi.`);
         }
       }
 
-      if ( dbSaved ) {
-        // Notify listeners to refresh photo lists
+      if (dbSaved) {
         try {
           window.dispatchEvent(
-            new CustomEvent( eventName, {
+            new CustomEvent(eventName, {
               detail: { category, subCategory: normalizedSubCategory },
-            } )
+            })
           );
         } catch {
           // Intentionally left empty
         }
 
-        alert( `✓ ${ itemLabel } kaydedildi!` );
+        alert(`✓ ${itemLabel} kaydedildi!`);
       }
-      setFile( null );
-      setName( "" );
-      setTitle( "" );
-      setDescription( "" );
-      setSubCategory( "" );
-    } catch ( error ) {
-      if ( axios.isAxiosError( error ) ) {
-        if ( error.response?.status === 401 ) {
-          setAccessToken( "" );
-          setTokenExpiresAt( null );
-          alert( "Kullanıcı adı veya şifre hatalı." );
+
+      setFile(null);
+      setName("");
+      setTitle("");
+      setDescription("");
+      setSubCategory("");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          onSessionExpired();
+          alert("Oturum süresi doldu veya yetki geçersiz. Lütfen yeniden giriş yapın.");
           return;
         }
-        console.error( "Axios Hatası:", error.message );
-        alert( `Bir hata oluştu: ${ error.message }` );
+        console.error("Axios Hatası:", error.message);
+        alert(`Bir hata oluştu: ${error.message}`);
       } else {
-        console.error( "Bilinmeyen Hata:", error );
-        alert( "Bilinmeyen bir hata oluştu. Lütfen tekrar deneyin." );
+        console.error("Bilinmeyen Hata:", error);
+        alert("Bilinmeyen bir hata oluştu. Lütfen tekrar deneyin.");
       }
     } finally {
-      setLoading( false );
+      setLoading(false);
     }
   };
 
   return (
     <Box
+      className="admin-form-card"
       sx={{
-        maxWidth: 460,
-        mx: "auto",
-        mt: 4,
         p: 3,
         color: "#fff",
-        borderRadius: 4,
-        background:
-          "radial-gradient(120% 120% at 0% 0%, rgba(56, 189, 248, 0.18) 0%, rgba(15, 23, 42, 0.96) 45%, rgba(2, 6, 23, 0.98) 100%)",
-        boxShadow: "0 24px 60px rgba(2, 6, 23, 0.5)",
-        border: "1px solid rgba(148, 163, 184, 0.2)",
+        mx: "auto",
       }}
     >
-      <Typography variant="h6" mb={2} sx={{ fontWeight: 700, letterSpacing: 0.3 }}>
+      <Typography variant="h6" mb={1} sx={{ fontWeight: 700, letterSpacing: 0.3 }}>
         {isCertificate ? "Neues Zertifikat hinzufügen" : "Neues Foto hinzufügen"}
+      </Typography>
+      <Typography variant="body2" sx={{ color: "rgba(226, 232, 240, 0.82)", mb: 2 }}>
+        Aktif JWT ile giriş yapılmış durumda. Oturum süresi dolarsa yeniden login
+        ekranına yönlendirilirsiniz.
       </Typography>
 
       <Stack
@@ -258,9 +228,9 @@ const UploadForm: React.FC = () => {
             borderColor: "rgba(255, 255, 255, 0.45)",
           },
           "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-          {
-            borderColor: "#38bdf8",
-          },
+            {
+              borderColor: "#38bdf8",
+            },
           "& .MuiInputLabel-root": {
             color: "rgba(255, 255, 255, 0.75)",
           },
@@ -270,12 +240,16 @@ const UploadForm: React.FC = () => {
           "& .MuiSelect-icon": {
             color: "#fff",
           },
+          "& .MuiFormHelperText-root": {
+            color: "rgba(226, 232, 240, 0.75)",
+            marginLeft: "4px",
+          },
         }}
       >
         <Select
           value={category}
-          onChange={( e ) =>
-            setCategory( e.target.value as "foto" | "garten" | "certificates" )
+          onChange={(e) =>
+            setCategory(e.target.value as "foto" | "garten" | "certificates")
           }
           MenuProps={{
             PaperProps: {
@@ -294,7 +268,7 @@ const UploadForm: React.FC = () => {
 
         <Select
           value={subCategory}
-          onChange={( e ) => setSubCategory( e.target.value )}
+          onChange={(e) => setSubCategory(e.target.value)}
           displayEmpty
           disabled={isCertificate}
           MenuProps={{
@@ -310,32 +284,12 @@ const UploadForm: React.FC = () => {
           <MenuItem value="" disabled>
             Unterkategorie wählen
           </MenuItem>
-          {subCategories[ category ].map( ( s ) => (
-            <MenuItem key={s} value={s}>
-              {s}
+          {subCategories[category].map((item) => (
+            <MenuItem key={item} value={item}>
+              {item}
             </MenuItem>
-          ) )}
+          ))}
         </Select>
-
-        <TextField
-          label="Benutzername"
-          value={username}
-          onChange={( e ) => setUsername( e.target.value )}
-          autoComplete="username"
-        />
-
-        <TextField
-          label="Passwort"
-          type="password"
-          value={password}
-          onChange={( e ) => setPassword( e.target.value )}
-          autoComplete="current-password"
-          helperText={
-            accessToken && tokenExpiresAt && tokenExpiresAt > Date.now()
-              ? "Aktif JWT mevcut. Süresi dolana kadar tekrar şifre girmeniz gerekmez."
-              : "JWT almak için şifre yalnızca giriş sırasında kullanılır."
-          }
-        />
 
         <TextField
           type="file"
@@ -346,13 +300,13 @@ const UploadForm: React.FC = () => {
         <TextField
           label="Dosya Adı"
           value={name}
-          onChange={( e ) => setName( e.target.value )}
+          onChange={(e) => setName(e.target.value)}
         />
 
         <TextField
           label={isCertificate ? "Sertifika Adı" : "Titel"}
           value={title}
-          onChange={( e ) => setTitle( e.target.value )}
+          onChange={(e) => setTitle(e.target.value)}
         />
 
         <TextField
@@ -360,7 +314,7 @@ const UploadForm: React.FC = () => {
           multiline
           rows={3}
           value={description}
-          onChange={( e ) => setDescription( e.target.value )}
+          onChange={(e) => setDescription(e.target.value)}
         />
 
         <Button

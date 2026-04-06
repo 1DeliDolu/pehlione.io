@@ -1,5 +1,112 @@
 #root {
+  width: 100%;
   min-height: 100vh;
+}
+
+.admin-shell {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.2), transparent 24%),
+    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.16), transparent 28%),
+    linear-gradient(135deg, #020617 0%, #0f172a 42%, #111827 100%);
+}
+
+.admin-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.03), transparent 36%),
+    radial-gradient(circle at center, rgba(15, 23, 42, 0.08), transparent 52%);
+  pointer-events: none;
+}
+
+.admin-shell__content {
+  position: relative;
+  z-index: 1;
+}
+
+.admin-shell__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(125, 211, 252, 0.28);
+  background: rgba(14, 165, 233, 0.1);
+  color: #bae6fd;
+  border-radius: 999px;
+  padding: 0.45rem 0.95rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.admin-shell__title {
+  color: #f8fafc;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.admin-shell__copy {
+  color: #cbd5e1;
+  max-width: 42rem;
+}
+
+.admin-shell__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.admin-shell__chip {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: #e2e8f0;
+  border-radius: 999px;
+  padding: 0.75rem 1rem;
+  font-size: 0.92rem;
+}
+
+.admin-shell__stat {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1.25rem;
+  padding: 1rem 1.1rem;
+  height: 100%;
+}
+
+.admin-shell__stat-label {
+  color: #94a3b8;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.admin-shell__stat-value {
+  color: #f8fafc;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-top: 0.65rem;
+}
+
+.admin-form-card {
+  width: 100%;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background:
+    radial-gradient(120% 120% at 0% 0%, rgba(56, 189, 248, 0.18) 0%, rgba(15, 23, 42, 0.96) 45%, rgba(2, 6, 23, 0.98) 100%);
+  box-shadow: 0 24px 60px rgba(2, 6, 23, 0.5);
+}
+
+@media (max-width: 991.98px) {
+  .admin-shell {
+    padding-bottom: 2rem;
+  }
+
+  .admin-shell__title {
+    font-size: 2.5rem;
+  }
 }
 
 .logo {

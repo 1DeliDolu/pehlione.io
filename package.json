@@ -39,6 +39,7 @@
     "@mui/styled-engine-sc": "^7.3.2",
     "@tailwindcss/vite": "^4.1.13",
     "axios": "^1.12.2",
+    "bootstrap": "^5.3.8",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "html2canvas": "^1.4.1",

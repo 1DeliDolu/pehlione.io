@@ -15,6 +15,7 @@ import ListItemText from '@mui/material/ListItemText'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import Button from '@mui/material/Button'
 import { navItems } from '@/constants/nav'
 
@@ -105,7 +106,7 @@ export type Props = {
   open: boolean
   onOpen: () => void
   onClose: () => void
-  onSelectMain: (view: 'default' | 'agentDoc' | 'hobbies' | 'certificates' | 'projects' | 'repos' | 'developer', hash?: string) => void
+  onSelectMain: (view: 'default' | 'agentDoc' | 'hobbies' | 'certificates' | 'projects' | 'repos' | 'developer' | 'login', hash?: string) => void
 }
 
 function Header({ open, onOpen, onClose, onSelectMain }: Props) {
@@ -150,6 +151,14 @@ function Header({ open, onOpen, onClose, onSelectMain }: Props) {
                 {item.label}
               </Button>
             ))}
+            <Button
+              onClick={() => onSelectMain('login')}
+              size="small"
+              sx={{ color: 'text.primary' }}
+              startIcon={<AdminPanelSettingsIcon />}
+            >
+              Admin
+            </Button>
           </Box>
         </Toolbar>
       </AppBar>
@@ -229,6 +238,60 @@ function Header({ open, onOpen, onClose, onSelectMain }: Props) {
               </ListItemButton>
             </ListItem>
           ))}
+          <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+              component="button"
+              onClick={() => {
+                onSelectMain('login')
+                onClose()
+              }}
+              sx={[
+                {
+                  minHeight: 48,
+                  px: 2.5,
+                },
+                open
+                  ? {
+                      justifyContent: 'initial',
+                    }
+                  : {
+                      justifyContent: 'center',
+                    },
+              ]}
+            >
+              <ListItemIcon
+                sx={[
+                  {
+                    minWidth: 0,
+                    justifyContent: 'center',
+                  },
+                  open
+                    ? {
+                        mr: 3,
+                      }
+                    : {
+                        mr: 'auto',
+                      },
+                ]}
+              >
+                <AdminPanelSettingsIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary="Admin"
+                secondary="Login ve Upload"
+                secondaryTypographyProps={{ sx: { fontSize: 12, color: 'text.secondary' } }}
+                sx={[
+                  open
+                    ? {
+                        opacity: 1,
+                      }
+                    : {
+                        opacity: 0,
+                      },
+                ]}
+              />
+            </ListItemButton>
+          </ListItem>
         </List>
         {/* Details nicht im Drawer, sondern im Main angezeigt */}
       </Drawer>

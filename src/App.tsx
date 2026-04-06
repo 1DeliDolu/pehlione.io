@@ -14,10 +14,12 @@ import Box from '@mui/material/Box'
 import AgentDoc from './components/Lebenslauf'
 import Button from '@mui/material/Button'
 import { UploadForm } from '@/components/UploadForm'
+import AdminLoginForm from '@/components/AdminLoginForm'
 
 
-type MainView = 'default' | 'agentDoc' | 'hobbies' | 'certificates' | 'projects' | 'repos' | 'developer' | 'foto'
+type MainView = 'default' | 'agentDoc' | 'hobbies' | 'certificates' | 'projects' | 'repos' | 'developer' | 'foto' | 'login' | 'upload'
 type FotoCategory = 'gartenarbeit' | 'fotografie' | null
+type AdminSession = { accessToken: string; tokenExpiresAt: number | null }
 
 const seoDefaults = {
   title: 'Mustafa Ozdemir | Junior Anwendungsentwickler, Software Developer & Software Entwickler',
@@ -38,20 +40,33 @@ function App() {
   const [ mainView, setMainView ] = useState<MainView>( 'default' )
   const [ fotoCategory, setFotoCategory ] = useState<FotoCategory>( null )
   const [ pendingHash, setPendingHash ] = useState<string | null>( null )
-  const showUploadForm = typeof window !== 'undefined' && new URLSearchParams( window.location.search ).has( 'upload' )
+  const [ adminSession, setAdminSession ] = useState<AdminSession>( {
+    accessToken: '',
+    tokenExpiresAt: null,
+  } )
+  const hasValidAdminSession =
+    Boolean( adminSession.accessToken ) &&
+    Boolean( adminSession.tokenExpiresAt ) &&
+    ( adminSession.tokenExpiresAt ?? 0 ) > Date.now() + 10_000
+  const isAdminView = mainView === 'login' || mainView === 'upload'
 
   const basePath = useMemo( () => {
     const base = ( import.meta.env.BASE_URL as string | undefined ) || '/'
     return base.endsWith( '/' ) ? base.slice( 0, -1 ) : base
   }, [] )
 
-  const resolveRoute = useCallback( ( pathname: string ): { view: MainView; category: FotoCategory } => {
+  const resolveRoute = useCallback( (
+    pathname: string,
+    search = ''
+  ): { view: MainView; category: FotoCategory } => {
     const withoutBase = basePath && pathname.startsWith( basePath )
       ? pathname.slice( basePath.length ) || '/'
       : pathname
     const clean = withoutBase.split( '?' )[ 0 ].split( '#' )[ 0 ]
     const [ segment, sub ] = clean.replace( /^\/+/, '' ).split( '/' )
+    const legacyUploadQuery = new URLSearchParams( search ).has( 'upload' )
 
+    if ( legacyUploadQuery ) return { view: 'login' as const, category: null }
     if ( !segment ) return { view: 'default' as const, category: null }
     if ( segment === 'cv' ) return { view: 'agentDoc' as const, category: null }
     if ( segment === 'hobby' || segment === 'hobbies' ) return { view: 'hobbies' as const, category: null }
@@ -59,6 +74,8 @@ function App() {
     if ( segment === 'projects' ) return { view: 'projects' as const, category: null }
     if ( segment === 'repos' || segment === 'repositories' ) return { view: 'repos' as const, category: null }
     if ( segment === 'developer' ) return { view: 'developer' as const, category: null }
+    if ( segment === 'login' ) return { view: 'login' as const, category: null }
+    if ( segment === 'upload' ) return { view: 'upload' as const, category: null }
     if ( segment === 'foto' ) {
       const cat: FotoCategory = sub === 'fotografie'
         ? 'fotografie'
@@ -79,6 +96,8 @@ function App() {
     if ( view === 'projects' ) return '/projects'
     if ( view === 'repos' ) return '/repos'
     if ( view === 'developer' ) return '/developer'
+    if ( view === 'login' ) return '/login'
+    if ( view === 'upload' ) return '/upload'
     if ( view === 'foto' ) return `/foto/${ category ?? 'gartenarbeit' }`
     return '/'
   }
@@ -87,8 +106,12 @@ function App() {
     if ( typeof window === 'undefined' ) return
     const target = toPath( view, category )
     const fullPath = basePath ? `${ basePath }${ target }` : target
-    if ( window.location.pathname !== fullPath ) {
-      window.history.pushState( {}, '', fullPath + window.location.search )
+    const searchParams = new URLSearchParams( window.location.search )
+    searchParams.delete( 'upload' )
+    const search = searchParams.toString()
+    const nextUrl = `${ fullPath }${ search ? `?${ search }` : '' }`
+    if ( window.location.pathname + window.location.search !== nextUrl ) {
+      window.history.pushState( {}, '', nextUrl )
     }
   }
 
@@ -106,11 +129,14 @@ function App() {
       sessionStorage.removeItem( 'spa-redirect' )
       window.history.replaceState( {}, '', pending )
     }
-    const { view, category } = resolveRoute( window.location.pathname )
+    const { view, category } = resolveRoute(
+      window.location.pathname,
+      window.location.search
+    )
     setMainView( view )
     if ( category ) setFotoCategory( category )
     const onPop = () => {
-      const next = resolveRoute( window.location.pathname )
+      const next = resolveRoute( window.location.pathname, window.location.search )
       setMainView( next.view )
       setFotoCategory( next.category )
     }
@@ -136,6 +162,33 @@ function App() {
     }
     setPendingHash( null )
   }, [ pendingHash, mainView, basePath ] )
+
+  useEffect( () => {
+    if ( !adminSession.accessToken || !adminSession.tokenExpiresAt ) return
+
+    const msUntilExpiry = adminSession.tokenExpiresAt - Date.now()
+    if ( msUntilExpiry <= 0 ) {
+      setAdminSession( { accessToken: '', tokenExpiresAt: null } )
+      return
+    }
+
+    const timeoutId = window.setTimeout( () => {
+      setAdminSession( { accessToken: '', tokenExpiresAt: null } )
+    }, msUntilExpiry )
+
+    return () => window.clearTimeout( timeoutId )
+  }, [ adminSession ] )
+
+  useEffect( () => {
+    if ( mainView === 'upload' && !hasValidAdminSession ) {
+      navigate( 'login' )
+      return
+    }
+
+    if ( mainView === 'login' && hasValidAdminSession ) {
+      navigate( 'upload' )
+    }
+  }, [ mainView, hasValidAdminSession ] )
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -186,6 +239,20 @@ function App() {
         keywords:
           'Entwicklerprofil, Junior Anwendungsentwickler, Software Entwickler, Java Spring, Golang, .NET, React, Laravel, Symfony, Grafana, PRTG',
       },
+      login: {
+        title: 'Admin Login | Mustafa Ozdemir',
+        description:
+          'Geschuetzter Login fuer den Admin-Bereich und das Hinzufuegen neuer Inhalte.',
+        keywords:
+          'Admin Login, JWT Login, Upload Bereich',
+      },
+      upload: {
+        title: 'Content Upload | Mustafa Ozdemir',
+        description:
+          'Geschuetzter Bereich zum Hochladen neuer Inhalte und Bilder.',
+        keywords:
+          'Content Upload, Admin Upload, JWT geschuetzt',
+      },
     }
 
     const fotoSeo =
@@ -221,7 +288,7 @@ function App() {
     if (canonical) canonical.href = absoluteUrl
   }, [mainView, fotoCategory])
   return (
-    <div className="min-h-dvh bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50">
+    <div className="min-h-dvh w-full bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50">
       <a id="home" />
       <Header
         open={drawerOpen}
@@ -236,21 +303,128 @@ function App() {
       <Box
         component="main"
         sx={{
-          // AppBar yüksekliği kadar üst boşluk
           pt: { xs: "65px", sm: "64px" },
-          // Mini (kapalı) ve açık durum için sol boşluk (drawer sol tarafta)
           ml: {
             xs: drawerOpen ? "240px" : "65px",
             sm: drawerOpen ? "240px" : "65px",
           },
+          width: {
+            xs: drawerOpen ? "calc(100% - 240px)" : "calc(100% - 65px)",
+            sm: drawerOpen ? "calc(100% - 240px)" : "calc(100% - 65px)",
+          },
+          minHeight: "100vh",
         }}>
-        {showUploadForm ? (
-          <section className="w-full px-4 sm:px-6 lg:px-10 py-12">
-            <UploadForm />
-            <div className="mt-6">
-              <Button variant="outlined" href={window.location.pathname}>
-                App anzeigen
-              </Button>
+        {mainView === "login" ? (
+          <section className="admin-shell d-flex align-items-center min-vh-100 w-100 py-5">
+            <div className="container-xl admin-shell__content">
+              <div className="row g-5 align-items-center">
+                <div className="col-12 col-xl-7">
+                  <div className="pe-xl-4">
+                    <span className="admin-shell__eyebrow">
+                  Admin Bereich
+                    </span>
+                    <h1 className="admin-shell__title display-4 mt-4 mb-0">
+                  Geschützter Zugang für neue Inhalte
+                    </h1>
+                    <p className="admin-shell__copy fs-5 mt-4 mb-0">
+                  Melde dich mit den Server-Zugangsdaten an, um Bilder,
+                  Zertifikate und weitere Inhalte sicher über JWT-geschützte
+                  Endpunkte zu verwalten.
+                    </p>
+                    <div className="admin-shell__chips mt-4">
+                      <span className="admin-shell__chip">
+                    Short-lived JWT
+                      </span>
+                      <span className="admin-shell__chip">
+                    Serverseitige .env-Prüfung
+                      </span>
+                      <span className="admin-shell__chip">
+                    Keine Secrets im Browser-Build
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-12 col-xl-5">
+                  <AdminLoginForm
+                    onLoginSuccess={( session ) =>
+                      setAdminSession( {
+                        accessToken: session.accessToken,
+                        tokenExpiresAt: session.expiresAt,
+                      } )
+                    }
+                  />
+                  <div className="d-flex justify-content-center mt-4">
+                    <Button variant="outlined" onClick={() => navigate('default')}>
+                    App anzeigen
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : mainView === "upload" ? (
+          <section className="admin-shell d-flex align-items-center min-vh-100 w-100 py-5">
+            <div className="container-xl admin-shell__content">
+              <div className="row g-5 align-items-center">
+                <div className="col-12 col-xl-7">
+                  <div className="pe-xl-4">
+                    <span className="admin-shell__eyebrow">
+                  Upload Console
+                    </span>
+                    <h1 className="admin-shell__title display-4 mt-4 mb-0">
+                  Neue Inhalte direkt im Admin-Bereich erfassen
+                    </h1>
+                    <p className="admin-shell__copy fs-5 mt-4 mb-0">
+                  Die aktuelle Sitzung ist aktiv. Du kannst jetzt Bilder hochladen
+                  und neue Zertifikate oder Galerie-Einträge anlegen.
+                    </p>
+                    <div className="row g-3 mt-2">
+                      <div className="col-12 col-md-4">
+                        <div className="admin-shell__stat">
+                          <p className="admin-shell__stat-label mb-0">Status</p>
+                          <p className="admin-shell__stat-value mb-0">JWT aktiv</p>
+                        </div>
+                      </div>
+                      <div className="col-12 col-md-4">
+                        <div className="admin-shell__stat">
+                          <p className="admin-shell__stat-label mb-0">Ziel</p>
+                          <p className="admin-shell__stat-value mb-0">Fotos & Zertifikate</p>
+                        </div>
+                      </div>
+                      <div className="col-12 col-md-4">
+                        <div className="admin-shell__stat">
+                          <p className="admin-shell__stat-label mb-0">Sicherheit</p>
+                          <p className="admin-shell__stat-value mb-0">Bearer Token</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-12 col-xl-5">
+                  <UploadForm
+                    accessToken={adminSession.accessToken}
+                    tokenExpiresAt={adminSession.tokenExpiresAt}
+                    onSessionExpired={() => {
+                      setAdminSession( { accessToken: '', tokenExpiresAt: null } )
+                      navigate( 'login' )
+                    }}
+                  />
+                  <div className="d-flex flex-wrap justify-content-center gap-3 mt-4">
+                    <Button
+                      variant="outlined"
+                      onClick={() => {
+                        setAdminSession( { accessToken: '', tokenExpiresAt: null } )
+                        navigate( 'login' )
+                      }}
+                    >
+                      Abmelden
+                    </Button>
+                    <Button variant="outlined" onClick={() => navigate('default')}>
+                    App anzeigen
+                    </Button>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
         ) : mainView === "agentDoc" ? (
@@ -368,25 +542,21 @@ function App() {
           </>
         )}
       </Box>
-      <Box
-        sx={{
-          ml: {
-            xs: drawerOpen ? "240px" : "57px",
-            sm: drawerOpen ? "240px" : "65px",
-          },
-          mr: {
-            xs: drawerOpen ? "240px" : "57px",
-            sm: drawerOpen ? "240px" : "65px",
-          },
-        }}>
-        {/* foto uploader */}
-
-        {/*  <div id="foto-uploader">
-          <UploadForm />
-        </div> */}
-
-        <Footer />
-      </Box>
+      {!isAdminView && (
+        <Box
+          sx={{
+            ml: {
+              xs: drawerOpen ? "240px" : "57px",
+              sm: drawerOpen ? "240px" : "65px",
+            },
+            mr: {
+              xs: drawerOpen ? "240px" : "57px",
+              sm: drawerOpen ? "240px" : "65px",
+            },
+          }}>
+          <Footer />
+        </Box>
+      )}
     </div>
   );
 }

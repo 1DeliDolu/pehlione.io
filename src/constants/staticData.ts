@@ -67,140 +67,92 @@ export const staticCertificates: (Cert & { id: string })[] = [
   },
   {
     "id": "3",
-    "name": "Generative AI Engineering with LLMs",
-    "issuer": "Coursera",
-    "img": "/certificates/6UJ5Q3W7Q4IT.png"
-  },
-  {
-    "id": "4",
-    "name": "Building Generative AI-Powered Applications with Python",
-    "issuer": "Coursera",
-    "img": "/certificates/SPUWYF1LZ4HN.png"
-  },
-  {
-    "id": "5",
-    "name": "Generative AI and LLMs: Architecture and Data Preparation",
-    "issuer": "Coursera",
-    "img": "/certificates/KDHR6PKZH6DX.png"
-  },
-  {
-    "id": "6",
-    "name": "Java Programming: Solving Problems with Software",
-    "issuer": "Coursera",
-    "img": "/certificates/GQAY75EGH85E.png"
-  },
-  {
-    "id": "7",
     "name": "Advanced Styling with Responsive Design",
     "issuer": "Coursera",
     "img": "/certificates/HHVRQZCEKE9M.png"
   },
   {
-    "id": "8",
+    "id": "4",
     "name": "Interactivity with JavaScript",
     "issuer": "Coursera",
     "img": "/certificates/BBZHU77E8F6Y.png"
   },
   {
-    "id": "9",
-    "name": "PHP",
-    "issuer": "BTK",
-    "img": "/certificates/php.png"
-  },
-  {
-    "id": "10",
-    "name": "Web Programming with React",
-    "issuer": "BTK",
-    "img": "/certificates/react.png"
-  },
-  {
-    "id": "11",
+    "id": "5",
     "name": "Introduction to HTML5",
     "issuer": "Coursera",
     "img": "/certificates/V2USGSAUHM55.png"
   },
   {
-    "id": "12",
+    "id": "6",
     "name": "Introduction to CSS3",
     "issuer": "Coursera",
     "img": "/certificates/UXZ788Y7QCEG.png"
   },
   {
-    "id": "13",
+    "id": "7",
     "name": "Legacy JavaScript Algorithms and Data Structures",
     "issuer": "FreeCodeCamp",
     "img": "/certificates/legacy-js.png"
   },
   {
-    "id": "14",
-    "name": "Web Programmaing with Node.js",
-    "issuer": "BTK",
-    "img": "/certificates/nodejs.png"
-  },
-  {
-    "id": "15",
-    "name": "Golang",
-    "issuer": "BTK",
-    "img": "/certificates/golang.png"
-  },
-  {
-    "id": "16",
-    "name": "Kubernetes",
-    "issuer": "BTK",
-    "img": "/certificates/kubernetes.png"
-  },
-  {
-    "id": "17",
-    "name": "DevOps(Jenkins)",
-    "issuer": "BTK",
-    "img": "/certificates/devops.png"
-  },
-  {
-    "id": "18",
-    "name": "Blazor for Front-End Development",
+    "id": "8",
+    "name": "Generative AI Engineering with LLMs",
     "issuer": "Coursera",
-    "img": "/certificates/M4MG23CVGISK.png"
+    "img": "/certificates/6UJ5Q3W7Q4IT.png"
   },
   {
-    "id": "19",
+    "id": "9",
     "name": "Secure Coding in Laravel",
     "issuer": "Coursera",
     "img": "/certificates/WA1NZF2O2J9H.png"
   },
   {
-    "id": "20",
+    "id": "10",
     "name": "IBM Full-Stack JavaScript Developer",
     "issuer": "Coursera/IBM",
     "img": "/certificates/javascript.png"
   },
   {
-    "id": "21",
+    "id": "11",
     "name": "DevOps and Software Engineering",
     "issuer": "Coursera/IBM",
     "img": "/certificates/devopss.png"
   },
   {
-    "id": "22",
+    "id": "12",
     "name": "Full Stack Software Developer",
     "issuer": "Coursera/IBM",
     "img": "/certificates/fullstack.png"
   },
   {
-    "id": "23",
+    "id": "13",
     "name": "Back-End Development",
     "issuer": "Coursera/IBM",
     "img": "/certificates/backend.png"
   },
   {
-    "id": "24",
+    "id": "14",
     "name": "Microsoft Full-Stack Developer",
     "issuer": "Coursera/Microsoft",
     "img": "/certificates/csharp.png"
   },
   {
-    "id": "25",
+    "id": "15",
     "name": "IBM Java Developer",
     "issuer": "Coursera/IBM",
     "img": "/certificates/java.png"
+  },
+  {
+    "id": "16",
+    "name": "IBM DevOps and Software Engineering",
+    "issuer": "Coursera/IBM",
+    "img": "/certificates/devopss.png"
+  },
+  {
+    "id": "17",
+    "name": "Apache Kafka",
+    "issuer": "Coursera/Learnkarts",
+    "img": "/certificates/Kafka.png"
   }
 ];

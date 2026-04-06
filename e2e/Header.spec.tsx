@@ -10,6 +10,7 @@ test.describe('Header', () => {
     await expect(page.getByRole('button', { name: 'open drawer' })).toBeVisible()
     await expect(getTopNav(page).getByRole('button', { name: 'pehlione', exact: true })).toBeVisible()
     await expect(getTopNav(page).getByRole('button', { name: 'Lebenslauf' })).toBeVisible()
+    await expect(getTopNav(page).getByRole('button', { name: 'Admin' })).toBeVisible()
   })
 
   test('drawer shows navigation items', async ({ page }) => {
@@ -22,6 +23,7 @@ test.describe('Header', () => {
     await expect(getDrawer(page).getByRole('button', { name: /^Projekte Ausgewählte/ })).toBeVisible()
     await expect(getDrawer(page).getByRole('button', { name: /^Repositories Neueste/ })).toBeVisible()
     await expect(getDrawer(page).getByRole('button', { name: /^Anwendungsentwickler Profil/ })).toBeVisible()
+    await expect(getDrawer(page).getByRole('button', { name: /^Admin Login ve Upload/ })).toBeVisible()
 
     await page.getByRole('button', { name: 'close drawer' }).click()
     await expect(page.getByRole('button', { name: 'open drawer' })).toBeVisible()
