@@ -4,6 +4,7 @@ import PhotoGallery from '@/components/PhotoGallery'
 import { gardenPhotos as gardenStatic, fotografiePhotos as fotoStatic } from '@/redux/photos'
 import type { FotoEintrag } from '@/types/types'
 import Box from '@mui/material/Box'
+import { apiBaseUrl } from '@/constants/api'
 
 type Category = 'gartenarbeit' | 'fotografie'
 
@@ -44,8 +45,12 @@ export default function Foto({ category }: Props) {
   useEffect(() => {
     let mounted = true
     const fetchData = () => {
+      if (!apiBaseUrl) {
+        if (mounted) setPhotos(sortByIdDesc(cfg.fallback))
+        return
+      }
       axios
-        .get<FotoEintrag[]>(`http://localhost:4000/${cfg.resource}`, { timeout: 5000 })
+        .get<FotoEintrag[]>(`${apiBaseUrl}/${cfg.resource}`, { timeout: 5000 })
         .then((res) => {
           if (mounted) setPhotos(sortByIdDesc(res.data))
         })

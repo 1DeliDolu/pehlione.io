@@ -7,10 +7,11 @@
   "engines": {
     "node": ">=22.12.0"
   },
-    "scripts": {
-      "dev": "concurrently -k \"vite\" \"node server/server.js\" \"npm run db\"",
-      "dev:web": "vite",
-      "db": "json-server --watch server/db.json --port 4000",
+  "scripts": {
+    "dev": "concurrently -k \"vite\" \"npm run server\"",
+    "dev:web": "vite",
+    "server": "node server/server.js",
+    "db": "node -e \"console.log('Use npm run server; the data API now runs on Express port 3001.')\"",
     "generate:photos": "tsx scripts/generatePhotos.ts",
     "generate:static": "tsx scripts/generateStaticData.ts",
     "optimize:originals": "node scripts/optimize-originals.mjs",

@@ -17,7 +17,7 @@ Modern, fast, and accessible personal portfolio. Built with React, TypeScript, V
 - MUI (Material UI) + Tailwind CSS
 - Playwright for E2E tests
 - Sharp for thumbnail generation
-- Optional upload server (Express + Multer)
+- Optional content server (Express + Multer + JSON API)
 
 ## App Structure
 
@@ -37,7 +37,7 @@ src/
   constants/constants.ts  # Navigation items, sample data
   App.tsx                 # Main app + routing between sections
 server/
-  server.js               # Optional upload endpoint (port 3001)
+  server.js               # Optional content server with upload + JSON API (port 3001)
 scripts/
   gen-thumbs.mjs          # Generate WebP thumbnails
   generatePhotos.ts       # Build-time photos data from server/db.json
@@ -63,11 +63,12 @@ $env:THUMB_WIDTH=480; $env:THUMB_QUALITY=65; $env:THUMB_CONCURRENCY=2; npm run t
 
 ## Scripts
 
-- `dev`: start Vite dev server
+- `dev`: start Vite + the Express content server
 - `build`: make thumbs → generate photos → type-check → Vite build
 - `preview`: preview production build
 - `lint`, `lint:fix`: run ESLint
 - `thumbs`: generate WebP thumbnails via `sharp`
+- `server`: start the Express content server
 - `test:e2e`, `test:e2e:ui`, `test:e2e:headed`: Playwright tests
 
 ## Development
@@ -81,24 +82,34 @@ npm install
 npm run dev
 ```
 
-The gallery tries to fetch dynamic photos from `http://localhost:4000/…`. If not available, it falls back to the static, generated `redux/photos.ts`.
+The gallery tries to fetch dynamic content from `http://localhost:3001/api/…`. If not available, it falls back to the static, generated `redux/photos.ts`.
 
-Optional JSON API (recommended for dynamic photos):
+Optional content server with uploads and protected write access:
 
 ```bash
-npm install -g json-server
-json-server --watch server/db.json --port 4000
+npm run server
 ```
 
-Optional upload server (saves images into `public/foto` or `public/garten`):
+New content creation is protected with short-lived JWTs. The username and password are only checked against `/auth/login`; uploads and new entries then use a `Bearer` token. Create a `.env` file in the project root:
 
 ```bash
-node server/server.js   # runs on http://localhost:3001
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=change-me
+JWT_SECRET=replace-with-a-long-random-secret
+JWT_TTL_SECONDS=900
+# optional
+CLIENT_ORIGIN=http://localhost:5173
 ```
 
 ## Environment
 
 - `BASE_PATH`: Vite base path for GitHub Pages or sub-path deploys. Example: `/pehlione.io/`.
+- `ADMIN_USERNAME`, `ADMIN_PASSWORD`: credentials required for new uploads and new entries.
+- `JWT_SECRET`: signing secret for short-lived JWTs.
+- `JWT_TTL_SECONDS`: JWT lifetime in seconds.
+- `CLIENT_ORIGIN`: allowed frontend origin during local development.
+- `VITE_API_BASE_URL`: optional frontend read/write API base.
+- `VITE_UPLOAD_API_BASE_URL`: optional frontend upload API base.
 
 ## Testing (Playwright)
 

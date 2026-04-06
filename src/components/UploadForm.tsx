@@ -10,6 +10,12 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { subCategories } from '../constants/constants';
+import { apiBaseUrl, uploadBaseUrl } from "@/constants/api";
+
+type LoginResponse = {
+  token?: string;
+  expiresIn?: number;
+};
 
 const UploadForm: React.FC = () => {
   const [ category, setCategory ] = useState<"foto" | "garten" | "certificates">( "foto" );
@@ -19,6 +25,10 @@ const UploadForm: React.FC = () => {
   const [ file, setFile ] = useState<File | null>( null );
   const [ name, setName ] = useState( "" );
   const [ loading, setLoading ] = useState( false );
+  const [ username, setUsername ] = useState( "" );
+  const [ password, setPassword ] = useState( "" );
+  const [ accessToken, setAccessToken ] = useState( "" );
+  const [ tokenExpiresAt, setTokenExpiresAt ] = useState<number | null>( null );
   const isCertificate = category === "certificates";
 
   useEffect( () => {
@@ -29,6 +39,11 @@ const UploadForm: React.FC = () => {
     }
   }, [ category, subCategory ] );
 
+  useEffect( () => {
+    setAccessToken( "" );
+    setTokenExpiresAt( null );
+  }, [ username ] );
+
   const handleFile = ( e: React.ChangeEvent<HTMLInputElement> ) => {
     const f = e.target.files?.[ 0 ];
     if ( !f ) return;
@@ -37,8 +52,45 @@ const UploadForm: React.FC = () => {
     setName( baseName );
   };
 
+  const getValidAccessToken = async (
+    normalizedUsername: string,
+    currentPassword: string
+  ) => {
+    const now = Date.now();
+    if ( accessToken && tokenExpiresAt && tokenExpiresAt - now > 10_000 ) {
+      return accessToken;
+    }
+
+    const { data } = await axios.post<LoginResponse>(
+      `${ uploadBaseUrl }/auth/login`,
+      {
+        username: normalizedUsername,
+        password: currentPassword,
+      },
+      {
+        timeout: 10_000,
+      }
+    );
+
+    if ( !data?.token ) {
+      throw new Error( "Token alınamadı." );
+    }
+
+    const expiresInMs = Math.max( Number( data.expiresIn ?? 0 ), 1 ) * 1000;
+    setAccessToken( data.token );
+    setTokenExpiresAt( now + expiresInMs );
+    setPassword( "" );
+    return data.token;
+  };
+
   const handleSubmit = async () => {
     const normalizedSubCategory = isCertificate ? "all" : subCategory;
+    const normalizedUsername = username.trim();
+    const hasReusableToken =
+      Boolean( accessToken ) &&
+      Boolean( tokenExpiresAt ) &&
+      ( tokenExpiresAt ?? 0 ) - Date.now() > 10_000;
+
     if ( !file || !title || ( !isCertificate && !normalizedSubCategory ) ) {
       alert(
         isCertificate
@@ -48,9 +100,20 @@ const UploadForm: React.FC = () => {
       return;
     }
 
+    if ( !normalizedUsername || ( !password && !hasReusableToken ) ) {
+      alert( "Lütfen kullanıcı adı ve şifre girin." );
+      return;
+    }
+
+    if ( !uploadBaseUrl || !apiBaseUrl ) {
+      alert( "Upload API yapılandırılmamış." );
+      return;
+    }
+
     try {
       setLoading( true );
-      const uploadPath = "http://localhost:3001/upload";
+      const uploadPath = `${ uploadBaseUrl }/upload`;
+      const token = await getValidAccessToken( normalizedUsername, password );
 
       const formData = new FormData();
       // Multer diskStorage filename/destination needs fields BEFORE file
@@ -63,7 +126,10 @@ const UploadForm: React.FC = () => {
 
       const { data } = await axios.post( uploadPath, formData, {
         timeout: 30000,
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${ token }`,
+        },
       } );
 
       const savedFileName: string = data?.file?.filename ?? ( () => {
@@ -92,16 +158,21 @@ const UploadForm: React.FC = () => {
         };
 
       const endpoint = isCertificate
-        ? "http://localhost:4000/certificates"
+        ? `${ apiBaseUrl }/certificates`
         : category === "foto"
-          ? "http://localhost:4000/fotografiePhotos"
-          : "http://localhost:4000/gardenPhotos";
+          ? `${ apiBaseUrl }/fotografiePhotos`
+          : `${ apiBaseUrl }/gardenPhotos`;
       const eventName = isCertificate ? "certificates:updated" : "photos:updated";
       const itemLabel = isCertificate ? "Sertifika" : "Fotoğraf";
 
       let dbSaved = true;
       try {
-        await axios.post( endpoint, payload, { timeout: 10000 } );
+        await axios.post( endpoint, payload, {
+          timeout: 10000,
+          headers: {
+            Authorization: `Bearer ${ token }`,
+          },
+        } );
       } catch ( dbError ) {
         dbSaved = false;
         if ( axios.isAxiosError( dbError ) ) {
@@ -136,6 +207,12 @@ const UploadForm: React.FC = () => {
       setSubCategory( "" );
     } catch ( error ) {
       if ( axios.isAxiosError( error ) ) {
+        if ( error.response?.status === 401 ) {
+          setAccessToken( "" );
+          setTokenExpiresAt( null );
+          alert( "Kullanıcı adı veya şifre hatalı." );
+          return;
+        }
         console.error( "Axios Hatası:", error.message );
         alert( `Bir hata oluştu: ${ error.message }` );
       } else {
@@ -239,6 +316,26 @@ const UploadForm: React.FC = () => {
             </MenuItem>
           ) )}
         </Select>
+
+        <TextField
+          label="Benutzername"
+          value={username}
+          onChange={( e ) => setUsername( e.target.value )}
+          autoComplete="username"
+        />
+
+        <TextField
+          label="Passwort"
+          type="password"
+          value={password}
+          onChange={( e ) => setPassword( e.target.value )}
+          autoComplete="current-password"
+          helperText={
+            accessToken && tokenExpiresAt && tokenExpiresAt > Date.now()
+              ? "Aktif JWT mevcut. Süresi dolana kadar tekrar şifre girmeniz gerekmez."
+              : "JWT almak için şifre yalnızca giriş sırasında kullanılır."
+          }
+        />
 
         <TextField
           type="file"

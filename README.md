@@ -17,7 +17,7 @@ Modernes, schnelles und barrierearmes persönliches Portfolio. Erstellt mit Reac
 - MUI (Material UI) + Tailwind CSS
 - Playwright für E2E‑Tests
 - Sharp zur Thumbnail‑Erzeugung
-- Optionaler Upload‑Server (Express + Multer)
+- Optionaler Content‑Server (Express + Multer + JSON API)
 
 ## Projektstruktur
 
@@ -37,7 +37,7 @@ src/
   constants/constants.ts  # Navigation, Beispieldaten
   App.tsx                 # Haupt‑App + Zustandsnavigation
 server/
-  server.js               # Optionaler Upload‑Endpunkt (Port 3001)
+  server.js               # Optionaler Content‑Server mit Upload + JSON API (Port 3001)
 scripts/
   gen-thumbs.mjs          # Erzeugt WebP‑Thumbnails
   generatePhotos.ts       # Build‑Zeit‑Daten aus server/db.json
@@ -63,11 +63,12 @@ $env:THUMB_WIDTH=480; $env:THUMB_QUALITY=65; $env:THUMB_CONCURRENCY=2; npm run t
 
 ## Skripte
 
-- `dev`: Vite‑Dev‑Server starten
+- `dev`: Vite + Express‑Content‑Server starten
 - `build`: Thumbs → Fotos generieren → Typecheck → Vite‑Build
 - `preview`: Produktionsbuild lokal ansehen
 - `lint`, `lint:fix`: ESLint ausführen
 - `thumbs`: WebP‑Thumbnails mit `sharp` erzeugen
+- `server`: Express‑Content‑Server starten
 - `test:e2e`, `test:e2e:ui`, `test:e2e:headed`: Playwright‑Tests
 
 ## Entwicklung
@@ -81,24 +82,34 @@ npm install
 npm run dev
 ```
 
-Die Galerie versucht, dynamische Fotos von `http://localhost:4000/…` zu laden. Falls nicht verfügbar, wird auf die generierte, statische Datei `redux/photos.ts` zurückgefallen.
+Die Galerie versucht, dynamische Inhalte von `http://localhost:3001/api/…` zu laden. Falls nicht verfügbar, wird auf die generierte, statische Datei `redux/photos.ts` zurückgefallen.
 
-Optionale JSON‑API (empfohlen für dynamische Fotos):
+Optionaler Content‑Server mit Upload und geschützten Schreibzugriffen:
 
 ```bash
-npm install -g json-server
-json-server --watch server/db.json --port 4000
+npm run server
 ```
 
-Optionaler Upload‑Server (speichert Bilder in `public/foto` oder `public/garten`):
+Neue Inhalte werden über ein kurzes JWT geschützt. Benutzername und Passwort werden nur gegen `/auth/login` geprüft; Uploads und neue Einträge verwenden danach `Bearer`‑Token. Lege dazu eine `.env` im Projektwurzel an:
 
 ```bash
-node server/server.js   # läuft auf http://localhost:3001
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=change-me
+JWT_SECRET=replace-with-a-long-random-secret
+JWT_TTL_SECONDS=900
+# optional
+CLIENT_ORIGIN=http://localhost:5173
 ```
 
 ## Umgebung
 
 - `BASE_PATH`: Vite‑Basis‑Pfad für Deployments unter Unterpfaden, z. B. `/pehlione.io/`.
+- `ADMIN_USERNAME`, `ADMIN_PASSWORD`: Zugangsdaten für neue Uploads und neue Einträge.
+- `JWT_SECRET`: Signierschlüssel für kurzlebige JWTs.
+- `JWT_TTL_SECONDS`: Lebensdauer eines JWTs in Sekunden.
+- `CLIENT_ORIGIN`: erlaubte Frontend‑Origin für lokale Entwicklung.
+- `VITE_API_BASE_URL`: optionaler Read/Write‑API‑Pfad für das Frontend.
+- `VITE_UPLOAD_API_BASE_URL`: optionaler Upload‑Pfad für das Frontend.
 
 ## Tests (Playwright)
 

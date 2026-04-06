@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
 import type { Project } from '@/types/types'
 import { staticProjects } from '@/constants/staticData'
+import { apiBaseUrl } from '@/constants/api'
 
 type Props = { onOpenDrawer?: () => void; variant?: 'summary' | 'detail' }
 
@@ -22,8 +23,7 @@ const sortByIdDesc = (items: ProjectEntry[]) => {
 
 function Projects({ onOpenDrawer, variant = 'summary' }: Props) {
   const [items, setItems] = useState<ProjectEntry[]>([])
-  const apiBase = (import.meta.env.VITE_API_BASE_URL as string | undefined)
-    ?? (import.meta.env.DEV ? 'http://localhost:4000' : '')
+  const apiBase = apiBaseUrl
   const fallbackItems = useMemo(() => sortByIdDesc(staticProjects), [])
 
   useEffect(() => {

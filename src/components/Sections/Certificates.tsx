@@ -3,6 +3,7 @@ import axios from "axios";
 import OptimizedImage from "@/components/OptimizedImage";
 import type { Cert } from "@/types/types";
 import { staticCertificates } from "@/constants/staticData";
+import { apiBaseUrl } from "@/constants/api";
 
 type Schwerpunkt = { id: string | number; text: string };
 
@@ -36,8 +37,7 @@ const sortByIdDesc = (items: CertEntry[]) => {
 function Certificates({ onOpenDrawer, variant = "summary" }: Props) {
   const [items, setItems] = useState<CertEntry[]>([]);
   const [schwerpunkte, setSchwerpunkte] = useState<Schwerpunkt[]>([]);
-  const apiBase = (import.meta.env.VITE_API_BASE_URL as string | undefined)
-    ?? (import.meta.env.DEV ? "http://localhost:4000" : "");
+  const apiBase = apiBaseUrl;
   const fallbackItems = useMemo(() => sortByIdDesc(staticCertificates), []);
 
   useEffect(() => {
