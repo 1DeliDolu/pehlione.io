@@ -89,7 +89,7 @@ function App() {
     return { view: 'default' as const, category: null }
   }, [ basePath ] )
 
-  const toPath = ( view: MainView, category?: FotoCategory ) => {
+  const toPath = useCallback( ( view: MainView, category?: FotoCategory ) => {
     if ( view === 'default' ) return '/'
     if ( view === 'agentDoc' ) return '/cv'
     if ( view === 'hobbies' ) return '/hobby'
@@ -101,9 +101,9 @@ function App() {
     if ( view === 'upload' ) return '/upload'
     if ( view === 'foto' ) return `/foto/${ category ?? 'gartenarbeit' }`
     return '/'
-  }
+  }, [] )
 
-  const pushRoute = ( view: MainView, category?: FotoCategory, hash?: string ) => {
+  const pushRoute = useCallback( ( view: MainView, category?: FotoCategory, hash?: string ) => {
     if ( typeof window === 'undefined' ) return
     const target = toPath( view, category )
     const fullPath = basePath ? `${ basePath }${ target }` : target
@@ -115,14 +115,14 @@ function App() {
     if ( window.location.pathname + window.location.search + window.location.hash !== nextUrl ) {
       window.history.pushState( {}, '', nextUrl )
     }
-  }
+  }, [ basePath, toPath ] )
 
-  const navigate = ( view: MainView, category?: FotoCategory, hash?: string ) => {
+  const navigate = useCallback( ( view: MainView, category?: FotoCategory, hash?: string ) => {
     if ( category !== undefined ) setFotoCategory( category )
     setMainView( view )
     pushRoute( view, category, hash )
     if ( hash !== undefined ) setPendingHash( hash )
-  }
+  }, [ pushRoute ] )
 
   useEffect( () => {
     if ( typeof window === 'undefined' ) return
@@ -192,7 +192,7 @@ function App() {
     if ( mainView === 'login' && hasValidAdminSession ) {
       navigate( 'upload' )
     }
-  }, [ mainView, hasValidAdminSession ] )
+  }, [ mainView, hasValidAdminSession, navigate ] )
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -290,7 +290,7 @@ function App() {
 
     const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')
     if (canonical) canonical.href = absoluteUrl
-  }, [mainView, fotoCategory])
+  }, [mainView, fotoCategory, toPath])
   return (
     <div className="app-shell min-h-dvh w-full">
       <a id="home" />
