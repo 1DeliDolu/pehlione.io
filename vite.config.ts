@@ -7,8 +7,8 @@ import { defineConfig, loadEnv } from "vite";
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const githubUsername =
-    env.VITE_GITHUB_USERNAME ||
-    env.GITHUB_USERNAME ||
+    env.VITE_IO_USERNAME ||
+    env.IO_USERNAME ||
     env.VITE_GITHUB_USER ||
     env.GITHUB_USER ||
     "1DeliDolu";
@@ -31,7 +31,7 @@ export default defineConfig(({ mode }) => {
       tailwindcss(),
     ],
     define: {
-      __GITHUB_USERNAME__: JSON.stringify(githubUsername),
+      __IO_USERNAME__: JSON.stringify(githubUsername),
     },
     resolve: {
       alias: {

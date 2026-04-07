@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: amannn/action-semantic-pull-request@v5
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          IO_TOKEN: ${{ secrets.IO_TOKEN }}
         with:
           types: |
             build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test

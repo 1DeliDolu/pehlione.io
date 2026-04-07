@@ -42,8 +42,8 @@ jobs:
         shell: bash
         run: |
           {
-            echo "GITHUB_USERNAME=${{ vars.GITHUB_USERNAME || github.repository_owner }}"
-            echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}"
+            echo "IO_USERNAME=${{ vars.IO_USERNAME || github.repository_owner }}"
+            echo "IO_TOKEN=${{ secrets.IO_TOKEN }}"
           } > .env
 
       - name: Compute BASE_PATH

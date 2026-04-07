@@ -1,3 +1,3 @@
 /// <reference types="vite/client" />
 
-declare const __GITHUB_USERNAME__: string
+declare const __IO_USERNAME__: string;
