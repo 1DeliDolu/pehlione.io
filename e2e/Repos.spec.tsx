@@ -25,7 +25,7 @@ const createRepos = (count: number): RepoResponse[] =>
   })
 
 const mockReposApi = async (page: import('@playwright/test').Page) => {
-  await page.route(/https:\/\/api\.github\.com\/users\/1DeliDolu\/repos\?/, async (route) => {
+  await page.route(/http:\/\/localhost:3001\/api\/github\/users\/1DeliDolu\/repos\?/, async (route) => {
     const url = new URL(route.request().url())
     const perPage = Number(url.searchParams.get('per_page') || '0')
     const repos = createRepos(perPage || 1)
@@ -36,6 +36,63 @@ const mockReposApi = async (page: import('@playwright/test').Page) => {
     })
   })
 }
+
+const staticFallbackRepos: RepoResponse[] = [
+  {
+    id: -1,
+    name: 'pehlione.io',
+    html_url: 'https://github.com/1DeliDolu/pehlione.io/',
+    description: 'Persönliche Website mit React + TypeScript + Vite.',
+    language: 'TypeScript',
+    stargazers_count: -1,
+    pushed_at: '',
+  },
+  {
+    id: -2,
+    name: 'PRTG',
+    html_url: 'https://github.com/1DeliDolu/PRTG',
+    description: 'Plugin zur Integration von PRTG in Grafana (Go Backend, TypeScript Frontend).',
+    language: 'TypeScript',
+    stargazers_count: -1,
+    pushed_at: '',
+  },
+  {
+    id: -3,
+    name: 'pehlione_symfony',
+    html_url: 'https://github.com/1DeliDolu/pehlione_symfony',
+    description: 'Persönliche Website mit Symfony und Twig + TailwindCSS.',
+    language: 'PHP',
+    stargazers_count: -1,
+    pushed_at: '',
+  },
+  {
+    id: -4,
+    name: 'pehlione_go',
+    html_url: 'https://github.com/1DeliDolu/pehlione_go',
+    description: 'E-Commerce Plattform mit Go an TailwindCSS.',
+    language: 'Go',
+    stargazers_count: -1,
+    pushed_at: '',
+  },
+  {
+    id: -5,
+    name: 'ecommerce_laravel',
+    html_url: 'https://github.com/1DeliDolu/ecommerce_laravel.git',
+    description: 'E-Commerce Plattform mit Laravel und Blade + TailwindCSS.',
+    language: 'PHP',
+    stargazers_count: -1,
+    pushed_at: '',
+  },
+  {
+    id: -6,
+    name: 'pehlione_dotnet',
+    html_url: 'https://github.com/1DeliDolu/pehlione_dotnet',
+    description: 'E-Commerce Plattform mit C# .NET und Razor Pages + TailwindCSS.',
+    language: 'C#',
+    stargazers_count: -1,
+    pushed_at: '',
+  },
+]
 
 test.describe('Repos section', () => {
   test('shows summary list on home', async ({ page }) => {
@@ -76,12 +133,17 @@ test.describe('Repos section', () => {
     await expect(section.getByRole('link', { name: 'Developer Profile' })).toHaveAttribute('href', '#developer')
   })
 
-  test('falls back to static repository cards when GitHub API returns 403', async ({ page }) => {
-    await page.route(/https:\/\/api\.github\.com\/users\/1DeliDolu\/repos\?/, async (route) => {
+  test('shows proxy fallback repository cards when GitHub API returns 403', async ({ page }) => {
+    await page.route(/http:\/\/localhost:3001\/api\/github\/users\/1DeliDolu\/repos\?/, async (route) => {
       await route.fulfill({
-        status: 403,
+        status: 200,
         contentType: 'application/json',
-        body: JSON.stringify({ message: 'API rate limit exceeded' }),
+        headers: {
+          'X-Repo-Source': 'static',
+          'X-Repo-Warning': 'github-403',
+          'Access-Control-Expose-Headers': 'X-Repo-Source, X-Repo-Warning',
+        },
+        body: JSON.stringify(staticFallbackRepos),
       })
     })
 

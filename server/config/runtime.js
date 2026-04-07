@@ -22,6 +22,7 @@ try {
 export const runtimeConfig = {
   port: Number(process.env.PORT || 3001),
   clientOrigin: process.env.CLIENT_ORIGIN || "http://localhost:5173",
+  githubToken: process.env.GITHUB_TOKEN || "",
   adminUsername: process.env.ADMIN_USERNAME || "",
   adminPassword: process.env.ADMIN_PASSWORD || "",
   jwtSecret: process.env.JWT_SECRET || "",

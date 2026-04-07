@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { staticProjects } from '@/constants/staticData'
+import { apiBaseUrl } from '@/constants/api'
 import type { Repo_, Repo } from '@/types/types'
 
 const getRepoNameFromUrl = (url: string) => {
@@ -51,23 +52,41 @@ function Repos({ username, perPage = 10, onOpenDrawer, variant = 'summary' }: Re
   useEffect(() => {
     const controller = new AbortController()
     const cacheKey = `repos-cache:${username}`
-    const url = `https://api.github.com/users/${encodeURIComponent(username)}/repos?sort=pushed&per_page=${repoLimit}`
+    const url = apiBaseUrl
+      ? `${apiBaseUrl}/github/users/${encodeURIComponent(username)}/repos?per_page=${repoLimit}`
+      : ''
     setNotice(null)
     setRepos(null)
+    if (!url) {
+      setRepos(fallbackRepos)
+      return () => controller.abort()
+    }
+
     fetch(url, {
       signal: controller.signal,
-      headers: {
-        Accept: 'application/vnd.github+json',
-        'X-GitHub-Api-Version': '2022-11-28',
-      },
     })
       .then(async (r) => {
         if (!r.ok) throw new Error(`GitHub API error: ${r.status}`)
-        return (await r.json()) as Repo[]
+        return {
+          repos: (await r.json()) as Repo[],
+          source: r.headers.get('X-Repo-Source'),
+          warning: r.headers.get('X-Repo-Warning'),
+        }
       })
-      .then((data) => {
+      .then(({ repos: data, source, warning }) => {
         setRepos(data)
-        localStorage.setItem(cacheKey, JSON.stringify(data))
+        if (source !== 'static') {
+          localStorage.setItem(cacheKey, JSON.stringify(data))
+        }
+        if (source === 'static') {
+          setNotice('GitHub API derzeit nicht verfügbar. Es werden statische Repository-Daten angezeigt.')
+          return
+        }
+        if (source === 'cache' && warning) {
+          setNotice('GitHub API derzeit nicht verfügbar. Zuletzt geladene Repository-Daten werden angezeigt.')
+          return
+        }
+        setNotice(null)
       })
       .catch((e) => {
         if (e.name === 'AbortError') return
