@@ -37,6 +37,21 @@ function getRepoNameFromUrl(url) {
   }
 }
 
+function withConfiguredGithubOwner(url) {
+  if (!url.startsWith("https://github.com/")) return url;
+
+  try {
+    const parsed = new URL(url);
+    const parts = parsed.pathname.split("/").filter(Boolean);
+    if (parts.length < 2) return url;
+    parts[0] = runtimeConfig.githubUsername;
+    parsed.pathname = `/${parts.join("/")}`;
+    return parsed.toString();
+  } catch {
+    return url;
+  }
+}
+
 function inferLanguage(input) {
   const value = String(input).toLowerCase();
   if (value.includes("typescript") || value.includes("react")) return "TypeScript";
@@ -56,7 +71,9 @@ async function listStaticRepos(perPage) {
     .map((project, index) => ({
       id: -(index + 1),
       name: project.repoUrl ? getRepoNameFromUrl(project.repoUrl) : project.name,
-      html_url: project.repoUrl ?? project.demoUrl ?? "#",
+      html_url: project.repoUrl
+        ? withConfiguredGithubOwner(project.repoUrl)
+        : project.demoUrl ?? "#",
       description: project.description ?? null,
       stargazers_count: -1,
       language: inferLanguage(`${project.name ?? ""} ${project.description ?? ""}`),

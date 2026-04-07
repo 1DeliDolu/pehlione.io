@@ -76,8 +76,13 @@ function Projects({ onOpenDrawer, variant = 'summary' }: Props) {
         <h3 className="text-xl font-semibold mb-2">Technologien</h3>
         <ul className="list-disc pl-6 mb-6 text-neutral-800 dark:text-neutral-200">
           <li>React + TypeScript + Vite</li>
-          <li>Go Backend & Rust CLI</li>
           <li>Tailwind CSS & Material UI</li>
+          <li>Go</li>
+          <li>Rust</li>
+          <li>Java & Spring Boot</li>
+          <li>C# & .NET</li>
+          {/* php symfony laravel */}
+          <li>PHP, Symfony & Laravel</li>
           <li>Git, GitHub Workflows</li>
         </ul>
 
@@ -85,7 +90,11 @@ function Projects({ onOpenDrawer, variant = 'summary' }: Props) {
         <ul className="list-disc pl-6 mb-6 text-neutral-800 dark:text-neutral-200">
           <li>Responsives Layout und performante Komponenten</li>
           <li>Saubere Typisierung und wiederverwendbare Bausteine</li>
-          <li>Erste Praxiserfahrungen mit Go und Rust</li>
+          <li>Erste Praxiserfahrungen mit Go</li>
+          <li>Erste Praxiserfahrungen mit Rust</li>
+          <li>Erste Praxiserfahrungen mit PHP, Symfony & Laravel</li>
+          <li>Erste Praxiserfahrungen mit Java & Spring Boot</li>
+          <li>Erste Praxiserfahrungen mit C# & .NET</li>
         </ul>
 
         <h3 className="text-xl font-semibold mb-2">Weitere Links</h3>

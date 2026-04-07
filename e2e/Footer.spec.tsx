@@ -1,5 +1,14 @@
 import { test, expect } from '@playwright/test'
 
+process.loadEnvFile?.('.env')
+
+const githubUsername =
+  process.env.GITHUB_USERNAME ||
+  process.env.VITE_GITHUB_USERNAME ||
+  process.env.GITHUB_USER ||
+  process.env.VITE_GITHUB_USER ||
+  '1DeliDolu'
+
 test.describe('Footer', () => {
   test('shows copyright, contact, and GitHub link', async ({ page }) => {
     await page.goto('/')
@@ -15,7 +24,7 @@ test.describe('Footer', () => {
 
     await expect(githubLink).toHaveAttribute(
       'href',
-      'https://github.com/1DeliDolu/pehlione.io',
+      `https://github.com/${githubUsername}/pehlione.io`,
     )
     await expect(githubLink).toHaveAttribute('target', '_blank')
   })

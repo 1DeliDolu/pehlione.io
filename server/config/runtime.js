@@ -23,6 +23,12 @@ export const runtimeConfig = {
   port: Number(process.env.PORT || 3001),
   clientOrigin: process.env.CLIENT_ORIGIN || "http://localhost:5173",
   githubToken: process.env.GITHUB_TOKEN || "",
+  githubUsername:
+    process.env.GITHUB_USERNAME ||
+    process.env.VITE_GITHUB_USERNAME ||
+    process.env.GITHUB_USER ||
+    process.env.VITE_GITHUB_USER ||
+    "1DeliDolu",
   adminUsername: process.env.ADMIN_USERNAME || "",
   adminPassword: process.env.ADMIN_PASSWORD || "",
   jwtSecret: process.env.JWT_SECRET || "",

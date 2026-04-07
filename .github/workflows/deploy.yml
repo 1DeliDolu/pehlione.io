@@ -38,6 +38,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Create build .env
+        shell: bash
+        run: |
+          {
+            echo "GITHUB_USERNAME=${{ vars.GITHUB_USERNAME || github.repository_owner }}"
+            echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}"
+          } > .env
+
       - name: Compute BASE_PATH
         id: base
         shell: bash

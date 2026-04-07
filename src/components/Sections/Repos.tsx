@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { staticProjects } from '@/constants/staticData'
 import { apiBaseUrl } from '@/constants/api'
+import { withConfiguredGithubOwner } from '@/constants/github'
 import type { Repo_, Repo } from '@/types/types'
 
 const getRepoNameFromUrl = (url: string) => {
@@ -28,7 +29,7 @@ const toStaticRepo = (
 ): Repo => ({
   id: -(index + 1),
   name: project.repoUrl ? getRepoNameFromUrl(project.repoUrl) : project.name,
-  html_url: project.repoUrl ?? project.demoUrl ?? '#',
+  html_url: project.repoUrl ? withConfiguredGithubOwner(project.repoUrl) : project.demoUrl ?? '#',
   description: project.description,
   stargazers_count: -1,
   language: inferLanguage(`${project.name} ${project.description}`),

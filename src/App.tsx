@@ -15,6 +15,7 @@ import AgentDoc from './components/Lebenslauf'
 import Button from '@mui/material/Button'
 import { UploadForm } from '@/components/UploadForm'
 import AdminLoginForm from '@/components/AdminLoginForm'
+import { githubUsername } from '@/constants/github'
 
 
 type MainView = 'default' | 'agentDoc' | 'hobbies' | 'certificates' | 'projects' | 'repos' | 'developer' | 'foto' | 'login' | 'upload'
@@ -489,7 +490,7 @@ function App() {
           <section className="w-full px-4 sm:px-6 lg:px-10 py-12">
             <h1 className="text-3xl font-bold mb-4">Repositories • Details</h1>
             <Repos
-              username="1DeliDolu"
+              username={githubUsername}
               perPage={12}
               onOpenDrawer={() => setDrawerOpen(true)}
               variant="detail"
@@ -538,7 +539,7 @@ function App() {
             <Certificates onOpenDrawer={() => setDrawerOpen(true)} />
             <Projects onOpenDrawer={() => setDrawerOpen(true)} />
             <Repos
-              username="1DeliDolu"
+              username={githubUsername}
               perPage={6}
               onOpenDrawer={() => setDrawerOpen(true)}
             />

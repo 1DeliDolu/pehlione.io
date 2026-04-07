@@ -1,5 +1,6 @@
 import { certificateSkills as skills } from "@/constants/certificate";
 import { staticProjects } from "@/constants/staticData";
+import { githubRepositoriesUrl, withConfiguredGithubOwner } from "@/constants/github";
 
 type Props = { onOpenDrawer?: () => void; variant?: 'summary' | 'detail' }
 
@@ -58,7 +59,7 @@ function DeveloperInfo( { onOpenDrawer, variant = 'summary' }: Props ) {
           {staticProjects.map((p) => (
             <li key={p.id}>
               <a
-                href={p.repoUrl}
+                href={p.repoUrl ? withConfiguredGithubOwner(p.repoUrl) : '#'}
                 className="text-blue-600 hover:underline"
                 target="_blank"
                 rel="noreferrer">
@@ -68,7 +69,7 @@ function DeveloperInfo( { onOpenDrawer, variant = 'summary' }: Props ) {
           ))}
           <li>
             <a
-              href="https://github.com/1DeliDolu?tab=repositories"
+              href={githubRepositoriesUrl}
               className="text-blue-600 hover:underline"
               target="_blank"
               rel="noreferrer">
