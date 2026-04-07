@@ -8,14 +8,14 @@ test.describe('Admin access', () => {
 
     await expect(page).toHaveURL(/\/login$/)
     await expect(page.getByRole('heading', { level: 1, name: /Geschützter Zugang für neue Inhalte/ })).toBeVisible()
-    await expect(page.getByRole('heading', { name: 'Admin Login' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Admin-Anmeldung' })).toBeVisible()
   })
 
   test('upload route redirects to login without an active session', async ({ page }) => {
     await page.goto('/upload')
 
     await expect(page).toHaveURL(/\/login$/)
-    await expect(page.getByRole('heading', { name: 'Admin Login' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Admin-Anmeldung' })).toBeVisible()
   })
 
   test('login form navigates to upload after a successful auth response', async ({ page }) => {

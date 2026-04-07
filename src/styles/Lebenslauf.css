@@ -331,7 +331,7 @@
 .dark .cv-item-meta,
 .dark .cv-item-list,
 .dark .cv-list {
-  color: #94a3b8;
+  color: #f8fafc;
 }
 
 .dark .cv-meter-track {
@@ -349,7 +349,8 @@
 }
 
 .dark .cv-personal-label {
-  color: #cbd5f5;
+  color: #f8fafc;
+  opacity: 1;
 }
 
 .dark .cv-skill-group {
@@ -362,13 +363,21 @@
 }
 
 .dark .cv-inline-list {
-  color: #cbd5f5;
+  color: #f8fafc;
 }
 
 .dark .cv-inline-list li {
   background: rgba(30, 41, 59, 0.7);
   border-color: rgba(51, 65, 85, 0.8);
   color: #e2e8f0;
+}
+
+.dark .cv-kicker,
+.dark .cv-role,
+.dark .cv-contact-label,
+.dark .cv-signoff {
+  color: #f8fafc;
+  opacity: 1;
 }
 
 @media (max-width: 960px) {

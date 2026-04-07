@@ -4,7 +4,6 @@ import MuiDrawer from '@mui/material/Drawer'
 import MuiAppBar, { type AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import List from '@mui/material/List'
-import CssBaseline from '@mui/material/CssBaseline'
 import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
@@ -106,15 +105,15 @@ export type Props = {
   open: boolean
   onOpen: () => void
   onClose: () => void
+  homeHref: string
   onSelectMain: (view: 'default' | 'agentDoc' | 'hobbies' | 'certificates' | 'projects' | 'repos' | 'developer' | 'login', hash?: string) => void
 }
 
-function Header({ open, onOpen, onClose, onSelectMain }: Props) {
+function Header({ open, onOpen, onClose, homeHref, onSelectMain }: Props) {
   const theme = useTheme()
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
       <AppBar position="fixed" open={open} color="default" enableColorOnDark>
         <Toolbar>
           <IconButton
@@ -134,8 +133,12 @@ function Header({ open, onOpen, onClose, onSelectMain }: Props) {
             <Typography
             variant="h6"
             noWrap
-            component="button"
-            onClick={() => onSelectMain('default')}
+            component="a"
+            href={homeHref}
+            onClick={(event) => {
+              event.preventDefault()
+              onSelectMain('default', '')
+            }}
             sx={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer', background: 'none', border: 0, padding: 0 }}
             >
             pehlione

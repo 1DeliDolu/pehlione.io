@@ -24,11 +24,11 @@
     "typecheck": "tsc -b",
     "test": "echo \"No unit tests specified; see test:e2e for E2E\" && exit 0",
     "thumbs": "node scripts/gen-thumbs.mjs",
-    "test:e2e": "playwright test --project=chromium --project=firefox",
-    "test:e2e:webkit": "playwright test --project=webkit",
-    "test:e2e:all": "playwright test",
-    "test:e2e:ui": "playwright test --ui",
-    "test:e2e:headed": "playwright test --headed"
+    "test:e2e": "node scripts/run-playwright.mjs test --project=chromium --project=firefox",
+    "test:e2e:webkit": "node scripts/run-playwright.mjs test --project=webkit",
+    "test:e2e:all": "node scripts/run-playwright.mjs test",
+    "test:e2e:ui": "node scripts/run-playwright.mjs test --ui",
+    "test:e2e:headed": "node scripts/run-playwright.mjs test --headed"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

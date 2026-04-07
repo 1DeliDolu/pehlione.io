@@ -75,4 +75,25 @@ test.describe('Repos section', () => {
     await expect(section.getByRole('link', { name: 'Projects' })).toHaveAttribute('href', '#projects')
     await expect(section.getByRole('link', { name: 'Developer Profile' })).toHaveAttribute('href', '#developer')
   })
+
+  test('falls back to static repository cards when GitHub API returns 403', async ({ page }) => {
+    await page.route(/https:\/\/api\.github\.com\/users\/1DeliDolu\/repos\?/, async (route) => {
+      await route.fulfill({
+        status: 403,
+        contentType: 'application/json',
+        body: JSON.stringify({ message: 'API rate limit exceeded' }),
+      })
+    })
+
+    await page.goto('/')
+
+    const section = page.locator('#repos')
+
+    await expect(section.getByText(/GitHub API derzeit nicht verfügbar/)).toBeVisible()
+    await expect(section.locator('ul.grid').locator('li')).toHaveCount(6)
+    await expect(section.getByRole('link', { name: 'pehlione.io' })).toHaveAttribute(
+      'href',
+      'https://github.com/1DeliDolu/pehlione.io/',
+    )
+  })
 })

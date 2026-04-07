@@ -102,15 +102,16 @@ function App() {
     return '/'
   }
 
-  const pushRoute = ( view: MainView, category?: FotoCategory ) => {
+  const pushRoute = ( view: MainView, category?: FotoCategory, hash?: string ) => {
     if ( typeof window === 'undefined' ) return
     const target = toPath( view, category )
     const fullPath = basePath ? `${ basePath }${ target }` : target
     const searchParams = new URLSearchParams( window.location.search )
     searchParams.delete( 'upload' )
     const search = searchParams.toString()
-    const nextUrl = `${ fullPath }${ search ? `?${ search }` : '' }`
-    if ( window.location.pathname + window.location.search !== nextUrl ) {
+    const nextHash = view === 'default' && hash !== undefined ? hash : ''
+    const nextUrl = `${ fullPath }${ search ? `?${ search }` : '' }${ nextHash }`
+    if ( window.location.pathname + window.location.search + window.location.hash !== nextUrl ) {
       window.history.pushState( {}, '', nextUrl )
     }
   }
@@ -118,8 +119,8 @@ function App() {
   const navigate = ( view: MainView, category?: FotoCategory, hash?: string ) => {
     if ( category !== undefined ) setFotoCategory( category )
     setMainView( view )
-    pushRoute( view, category )
-    if ( hash ) setPendingHash( hash )
+    pushRoute( view, category, hash )
+    if ( hash !== undefined ) setPendingHash( hash )
   }
 
   useEffect( () => {
@@ -146,7 +147,7 @@ function App() {
 
   useEffect( () => {
     if ( typeof window === 'undefined' ) return
-    if ( !pendingHash ) return
+    if ( pendingHash === null ) return
     if ( mainView !== 'default' ) return
     const id = pendingHash.replace( /^#/, '' )
     const rootPath = basePath ? `${ basePath }/` : '/'
@@ -159,6 +160,8 @@ function App() {
     const el = id ? document.getElementById( id ) : null
     if ( el ) {
       el.scrollIntoView( { behavior: 'smooth', block: 'start' } )
+    } else {
+      window.scrollTo( { top: 0, behavior: 'smooth' } )
     }
     setPendingHash( null )
   }, [ pendingHash, mainView, basePath ] )
@@ -288,15 +291,16 @@ function App() {
     if (canonical) canonical.href = absoluteUrl
   }, [mainView, fotoCategory])
   return (
-    <div className="min-h-dvh w-full bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50">
+    <div className="app-shell min-h-dvh w-full">
       <a id="home" />
       <Header
         open={drawerOpen}
         onOpen={() => setDrawerOpen(true)}
         onClose={() => setDrawerOpen(false)}
+        homeHref={basePath ? `${ basePath }/` : '/'}
         onSelectMain={(v, hash) => {
-          console.log("mainView", v);
-          navigate(v, undefined, hash);
+          const nextHash = v === 'default' && hash === undefined ? '' : hash
+          navigate(v, undefined, nextHash);
           setDrawerOpen(false);
         }}
       />

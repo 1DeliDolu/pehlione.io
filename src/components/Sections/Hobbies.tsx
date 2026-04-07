@@ -103,6 +103,23 @@ function Hobbies({ onOpenDrawer, onOpenPage, onOpenDeveloper, variant = 'summary
             Tailwind CSS
           </li>
           <li>Neugier auf neue Technologien und Freude am Ausprobieren</li>
+         
+          {/* apache kafka  */}
+          <li>
+            Apache Kafka: Echtzeit-Datenströme und Event-Driven Architecture
+          </li>
+          {/* docker  */}
+          <li>
+            Docker: Containerisierung und Orchestrierung von Anwendungen
+          </li>
+          {/* git github workflow */}
+          <li>
+            Git & GitHub: Versionskontrolle und kollaborative Entwicklung
+          </li>
+          {/* ci cd */}
+          <li>
+            CI/CD: Automatisierte Build- und Deployment-Pipelines
+          </li>
         </ul>
 
         <h3 className="text-xl font-semibold mb-2">Links</h3>

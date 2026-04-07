@@ -37,7 +37,7 @@ test.describe('Developer info section', () => {
     await expect(section.getByRole('heading', { level: 3, name: 'Technische Kenntnisse (Auszug)' })).toBeVisible()
     await expect(section.getByRole('heading', { level: 3, name: 'Persönliche Schwerpunkte' })).toBeVisible()
     await expect(section.getByRole('heading', { level: 3, name: 'Links' })).toBeVisible()
-    await expect(section.getByRole('link', { name: 'Übungsprojekte' })).toHaveAttribute('href', 'https://github.com/1DeliDolu/PRTG.git')
+    await expect(section.getByRole('link', { name: /Grafana Data Source Plugin für PRTG/ })).toHaveAttribute('href', 'https://github.com/1DeliDolu/PRTG')
     await expect(section.getByRole('link', { name: 'GitHub Repositories' })).toHaveAttribute('href', 'https://github.com/1DeliDolu?tab=repositories')
 
     const skillCount = await section.locator('span').count()

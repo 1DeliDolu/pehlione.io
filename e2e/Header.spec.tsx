@@ -8,7 +8,7 @@ test.describe('Header', () => {
     await page.goto('/')
 
     await expect(page.getByRole('button', { name: 'open drawer' })).toBeVisible()
-    await expect(getTopNav(page).getByRole('button', { name: 'pehlione', exact: true })).toBeVisible()
+    await expect(getTopNav(page).getByRole('link', { name: 'pehlione', exact: true })).toBeVisible()
     await expect(getTopNav(page).getByRole('button', { name: 'Lebenslauf' })).toBeVisible()
     await expect(getTopNav(page).getByRole('button', { name: 'Admin' })).toBeVisible()
   })
@@ -27,5 +27,24 @@ test.describe('Header', () => {
 
     await page.getByRole('button', { name: 'close drawer' }).click()
     await expect(page.getByRole('button', { name: 'open drawer' })).toBeVisible()
+  })
+
+  test('brand button always routes to the home page root', async ({ page }) => {
+    await page.goto('/projects')
+
+    await getTopNav(page).getByRole('link', { name: 'pehlione', exact: true }).click()
+
+    await expect(page).toHaveURL(/\/$/)
+    await expect(page.getByRole('heading', { level: 1, name: /Mustafa's Portfolio/i })).toBeVisible()
+  })
+
+  test('brand button clears home section hash and returns to the top of home', async ({ page }) => {
+    await page.goto('/#hobbies')
+    await expect(page).toHaveURL(/\/#hobbies$/)
+
+    await getTopNav(page).getByRole('link', { name: 'pehlione', exact: true }).click()
+
+    await expect(page).toHaveURL(/\/$/)
+    await expect(page.getByRole('heading', { level: 1, name: /Mustafa's Portfolio/i })).toBeVisible()
   })
 })

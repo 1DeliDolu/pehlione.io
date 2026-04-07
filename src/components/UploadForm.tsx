@@ -56,8 +56,8 @@ const UploadForm: React.FC<Props> = ({
     if (!file || !title || (!isCertificate && !normalizedSubCategory)) {
       alert(
         isCertificate
-          ? "Lütfen dosya ve sertifika adını girin"
-          : "Lütfen dosya, başlık ve alt kategori seçin"
+          ? "Bitte wählen Sie eine Datei und geben Sie den Zertifikatnamen ein"
+          : "Bitte wählen Sie eine Datei, einen Titel und eine Unterkategorie",
       );
       return;
     }
@@ -68,12 +68,12 @@ const UploadForm: React.FC<Props> = ({
       tokenExpiresAt - Date.now() <= 10_000
     ) {
       onSessionExpired();
-      alert("Oturum süresi doldu. Lütfen yeniden giriş yapın.");
+      alert("Sitzung abgelaufen. Bitte melden Sie sich erneut an.");
       return;
     }
 
     if (!uploadBaseUrl || !apiBaseUrl) {
-      alert("Upload API yapılandırılmamış.");
+      alert("Upload-API nicht konfiguriert.");
       return;
     }
 
@@ -129,7 +129,7 @@ const UploadForm: React.FC<Props> = ({
           ? `${apiBaseUrl}/fotografiePhotos`
           : `${apiBaseUrl}/gardenPhotos`;
       const eventName = isCertificate ? "certificates:updated" : "photos:updated";
-      const itemLabel = isCertificate ? "Sertifika" : "Fotoğraf";
+      const itemLabel = isCertificate ? "Zertifikat" : "Foto";
 
       let dbSaved = true;
 
@@ -144,18 +144,22 @@ const UploadForm: React.FC<Props> = ({
         dbSaved = false;
         if (axios.isAxiosError(dbError) && dbError.response?.status === 401) {
           onSessionExpired();
-          alert("Oturum süresi doldu veya yetki geçersiz. Lütfen yeniden giriş yapın.");
+          alert(
+            "Sitzung abgelaufen oder Autorisierung ungültig. Bitte melden Sie sich erneut an.",
+          );
           return;
         }
 
         if (axios.isAxiosError(dbError)) {
-          console.warn("DB kaydı başarısız:", dbError.message);
+          console.warn("Datenspeicherung fehlgeschlagen:", dbError.message);
           alert(
-            `${itemLabel} yüklendi, ancak liste güncellenemedi: ${dbError.message}`
+            `${itemLabel} hochgeladen, aber Liste konnte nicht aktualisiert werden: ${dbError.message}`,
           );
         } else {
-          console.warn("DB kaydı başarısız:", dbError);
-          alert(`${itemLabel} yüklendi, ancak liste güncellenemedi.`);
+          console.warn("Datenspeicherung fehlgeschlagen:", dbError);
+          alert(
+            `${itemLabel} hochgeladen, aber Liste konnte nicht aktualisiert werden.`,
+          );
         }
       }
 
@@ -170,7 +174,7 @@ const UploadForm: React.FC<Props> = ({
           // Intentionally left empty
         }
 
-        alert(`✓ ${itemLabel} kaydedildi!`);
+        alert(`✓ ${itemLabel} gespeichert!`);
       }
 
       setFile(null);
@@ -182,14 +186,18 @@ const UploadForm: React.FC<Props> = ({
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 401) {
           onSessionExpired();
-          alert("Oturum süresi doldu veya yetki geçersiz. Lütfen yeniden giriş yapın.");
+          alert(
+            "Sitzung abgelaufen oder Autorisierung ungültig. Bitte melden Sie sich erneut an.",
+          );
           return;
         }
-        console.error("Axios Hatası:", error.message);
-        alert(`Bir hata oluştu: ${error.message}`);
+        console.error("Axios-Fehler:", error.message);
+        alert(`Ein Fehler ist aufgetreten: ${error.message}`);
       } else {
-        console.error("Bilinmeyen Hata:", error);
-        alert("Bilinmeyen bir hata oluştu. Lütfen tekrar deneyin.");
+        console.error("Unbekannter Fehler:", error);
+        alert(
+          "Ein unbekannter Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+        );
       }
     } finally {
       setLoading(false);
@@ -203,14 +211,20 @@ const UploadForm: React.FC<Props> = ({
         p: 3,
         color: "#fff",
         mx: "auto",
-      }}
-    >
-      <Typography variant="h6" mb={1} sx={{ fontWeight: 700, letterSpacing: 0.3 }}>
-        {isCertificate ? "Neues Zertifikat hinzufügen" : "Neues Foto hinzufügen"}
+      }}>
+      <Typography
+        variant="h6"
+        mb={1}
+        sx={{ fontWeight: 700, letterSpacing: 0.3 }}>
+        {isCertificate
+          ? "Neues Zertifikat hinzufügen"
+          : "Neues Foto hinzufügen"}
       </Typography>
-      <Typography variant="body2" sx={{ color: "rgba(226, 232, 240, 0.82)", mb: 2 }}>
-        Aktif JWT ile giriş yapılmış durumda. Oturum süresi dolarsa yeniden login
-        ekranına yönlendirilirsiniz.
+      <Typography
+        variant="body2"
+        sx={{ color: "rgba(226, 232, 240, 0.82)", mb: 2 }}>
+        Mit aktivem JWT angemeldet. Bei Ablauf der Sitzung werden Sie zum
+        Login-Bildschirm weitergeleitet.
       </Typography>
 
       <Stack
@@ -244,8 +258,7 @@ const UploadForm: React.FC<Props> = ({
             color: "rgba(226, 232, 240, 0.75)",
             marginLeft: "4px",
           },
-        }}
-      >
+        }}>
         <Select
           value={category}
           onChange={(e) =>
@@ -259,8 +272,7 @@ const UploadForm: React.FC<Props> = ({
                 border: "1px solid rgba(148, 163, 184, 0.2)",
               },
             },
-          }}
-        >
+          }}>
           <MenuItem value="foto">foto</MenuItem>
           <MenuItem value="garten">garten</MenuItem>
           <MenuItem value="certificates">certificates</MenuItem>
@@ -279,8 +291,7 @@ const UploadForm: React.FC<Props> = ({
                 border: "1px solid rgba(148, 163, 184, 0.2)",
               },
             },
-          }}
-        >
+          }}>
           <MenuItem value="" disabled>
             Unterkategorie wählen
           </MenuItem>
@@ -298,19 +309,19 @@ const UploadForm: React.FC<Props> = ({
         />
 
         <TextField
-          label="Dosya Adı"
+          label="Dateiname"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
 
         <TextField
-          label={isCertificate ? "Sertifika Adı" : "Titel"}
+          label={isCertificate ? "Zertifikatnname" : "Titel"}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
 
         <TextField
-          label={isCertificate ? "Kurum / Issuer" : "Beschreibung"}
+          label={isCertificate ? "Institution / Aussteller" : "Beschreibung"}
           multiline
           rows={3}
           value={description}
@@ -330,8 +341,7 @@ const UploadForm: React.FC<Props> = ({
             "&:hover": {
               background: "linear-gradient(135deg, #1e40af 0%, #0284c7 100%)",
             },
-          }}
-        >
+          }}>
           Speichern
         </Button>
       </Stack>

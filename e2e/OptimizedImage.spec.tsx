@@ -4,7 +4,7 @@ test.describe('OptimizedImage', () => {
   test('applies safe defaults and renders encoded src', async ({ page }) => {
     await page.goto('/')
 
-    const img = page.locator('img.optimized-image').first()
+    const img = page.locator('#certificates img.optimized-image').first()
 
     await expect(img).toBeVisible()
     await expect(img).toHaveAttribute('loading', 'lazy')

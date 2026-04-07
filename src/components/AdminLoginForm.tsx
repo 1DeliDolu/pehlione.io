@@ -22,12 +22,12 @@ function AdminLoginForm({ onLoginSuccess }: Props) {
     const normalizedUsername = username.trim();
 
     if (!normalizedUsername || !password) {
-      setErrorMessage("Lütfen kullanıcı adı ve şifre girin.");
+      setErrorMessage("Bitte geben Sie Benutzername und Passwort ein.");
       return;
     }
 
     if (!uploadBaseUrl) {
-      setErrorMessage("Login API yapılandırılmamış.");
+      setErrorMessage("Login-API ist nicht konfiguriert.");
       return;
     }
 
@@ -47,7 +47,7 @@ function AdminLoginForm({ onLoginSuccess }: Props) {
       );
 
       if (!data?.token) {
-        throw new Error("Token alınamadı.");
+        throw new Error("Token konnte nicht abgerufen werden.");
       }
 
       onLoginSuccess({
@@ -58,12 +58,14 @@ function AdminLoginForm({ onLoginSuccess }: Props) {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 401) {
-          setErrorMessage("Kullanıcı adı veya şifre hatalı.");
+          setErrorMessage("Benutzername oder Passwort ist falsch.");
         } else {
-          setErrorMessage(`Giriş başarısız: ${error.message}`);
+          setErrorMessage(`Anmeldung fehlgeschlagen: ${error.message}`);
         }
       } else {
-        setErrorMessage("Giriş sırasında bilinmeyen bir hata oluştu.");
+        setErrorMessage(
+          "Während der Anmeldung ist ein unbekannter Fehler aufgetreten.",
+        );
       }
     } finally {
       setLoading(false);
@@ -77,14 +79,18 @@ function AdminLoginForm({ onLoginSuccess }: Props) {
         p: 3,
         color: "#fff",
         mx: "auto",
-      }}
-    >
-      <Typography variant="h6" mb={1} sx={{ fontWeight: 700, letterSpacing: 0.3 }}>
-        Admin Login
+      }}>
+      <Typography
+        variant="h6"
+        mb={1}
+        sx={{ fontWeight: 700, letterSpacing: 0.3 }}>
+        Admin-Anmeldung
       </Typography>
-      <Typography variant="body2" sx={{ color: "rgba(226, 232, 240, 0.82)", mb: 2 }}>
-        Sunucu, kullanıcı adı ve şifreyi `.env` üzerinden doğrular. Bu bilgiler
-        tarayıcıdan otomatik okunmaz.
+      <Typography
+        variant="body2"
+        sx={{ color: "rgba(226, 232, 240, 0.82)", mb: 2 }}>
+        Der Server validiert Benutzername und Passwort über `.env`. Diese
+        Informationen werden nicht automatisch vom Browser gelesen.
       </Typography>
 
       <Stack
@@ -118,8 +124,7 @@ function AdminLoginForm({ onLoginSuccess }: Props) {
           "& .MuiFormHelperText-root.Mui-error": {
             color: "#fda4af",
           },
-        }}
-      >
+        }}>
         <TextField
           label="Benutzername"
           value={username}
@@ -133,7 +138,10 @@ function AdminLoginForm({ onLoginSuccess }: Props) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           autoComplete="current-password"
-          helperText={errorMessage || "JWT login sonrası tarayıcı belleğinde tutulur."}
+          helperText={
+            errorMessage ||
+            "Das JWT wird nach der Anmeldung im Browser-Speicher gespeichert."
+          }
           error={Boolean(errorMessage)}
         />
 
@@ -150,8 +158,7 @@ function AdminLoginForm({ onLoginSuccess }: Props) {
             "&:hover": {
               background: "linear-gradient(135deg, #1e40af 0%, #0284c7 100%)",
             },
-          }}
-        >
+          }}>
           {loading ? "Anmeldung..." : "Anmelden"}
         </Button>
       </Stack>

@@ -1,38 +1,115 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { staticProjects } from '@/constants/staticData'
 import type { Repo_, Repo } from '@/types/types'
 
+const getRepoNameFromUrl = (url: string) => {
+  try {
+    const pathname = new URL(url).pathname.replace(/\/+$/, '')
+    return pathname.split('/').pop()?.replace(/\.git$/, '') ?? url
+  } catch {
+    return url.replace(/\/+$/, '').split('/').pop()?.replace(/\.git$/, '') ?? url
+  }
+}
 
+const inferLanguage = (input: string) => {
+  const value = input.toLowerCase()
+  if (value.includes('typescript') || value.includes('react')) return 'TypeScript'
+  if (value.includes('go ') || value.includes('golang')) return 'Go'
+  if (value.includes('spring boot') || value.includes('java')) return 'Java'
+  if (value.includes('laravel') || value.includes('symfony') || value.includes('php')) return 'PHP'
+  if (value.includes('c#') || value.includes('.net')) return 'C#'
+  return null
+}
 
-
+const toStaticRepo = (
+  project: (typeof staticProjects)[number],
+  index: number,
+): Repo => ({
+  id: -(index + 1),
+  name: project.repoUrl ? getRepoNameFromUrl(project.repoUrl) : project.name,
+  html_url: project.repoUrl ?? project.demoUrl ?? '#',
+  description: project.description,
+  stargazers_count: -1,
+  language: inferLanguage(`${project.name} ${project.description}`),
+  updated_at: '',
+  pushed_at: '',
+})
 
 function Repos({ username, perPage = 10, onOpenDrawer, variant = 'summary' }: Repo_) {
+  const repoLimit = variant === 'detail' ? 10 : perPage
   const [repos, setRepos] = useState<Repo[] | null>(null)
-  const [error, setError] = useState<string | null>(null)
+  const [notice, setNotice] = useState<string | null>(null)
+  const fallbackRepos = useMemo(
+    () =>
+      staticProjects
+        .filter((project) => project.repoUrl || project.demoUrl)
+        .map(toStaticRepo)
+        .slice(0, repoLimit),
+    [repoLimit],
+  )
 
   useEffect(() => {
     const controller = new AbortController()
-    const url = `https://api.github.com/users/${encodeURIComponent(username)}/repos?sort=pushed&per_page=${variant === 'detail' ? 10 : perPage}`
-    setError(null)
+    const cacheKey = `repos-cache:${username}`
+    const url = `https://api.github.com/users/${encodeURIComponent(username)}/repos?sort=pushed&per_page=${repoLimit}`
+    setNotice(null)
     setRepos(null)
-    fetch(url, { signal: controller.signal })
+    fetch(url, {
+      signal: controller.signal,
+      headers: {
+        Accept: 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+    })
       .then(async (r) => {
         if (!r.ok) throw new Error(`GitHub API error: ${r.status}`)
         return (await r.json()) as Repo[]
       })
-      .then((data) => setRepos(data))
+      .then((data) => {
+        setRepos(data)
+        localStorage.setItem(cacheKey, JSON.stringify(data))
+      })
       .catch((e) => {
-        if (e.name !== 'AbortError') setError(String(e))
+        if (e.name === 'AbortError') return
+
+        const cachedRepos = JSON.parse(localStorage.getItem(cacheKey) ?? 'null') as Repo[] | null
+        if (cachedRepos && cachedRepos.length > 0) {
+          setRepos(cachedRepos.slice(0, repoLimit))
+          setNotice('GitHub API derzeit nicht verfügbar. Zuletzt geladene Repository-Daten werden angezeigt.')
+          return
+        }
+
+        setRepos(fallbackRepos)
+        setNotice('GitHub API derzeit nicht verfügbar. Es werden statische Repository-Daten angezeigt.')
       })
     return () => controller.abort()
-  }, [username, perPage, variant])
+  }, [username, repoLimit, fallbackRepos])
+
+  const renderMeta = (repo: Repo) => {
+    const metaItems = [
+      repo.language,
+      repo.stargazers_count >= 0 ? `⭐ ${repo.stargazers_count}` : null,
+      repo.pushed_at ? `Pushed at ${new Date(repo.pushed_at).toLocaleDateString()}` : null,
+    ].filter(Boolean)
+
+    if (metaItems.length === 0) return null
+
+    return (
+      <div className="text-xs text-neutral-500 dark:text-neutral-400 mt-2 flex gap-3">
+        {metaItems.map((item) => (
+          <span key={item}>{item}</span>
+        ))}
+      </div>
+    )
+  }
 
   if (variant === 'detail') {
     return (
       <section id="repos" className="scroll-mt-24 w-screen -ml-[65px] -mr-[65px] px-[calc(65px+1rem)] sm:px-[calc(65px+1.5rem)] lg:px-[calc(65px+2.5rem)] py-12">
         <h2 className="text-3xl font-bold mb-6">Repositories • Details</h2>
         <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">@{username}</p>
-        {error && <p className="text-sm text-red-600">{error}</p>}
-        {!error && !repos && <p className="text-sm">Loading...</p>}
+        {notice && <p className="text-sm text-amber-600 dark:text-amber-300 mb-4">{notice}</p>}
+        {!repos && <p className="text-sm">Loading...</p>}
         {repos && (
           <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
             {repos.map((r) => (
@@ -43,11 +120,7 @@ function Repos({ username, perPage = 10, onOpenDrawer, variant = 'summary' }: Re
                 {r.description && (
                   <p className="text-sm text-neutral-700 dark:text-neutral-300 mt-1">{r.description}</p>
                 )}
-                <div className="text-xs text-neutral-500 dark:text-neutral-400 mt-2 flex gap-3">
-                  {r.language && <span>{r.language}</span>}
-                  <span>⭐ {r.stargazers_count}</span>
-                  <span>Pushed at {new Date(r.pushed_at).toLocaleDateString()}</span>
-                </div>
+                {renderMeta(r)}
               </li>
             ))}
           </ul>
@@ -77,8 +150,8 @@ function Repos({ username, perPage = 10, onOpenDrawer, variant = 'summary' }: Re
     <section id="repos" className="scroll-mt-24 w-full px-4 sm:px-6 lg:px-10 py-12">
       <h2 className="text-2xl font-semibold mb-4">Repositories</h2>
       <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">@{username}</p>
-      {error && <p className="text-sm text-red-600">{error}</p>}
-      {!error && !repos && <p className="text-sm">Loading...</p>}
+      {notice && <p className="text-sm text-amber-600 dark:text-amber-300 mb-4">{notice}</p>}
+      {!repos && <p className="text-sm">Loading...</p>}
       {repos && (
         <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {repos.map((r) => (
@@ -89,11 +162,7 @@ function Repos({ username, perPage = 10, onOpenDrawer, variant = 'summary' }: Re
               {r.description && (
                 <p className="text-sm text-neutral-700 dark:text-neutral-300 mt-1">{r.description}</p>
               )}
-              <div className="text-xs text-neutral-500 dark:text-neutral-400 mt-2 flex gap-3">
-                {r.language && <span>{r.language}</span>}
-                <span>⭐ {r.stargazers_count}</span>
-                <span>Pushed at {new Date(r.pushed_at).toLocaleDateString()}</span>
-              </div>
+              {renderMeta(r)}
             </li>
           ))}
         </ul>

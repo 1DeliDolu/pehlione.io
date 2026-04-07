@@ -9,7 +9,7 @@ test.describe('Hobbies section', () => {
     const section = page.locator('#hobbies')
 
     await expect(section.getByRole('heading', { level: 2, name: 'Hobbys' })).toBeVisible()
-    await expect(section.locator('li')).toHaveCount(4)
+    await expect(section.locator('article')).toHaveCount(4)
     await expect(section.getByRole('button', { name: 'Gartenarbeit öffnen' })).toBeVisible()
     await expect(section.getByRole('button', { name: 'Fotografie öffnen' })).toBeVisible()
     await expect(section.getByRole('button', { name: 'Programmieren öffnen' })).toBeVisible()
