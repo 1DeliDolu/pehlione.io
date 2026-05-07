@@ -381,8 +381,8 @@
     },
     {
       "id": "8",
-      "name": "Ecommerce Platform in Java with Spring Boot and Kafka, PostgreSQL, and Docker",
-      "description": "A production-style ecommerce platform demonstrating event-driven microservice patterns.This project demonstrates a modern backend architecture with secure authentication, role-based authorization, event-driven messaging, observability, automated ETL pipelines, and a PostgreSQL-backed data warehouse as a portfolio-grade production simulation — all runnable locally with Docker Compose.",
+      "name": "Ecommerce Platform",
+      "description": "A production-style ecommerce platform demonstrating event-driven microservice patterns.This project is built in Java with Spring Boot and Kafka, PostgreSQL, and Docker",
       "demoUrl": "https://pehlione.com/",
       "repoUrl": "https://github.com/1DeliDolu/ecommerce-platform.git"
     }
