@@ -19,21 +19,21 @@ export const staticProjects: (Project & { id: string })[] = [
   {
     "id": "3",
     "name": "Symfony E-Commerce Shop",
-    "description": "Persönliche Website mit Symfony und Twig + TailwindCSS.",
+    "description": "A Symfony-based PHP web application (store/support platform) with frontend assets managed by Webpack Encore and Tailwind, database migrations, and MailHog for email testing",
     "demoUrl": "https://pehlione.com/",
     "repoUrl": "https://github.com/1DeliDolu/pehlione_symfony"
   },
   {
     "id": "4",
     "name": "Go SSR E‑Commerce Platform",
-    "description": "E-Commerce Plattform mit Go an TailwindCSS.",
+    "description": "A Go-based, server-side rendered e‑commerce platform with a web server and background workers (email/sms/outbox), opinionated templates, and an admin surface.",
     "demoUrl": "https://pehlione.com/",
     "repoUrl": "https://github.com/1DeliDolu/pehlione_go"
   },
   {
     "id": "5",
     "name": "Laravel E-Commerce Shop",
-    "description": "E-Commerce Plattform mit Laravel und Blade + TailwindCSS.",
+    "description": "This project is an ecommerce starter built with Laravel 12 and Inertia React.It includes storefront flows, cart/checkout, customer account pages, and an admin panel in a single codebase.",
     "demoUrl": "https://pehlione.com/",
     "repoUrl": "https://github.com/1DeliDolu/ecommerce_laravel.git"
   },
@@ -50,6 +50,13 @@ export const staticProjects: (Project & { id: string })[] = [
     "description": "E-Commerce Plattform mit Spring Boot und Kafka.",
     "demoUrl": "https://pehlione.com/",
     "repoUrl": "https://github.com/1DeliDolu/pehli_e_commerce.git"
+  },
+  {
+    "id": "8",
+    "name": "Ecommerce Platform",
+    "description": "A production-style ecommerce platform demonstrating event-driven microservice patterns.This project is built in Java with Spring Boot and Kafka, PostgreSQL, and Docker",
+    "demoUrl": "https://pehlione.com/",
+    "repoUrl": "https://github.com/1DeliDolu/ecommerce-platform.git"
   }
 ];
 export const staticCertificates: (Cert & { id: string })[] = [
@@ -154,5 +161,11 @@ export const staticCertificates: (Cert & { id: string })[] = [
     "name": "Apache Kafka",
     "issuer": "Coursera/Learnkarts",
     "img": "/certificates/Kafka.png"
+  },
+  {
+    "id": "18",
+    "name": "IBM Data Architecture",
+    "issuer": "Coursera/IBM",
+    "img": "/certificates/data-architecture.png"
   }
 ];
