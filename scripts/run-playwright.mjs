@@ -1,5 +1,6 @@
 import { existsSync, mkdirSync, readdirSync } from 'node:fs'
 import { spawnSync } from 'node:child_process'
+import net from 'node:net'
 import os from 'node:os'
 import path from 'node:path'
 import process from 'node:process'
@@ -136,6 +137,26 @@ function buildLinuxLibraryPath() {
     .join(':')
 }
 
+function findFreePort(host = '127.0.0.1') {
+  return new Promise((resolve, reject) => {
+    const server = net.createServer()
+
+    server.unref()
+    server.on('error', reject)
+    server.listen(0, host, () => {
+      const address = server.address()
+      server.close(() => {
+        if (address && typeof address === 'object') {
+          resolve(address.port)
+          return
+        }
+
+        reject(new Error('Could not reserve a free Playwright port'))
+      })
+    })
+  })
+}
+
 const requestedProjects = collectRequestedProjects(args)
 
 if (process.platform === 'linux') {
@@ -143,6 +164,14 @@ if (process.platform === 'linux') {
 }
 
 const env = { ...process.env }
+if (env.CI && !env.PLAYWRIGHT_BASE_URL && !env.PLAYWRIGHT_PORT) {
+  const playwrightPort = String(await findFreePort())
+  env.PLAYWRIGHT_HOST = env.PLAYWRIGHT_HOST || '127.0.0.1'
+  env.PLAYWRIGHT_PORT = playwrightPort
+  env.PLAYWRIGHT_BASE_URL = `http://${env.PLAYWRIGHT_HOST}:${playwrightPort}`
+  console.log(`Using Playwright base URL ${env.PLAYWRIGHT_BASE_URL}`)
+}
+
 if (process.platform === 'linux') {
   env.LD_LIBRARY_PATH = buildLinuxLibraryPath()
 }

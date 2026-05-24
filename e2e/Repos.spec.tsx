@@ -1,6 +1,9 @@
 import { test, expect } from '@playwright/test'
+import { existsSync } from 'node:fs'
 
-process.loadEnvFile?.('.env')
+if (existsSync('.env')) {
+  process.loadEnvFile?.('.env')
+}
 
 const githubUsername =
   process.env.IO_USERNAME ||

@@ -167,5 +167,17 @@ export const staticCertificates: (Cert & { id: string })[] = [
     "name": "IBM Data Architecture",
     "issuer": "Coursera/IBM",
     "img": "/certificates/data-architecture.png"
+  },
+  {
+    "id": "19",
+    "name": "Microsoft IT Support Specialist",
+    "issuer": "Coursera/Microsoft",
+    "img": "/certificates/it-support.png"
+  },
+  {
+    "id": "20",
+    "name": "SAP Technology Consultant",
+    "issuer": "Coursera/SAP",
+    "img": "/certificates/sap_consultant.png"
   }
 ];
