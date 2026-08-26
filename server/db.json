@@ -80,6 +80,42 @@
       "description": "Blumen, die der Sonne folgen.",
       "category": "foto",
       "sub_category": "blumen"
+    },
+    {
+      "src": "/garten/gruenspecht-auf-der-wiese.jpeg",
+      "name": "gruenspecht-auf-der-wiese",
+      "title": "Grünspecht auf der Wiese",
+      "description": "Ein Grünspecht mit olivgrünem Gefieder, rotem Scheitel und schwarz-weiß gemusterter Brust steht auf einer Wiese und sucht vermutlich nach Nahrung.",
+      "category": "garten",
+      "sub_category": "sommer",
+      "id": "10"
+    },
+    {
+      "src": "/garten/stockente-auf-gruenem-teich.jpeg",
+      "name": "stockente-auf-gruenem-teich",
+      "title": "Stockente auf einem grünen Teich",
+      "description": "Eine männliche Stockente schwimmt auf einem dicht mit Wasserlinsen bedeckten Teich. Im Hintergrund wachsen hohe Gräser und Schilfpflanzen am Ufer.",
+      "category": "garten",
+      "sub_category": "sommer",
+      "id": "11"
+    },
+    {
+      "src": "/garten/fruehlingsblumen-im-naturgarten.jpg",
+      "name": "fruehlingsblumen-im-naturgarten",
+      "title": "Frühlingsblumen im Naturgarten",
+      "description": "Ein naturnahes Gartenbeet mit zahlreichen rosa, violetten und blauen Frühlingsblumen, darunter Lungenkraut und Vergissmeinnicht. Zwischen üppigem Grün und Natursteinen entsteht eine lebendige, farbenfrohe Frühlingsszene.",
+      "category": "garten",
+      "sub_category": "frühling",
+      "id": "12"
+    },
+    {
+      "src": "/garten/rosa-kirschblueten-im-fruehling.jpeg",
+      "name": "rosa-kirschblueten-im-fruehling",
+      "title": "Rosa Kirschblüten im Frühling",
+      "description": "Nahaufnahme üppiger, gefüllter rosa Kirschblüten an einem Zweig. Die zarten Blütenblätter und der weich verschwommene Hintergrund verleihen dem Bild eine frühlingshafte, romantische Atmosphäre.",
+      "category": "garten",
+      "sub_category": "frühling",
+      "id": "13"
     }
   ],
   "fotografiePhotos": [
@@ -199,6 +235,60 @@
       "category": "foto",
       "sub_category": "natur",
       "id": "13"
+    },
+    {
+      "src": "/foto/frankfurt-hochhaeuser-denkmal-jpg.jpg",
+      "name": "frankfurt-hochhaeuser-denkmal.jpg",
+      "title": "Historisches Denkmal vor der Frankfurter Skyline",
+      "description": "Ein historisches Denkmal auf einem Platz in Frankfurt, umgeben von modernen Hochhäusern unter einem bewölkten Himmel.",
+      "category": "foto",
+      "sub_category": "stadt",
+      "id": "14"
+    },
+    {
+      "src": "/foto/fuchsie-rot-violette-blueten.jpeg",
+      "name": "fuchsie-rot-violette-blueten",
+      "title": "Fuchsie mit rot-violetten Blüten",
+      "description": "Eine üppig blühende Fuchsie mit leuchtend roten Kelchblättern und dunkelvioletten Blütenblättern. Mehrere Knospen und Blüten hängen zwischen den grünen Blättern des Strauchs.",
+      "category": "foto",
+      "sub_category": "blumen",
+      "id": "15"
+    },
+    {
+      "src": "/foto/mondsichel-am-abendhimmel.jpeg",
+      "name": "mondsichel-am-abendhimmel",
+      "title": "Mondsichel am Abendhimmel",
+      "description": "Eine schmale Mondsichel leuchtet am klaren Abendhimmel über den dunklen Silhouetten der Bäume. Daneben sind mehrere Sterne sowie ein besonders heller Himmelskörper zu sehen.",
+      "category": "foto",
+      "sub_category": "makro",
+      "id": "16"
+    },
+    {
+      "src": "/foto/b7396801-f657-4ded-87b6-059470e34f4b.jpg",
+      "name": "b7396801-f657-4ded-87b6-059470e34f4b",
+      "title": "Historisches Fachwerkhaus in der Altstadt",
+      "description": "Ein prächtig verziertes rot-weißes Fachwerkhaus mit Erker, Schieferdach und markantem Turm. Im Erdgeschoss befinden sich Geschäfte, während die reich geschmückte Fassade den historischen Charakter der Altstadt prägt.",
+      "category": "foto",
+      "sub_category": "stadt",
+      "id": "17"
+    },
+    {
+      "src": "/foto/leuchtender-sonnenuntergang-ueber-dem-wald.jpeg",
+      "name": "leuchtender-sonnenuntergang-ueber-dem-wald",
+      "title": "Leuchtender Sonnenuntergang über dem Wald",
+      "description": "Ein intensiver orangefarbener Sonnenuntergang leuchtet unter einer dichten Wolkendecke. Im Vordergrund zeichnen sich die dunklen Silhouetten von Bäumen und Sträuchern ab und bilden einen starken Kontrast zum farbenprächtigen Abendhimmel.",
+      "category": "foto",
+      "sub_category": "natur",
+      "id": "18"
+    },
+    {
+      "src": "/foto/abendhimmel-mit-leuchtenden-wolken.jpeg",
+      "name": "abendhimmel-mit-leuchtenden-wolken",
+      "title": "Abendhimmel mit leuchtenden Wolken",
+      "description": "Dramatische Wolkenformationen ziehen über den Abendhimmel und werden von warmem orangefarbenem Licht beleuchtet. Die dunkleren Wolkenbereiche bilden einen starken Kontrast zu den leuchtenden Farbtönen des Sonnenuntergangs.",
+      "category": "foto",
+      "sub_category": "natur",
+      "id": "19"
     }
   ],
   "certificates": [
