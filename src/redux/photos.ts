@@ -123,7 +123,7 @@ export const gardenPhotos: FotoEintrag[] = [
     "src": "/garten/049dbbab-c0a4-4da4-be6f-9022317c3939.jpg",
     "name": "049dbbab-c0a4-4da4-be6f-9022317c3939",
     "title": "Oasen in der Stadt – Kleingärten in Marburg",
-    "description": "Eine Zeitungsseite der „Oberhessischen Presse“ zeigt drei Menschen, die gemeinsam mit einem Hund an einer Sitzgruppe in einem grünen Kleingarten sitzen. Der Beitrag mit dem Titel „Oasen in der Stadt“ beschäftigt sich mit Marburgs Kleingärten, interkulturellen Gärten und dem Kleingärtnerverein Wiesenweg.",
+    "description": "Ein Zeitungsbericht der „Oberhessischen Presse“ über Kleingärten in Marburg. Auf dem Foto bin ich gemeinsam mit weiteren Personen und einem Hund in unserem Garten zu sehen. Der Artikel „Oasen in der Stadt“ stellt die Bedeutung und Vielfalt der Kleingärten in Marburg vor.",
     "category": "garten",
     "sub_category": "werkzeuge"
   }
