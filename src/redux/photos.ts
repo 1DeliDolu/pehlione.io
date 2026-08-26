@@ -117,6 +117,15 @@ export const gardenPhotos: FotoEintrag[] = [
     "description": "Nahaufnahme üppiger, gefüllter rosa Kirschblüten an einem Zweig. Die zarten Blütenblätter und der weich verschwommene Hintergrund verleihen dem Bild eine frühlingshafte, romantische Atmosphäre.",
     "category": "garten",
     "sub_category": "frühling"
+  },
+  {
+    "id": "14",
+    "src": "/garten/049dbbab-c0a4-4da4-be6f-9022317c3939.jpg",
+    "name": "049dbbab-c0a4-4da4-be6f-9022317c3939",
+    "title": "Oasen in der Stadt – Kleingärten in Marburg",
+    "description": "Eine Zeitungsseite der „Oberhessischen Presse“ zeigt drei Menschen, die gemeinsam mit einem Hund an einer Sitzgruppe in einem grünen Kleingarten sitzen. Der Beitrag mit dem Titel „Oasen in der Stadt“ beschäftigt sich mit Marburgs Kleingärten, interkulturellen Gärten und dem Kleingärtnerverein Wiesenweg.",
+    "category": "garten",
+    "sub_category": "werkzeuge"
   }
 ];
 export const fotografiePhotos: FotoEintrag[] = [
