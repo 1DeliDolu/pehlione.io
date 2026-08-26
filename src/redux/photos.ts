@@ -81,33 +81,6 @@ export const gardenPhotos: FotoEintrag[] = [
     "description": "Blumen, die der Sonne folgen.",
     "category": "foto",
     "sub_category": "blumen"
-  },
-  {
-    "id": "10",
-    "src": "/garten/topf.png",
-    "name": "licht",
-    "title": "Fleischkochen im Topf",
-    "description": "Ein Topf voller köstlicher Zutaten.",
-    "category": "foto",
-    "sub_category": "blumen"
-  },
-  {
-    "id": "11",
-    "src": "/garten/köfte.jpg",
-    "name": "köfte",
-    "title": "Köfte",
-    "description": "Leckere gegrillte Köfte.",
-    "category": "foto",
-    "sub_category": "natur"
-  },
-  {
-    "id": "12",
-    "src": "/garten/leber.jpeg",
-    "name": "ciger",
-    "title": "Leber-Spieß",
-    "description": "Auf dem Grill gegarter Leber-Spieß.",
-    "category": "foto",
-    "sub_category": "ciger"
   }
 ];
 export const fotografiePhotos: FotoEintrag[] = [
@@ -216,6 +189,15 @@ export const fotografiePhotos: FotoEintrag[] = [
     "name": "wolke",
     "title": "Wolken und Sonne",
     "description": "Interessante Wolken am Himmel.",
+    "category": "foto",
+    "sub_category": "natur"
+  },
+  {
+    "id": "13",
+    "src": "/foto/orangefarbene-lilie-nahaufnahme.png",
+    "name": "orangefarbene-lilie-nahaufnahme",
+    "title": "Orangefarbene Lilie in Nahaufnahme",
+    "description": "Nahaufnahme einer leuchtend orangefarbenen Lilie inmitten grüner Gartenpflanzen. Violette Blüten am Bildrand ergänzen die natürliche, farbenreiche Komposition.",
     "category": "foto",
     "sub_category": "natur"
   }
